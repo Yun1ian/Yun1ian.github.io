@@ -145,6 +145,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">3.10刷题总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-13 19:10:39 / 修改时间：19:12:04" itemprop="dateCreated datePublished" datetime="2024-03-13T19:10:39+08:00">2024-03-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一·简单nc</p>
+<p>nc（地址加端口）</p>
+<p>ls获取菜单</p>
+<p>cat flag即可得到flag</p>
+<p>二·rip</p>
+<p>打开vm利用pwntools进行基本分析 ：</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310200026.jpg"></p>
+<p>打开ida按f5反编译进行静态分析：</p>
+<p>![img](file:&#x2F;&#x2F;&#x2F;C:\Users\16350\Documents\Tencent Files\1635058565\Image\C2C\S_3N{G&#96;]WJUZI}@Z5V32IVQ.png)</p>
+<p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
+<p>点开s找相应覆盖的偏移距离：</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310200256.png"></p>
+<p>由此得偏移地址为0F+08&#x3D;25</p>
+<p>后门相关知识点：</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310200808.png"></p>
+<p>shift+f12找相应后门发现：</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310201052.png"></p>
+<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310200510.png"></p>
+<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310212408.png"></p>
+<p>进入虚拟机运行后：</p>
+<p><img src="C:\Users\16350\Pictures\QQ图片20240310212257.png"></p>
+<p>ls后cat flag即可解得</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/3-10pwn%E5%86%99%E9%A2%98%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,87 +371,6 @@
 <p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
 <p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
 <p><strong>六、伪指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DW 定义字(2字节).</strong><br><strong>PROC 定义过程.</strong><br><strong>ENDP 过程结束.</strong><br><strong>SEGMENT 定义段.</strong><br><strong>ASSUME 建立段寄存器寻址.</strong><br><strong>ENDS 段结束.</strong><br><strong>END 程序结束</strong><br><strong>————————————————</strong>**</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/10/3.10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/10/3.10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-10 21:27:15" itemprop="dateCreated datePublished" datetime="2024-03-10T21:27:15+08:00">2024-03-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一·简单nc</p>
-<p>nc（地址加端口）</p>
-<p>ls获取菜单</p>
-<p>cat flag即可得到flag</p>
-<p>二·rip</p>
-<p>打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310200026.jpg"></p>
-<p>打开ida按f5反编译进行静态分析：</p>
-<p>![img](file:&#x2F;&#x2F;&#x2F;C:\Users\16350\Documents\Tencent Files\1635058565\Image\C2C\S_3N{G&#96;]WJUZI}@Z5V32IVQ.png)</p>
-<p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
-<p>点开s找相应覆盖的偏移距离：</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310200256.png"></p>
-<p>由此得偏移地址为0F+08&#x3D;25</p>
-<p>后门相关知识点：</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310200808.png"></p>
-<p>shift+f12找相应后门发现：</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310201052.png"></p>
-<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310200510.png"></p>
-<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310212408.png"></p>
-<p>进入虚拟机运行后：</p>
-<p><img src="C:\Users\16350\Pictures\QQ图片20240310212257.png"></p>
-<p>ls后cat flag即可解得</p>
 
       
     </div>
