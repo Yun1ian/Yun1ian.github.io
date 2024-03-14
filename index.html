@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 19:11:38" itemprop="dateModified" datetime="2024-03-14T19:11:38+08:00">2024-03-14</time>
+                <time title="修改时间：2024-03-14 19:20:17" itemprop="dateModified" datetime="2024-03-14T19:20:17+08:00">2024-03-14</time>
               </span>
 
           
@@ -196,23 +196,23 @@
 <p>cat flag即可得到flag</p>
 <p>二·rip</p>
 <p>打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="https://img.tg/image/OgokGx"></p>
+<p><img src="https://s2.loli.net/2024/03/14/Wt3rAKRohqP7uMa.jpg"></p>
 <p>打开ida按f5反编译进行静态分析：</p>
-<p><img src="https://img.tg/image/OgoZ31" alt="img"></p>
+<p><img src="https://s2.loli.net/2024/03/14/UdlPWonw2vOpGfQ.png" alt="img"></p>
 <p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
 <p>点开s找相应覆盖的偏移距离：</p>
-<p><img src="https://img.tg/image/Ogobet"></p>
+<p><img src="https://s2.loli.net/2024/03/14/Ird2LUvzsQYpFOX.png"></p>
 <p>由此得偏移地址为0F+08&#x3D;25</p>
 <p>后门相关知识点：</p>
-<p><img src="https://img.tg/image/Ogo7gq"></p>
+<p><img src="https://s2.loli.net/2024/03/14/ylcFo48vI6KMSra.png"></p>
 <p>shift+f12找相应后门发现：</p>
-<p><img src="https://img.tg/image/Ogo1Wv"></p>
+<p><img src="https://s2.loli.net/2024/03/14/SR3tVDr5nj8KvLs.png"></p>
 <p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="https://img.tg/image/OgoijY"></p>
+<p><img src="https://s2.loli.net/2024/03/14/BFCtzlvYEu9dNOa.png"></p>
 <p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p><img src="https://img.tg/image/OgoKGG"></p>
+<p><img src="https://s2.loli.net/2024/03/14/hCDOjUwb5XMHALY.png"></p>
 <p>进入虚拟机运行后：</p>
-<p><img src="https://img.tg/image/OgohtU"></p>
+<p><img src="https://s2.loli.net/2024/03/14/oUdSsNBklwuYMO7.png"></p>
 <p>ls后cat flag即可解得</p>
 
       
