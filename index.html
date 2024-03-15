@@ -145,6 +145,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/14/gdb%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/14/gdb%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">gdb调试步骤</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-14 19:33:54" itemprop="dateCreated datePublished" datetime="2024-03-14T19:33:54+08:00">2024-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-15 21:14:43" itemprop="dateModified" datetime="2024-03-15T21:14:43+08:00">2024-03-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>一.基本概念：</strong></p>
+<p>（1）<em><strong>ESP</strong></em>：栈指针寄存器(<em>extended stack pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的栈顶</strong>。</p>
+<p>（2）<em><strong>EBP</strong></em>：基址指针寄存器(<em>extended base pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的底部</strong>。</p>
+<h6 id="一般来说，我们会有如下的覆盖需求"><a href="#一般来说，我们会有如下的覆盖需求" class="headerlink" title="一般来说，我们会有如下的覆盖需求"></a>一般来说，我们会有如下的覆盖需求</h6><ul>
+<li><strong>覆盖函数返回地址</strong>，这时候就是直接看 EBP 即可。</li>
+<li><strong>覆盖栈上某个变量的内容</strong>，这时候就需要更加精细的计算了。</li>
+<li><strong>覆盖 bss 段某个变量的内容</strong>。</li>
+<li>根据现实执行情况，覆盖特定的变量或地址的内容。</li>
+</ul>
+<p>之所以我们想要覆盖某个地址，是因为我们想通过覆盖地址的方法来<strong>直接或者间接地控制程序执行流程</strong>。</p>
+<h6 id="确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"><a href="#确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式" class="headerlink" title="确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"></a>确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式</h6><ul>
+<li>相对于栈基地址的的索引，可以直接通过查看 EBP 相对偏移获得</li>
+<li>相对应栈顶指针的索引，一般需要进行调试，之后还是会转换到第一种类型。</li>
+<li>直接地址索引，就相当于直接给定了地址。</li>
+</ul>
+<p><strong>二.解题步骤（gdb调试）：</strong></p>
+<p>（1）.打开vm利用pwntools进行基本分析 ：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
+<p>(2).打开ida按f5反编译进行静态分析：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
+<p>(3).由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。点开s找相应覆盖的偏移距离：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
+<p>由此得偏移地址为0F+08&#x3D;25</p>
+<p>ps:后门相关知识点：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
+<p>(4).shift+f12找相应后门发现：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
+<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
+<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
+<p>（5).进入虚拟机运行调试，ni直到进行到gets操作：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5oZL.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5qci.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5WXj.png"></p>
+<p>（6).按si进入gets函数观察输入效果：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5kzp.png"></p>
+<p>此时a已重复输入被gets读取存入栈中,顺序跟踪程序运行。</p>
+<p>（7).执行到leave操作：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og57Or.png"></p>
+<p><em><strong>leave</strong></em>：<strong>leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。</strong></p>
+<p>(8).程序根据输入后跳转到后门函数0X401185：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5ru1.png"></p>
+<p>跟随程序运行至字符串（bin&#x2F;sh）</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5KzI.png"></p>
+<p>拿到程序控制权后，通过后门函数ls获取菜单，catflag即可拿到flag。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,7 +285,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 19:22:34" itemprop="dateModified" datetime="2024-03-14T19:22:34+08:00">2024-03-14</time>
+                <time title="修改时间：2024-03-15 20:18:41" itemprop="dateModified" datetime="2024-03-15T20:18:41+08:00">2024-03-15</time>
               </span>
 
           
@@ -196,23 +305,23 @@
 <p>cat flag即可得到flag</p>
 <p>二·rip</p>
 <p>打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="https://s2.loli.net/2024/03/14/Wt3rAKRohqP7uMa.jpg"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
 <p>打开ida按f5反编译进行静态分析：</p>
-<p><img src="https://s2.loli.net/2024/03/14/UdlPWonw2vOpGfQ.png" alt="img"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
 <p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
 <p>点开s找相应覆盖的偏移距离：</p>
-<p><img src="https://s2.loli.net/2024/03/14/Ird2LUvzsQYpFOX.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
 <p>由此得偏移地址为0F+08&#x3D;25</p>
 <p>后门相关知识点：</p>
-<p><img src="https://s2.loli.net/2024/03/14/ylcFo48vI6KMSra.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
 <p>shift+f12找相应后门发现：</p>
-<p><img src="https://s2.loli.net/2024/03/14/SR3tVDr5nj8KvLs.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
 <p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="https://s2.loli.net/2024/03/14/BFCtzlvYEu9dNOa.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
 <p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p><img src="https://s2.loli.net/2024/03/14/hCDOjUwb5XMHALY.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
 <p>进入虚拟机运行后：</p>
-<p><img src="https://s2.loli.net/2024/03/14/oUdSsNBklwuYMO7.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
 <p>ls后cat flag即可解得</p>
 
       
@@ -585,7 +694,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
