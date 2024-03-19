@@ -28,7 +28,7 @@
 <meta property="og:description" content="汇编指令***一· 通用数据传送指令。1。基本指令MOV 传送字或字节。MOVSX 先符号扩展，再传送。MOVZX 先零扩展，再传送。PUSH 把字压入堆栈。POP 把字弹出堆栈。PUSHA 把AX，CX，DX，BX，SP，BP，SI，DI依次压入堆栈。POPA 把DI，SI，BP，SP，BX，DX，CX，AX依次弹出堆栈。PUSHAD 把EAX，ECX，EDX，EBX，ESP，EBP，ESI，E">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-13T11:02:23.000Z">
-<meta property="article:modified_time" content="2024-03-13T11:02:55.141Z">
+<meta property="article:modified_time" content="2024-03-18T13:52:36.893Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-13 19:02:23 / 修改时间：19:02:55" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
+              <time title="创建时间：2024-03-13 19:02:23" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-18 21:52:36" itemprop="dateModified" datetime="2024-03-18T21:52:36+08:00">2024-03-18</time>
+              </span>
 
           
 
@@ -213,7 +219,7 @@
 <li><strong>目的地址传送指令.</strong><br><strong>LEA 装入有效地址.</strong><br><strong>例: LEA DX,string ;把偏移地址存到DX.</strong><br><strong>LDS 传送目标指针,把指针内容装入DS.</strong><br><strong>例: LDS SI,string ;把段地址:偏移地址存到DS:SI.</strong><br><strong>LES 传送目标指针,把指针内容装入ES.</strong><br><strong>例: LES DI,string ;把段地址:偏移地址存到ESI.</strong><br><strong>LFS 传送目标指针,把指针内容装入FS.</strong><br><strong>例: LFS DI,string ;把段地址:偏移地址存到FSI.</strong><br><strong>LGS 传送目标指针,把指针内容装入GS.</strong><br><strong>例: LGS DI,string ;把段地址:偏移地址存到GSI.</strong><br><strong>LSS 传送目标指针,把指针内容装入SS.</strong><br><strong>例: LSS DI,string ;把段地址:偏移地址存到SSI.</strong> </li>
 <li><strong>标志传送指令.</strong><br><strong>LAHF 标志寄存器传送,把标志装入AH.</strong><br><strong>SAHF 标志寄存器传送,把AH内容装入标志寄存器.</strong><br><strong>PUSHF 标志入栈.</strong><br><strong>POPF 标志出栈.</strong><br><strong>PUSHD 32位标志入栈.</strong><br><strong>POPD 32位标志出栈.</strong></li>
 </ol>
-<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong><br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
+<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong> （其中sub ax,bx就是ax中的值减bx中的值，然后把结果放入ax中。）<br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
 <p><strong>三、逻辑运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>AND 与运算.</strong><br><strong>OR 或运算.</strong><br><strong>XOR 异或运算.</strong><br><strong>NOT 取反.</strong><br><strong>TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</strong><br><strong>SHL 逻辑左移.</strong><br><strong>SAL 算术左移.(&#x3D;SHL)</strong><br><strong>SHR 逻辑右移.</strong><br><strong>SAR 算术右移.(&#x3D;SHR)</strong><br><strong>ROL 循环左移.</strong><br><strong>ROR 循环右移.</strong><br><strong>RCL 通过进位的循环左移.</strong><br><strong>RCR 通过进位的循环右移.</strong><br><strong>以上八种移位指令,其移位次数可达255次.</strong><br><strong>移位一次时, 可直接用操作码. 如 SHL AX,1.</strong><br><strong>移位&gt;1次时, 则由寄存器CL给出移位次数.</strong><br><strong>如 MOV CL,04</strong><br><strong>SHL AX,CL</strong> </p>
 <p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
 <p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
@@ -312,7 +318,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

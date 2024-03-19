@@ -145,6 +145,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/%E6%A0%88%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/17/%E6%A0%88%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/" class="post-title-link" itemprop="url">栈基础知识2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-17 21:56:57" itemprop="dateCreated datePublished" datetime="2024-03-17T21:56:57+08:00">2024-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-19 21:11:11" itemprop="dateModified" datetime="2024-03-19T21:11:11+08:00">2024-03-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<h2 id="函数调用约定通常规定如下几方面内容："><a href="#函数调用约定通常规定如下几方面内容：" class="headerlink" title="函数调用约定通常规定如下几方面内容："></a>函数调用约定通常规定如下几方面内容：</h2><h3 id="1-函数参数的传递顺序和方式"><a href="#1-函数参数的传递顺序和方式" class="headerlink" title="\1) 函数参数的传递顺序和方式"></a>\1) 函数参数的传递顺序和方式</h3><p>   <strong>最常见的参数传递方式是通过堆栈传递。主调函数将参数压入栈中，被调函数以相对于帧基指针的正偏移量来访问栈中的参数。对于有多个参数的函数，调用约定需规定主调函数将参数压栈的顺序(从左至右还是从右至左)。某些调用约定允许使用寄存器传参以提高性能。</strong></p>
+<h3 id="2-栈的维护方式"><a href="#2-栈的维护方式" class="headerlink" title="\2) 栈的维护方式"></a>\2) 栈的维护方式</h3><p>   <strong>主调函数将参数压栈后调用 被调函数体，返回时需将 被压栈的参数 全部弹出，以便将栈恢复到调用前的状态。该清栈过程可由 主调函数 负责完成，也可由 被调函数 负责完成。</strong></p>
+<h3 id="3-名字修饰-Name-mangling-策略"><a href="#3-名字修饰-Name-mangling-策略" class="headerlink" title="\3) 名字修饰(Name-mangling)策略"></a>\3) 名字修饰(Name-mangling)策略</h3><p>   <strong>又称函数名修饰(Decorated Name)规则。编译器在链接时为区分不同函数，对函数名作不同修饰。</strong></p>
+<p>   <em><strong>若函数之间的调用约定不匹配，可能会产生堆栈异常或链接错误等问题。因此，为了保证程序能正确执行，所有的函数调用均应遵守一致的调用约定。</strong></em></p>
+<hr>
+<p><img src="https://ooo.0x0.ooo/2024/03/18/Ogk9tM.png" alt="image-20240318213236314"></p>
+<p> Windows下可直接在函数声明前添加关键字__stdcall、__<strong>cdecl</strong>或__fastcall等标识确定函数的调用方式，如int __stdcall func()。Linux下可借用函数<strong>attribute</strong> 机制，如int <strong>attribute</strong>((<strong>stdcall</strong>)) func()。</p>
+<h3 id="c-函数的缺省值："><a href="#c-函数的缺省值：" class="headerlink" title="c++函数的缺省值："></a><strong>c++函数的缺省值：</strong></h3><p><strong>c++中，定义函数的时候可以让最右边的连续若干个参数有缺省值，在调用函数的时候，如果不写相应位置的参数，则调用的参数就为缺省值。</strong></p>
+<p> 不同编译器产生栈帧的方式不尽相同，主调函数不一定能正常完成清栈工作；而被调函数必然能自己完成正常清栈，因此，在跨(开发)平台调用中，通常使用stdcall调用约定(不少WinApi均采用该约定)。</p>
+<p> 此外，主调函数和被调函数所在模块采用相同的调用约定，但分别使用C++和C语法编译时，会出现链接错误(报告被调函数未定义)。这是因为两种语言的函数名字修饰规则不同，解决方式是使用extern “C”告知主调函数所在模块：被调函数是C语言编译的。采用C语言编译的库应考虑到使用该库的程序可能是C++程序(使用C++编译器)，通常应这样声明头文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="meta">#<span class="keyword">ifdef</span> _cplusplus</span></span><br><span class="line"><span class="number">2</span>     <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="number">3</span> <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="number">4</span>     <span class="function">type <span class="title">Func</span><span class="params">(type para)</span></span>;</span><br><span class="line"><span class="number">5</span> <span class="meta">#<span class="keyword">ifdef</span> _cplusplus</span></span><br><span class="line"><span class="number">6</span>     &#125;</span><br><span class="line"><span class="number">7</span> <span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p> 这样C++编译器就会按照C语言修饰策略链接Func函数名，而不会出现找不到函数的链接错误。</p>
+<p>x86函数参数传递方法：</p>
+<p>​    x86处理器ABI规范中规定，所有传递给被调函数的参数都通过堆栈来完成，其压栈顺序是以函数参数从右到左的顺序。当向被调函数传递参数时，所有参数最后形成一个数组。由于采用从右到左的压栈顺序，数组中参数的顺序(下标0<del>N-1)与函数参数声明顺序(Para1</del>N)一致。因此，在函数中若知道第一个参数地址和各参数占用字节数，就可通过访问数组的方式去访问每个参数。</p>
+<p><strong>栈帧地址</strong>未压入参数时为4(%ebp)</p>
+<h2 id="x86函数返回值传递方法"><a href="#x86函数返回值传递方法" class="headerlink" title="x86函数返回值传递方法"></a>x86函数返回值传递方法</h2><p>   函数返回值可通过寄存器传递。当被调用函数需要返回结果给调用函数时：</p>
+<p>   <strong>\1) 若返回值不超过4字节(如int、short、char、指针等类型)，通常将其保存在<em>EAX</em>寄存器中，调用方通过读取<em>EAX</em>获取返回值。</strong></p>
+<p>   <strong>\2) 若返回值大于4字节而小于8字节(如long long或_int64类型)，则通过<em>EAX+EDX</em>寄存器联合返回，其中<em>EDX</em>保存返回值高4字节，<em>EAX</em>保存返回值低4字节。</strong></p>
+<p>   <strong>\3) 若返回值为浮点类型(如float和double)，则通过<em>专用的协处理器浮点数寄存器栈的栈顶</em>返回。</strong></p>
+<p>   <strong>\4) 若返回值为结构体或联合体，则<em>主调函数向被调函数传递一个额外参数，该参数指向将要保存返回值的地址。</em></strong></p>
+<p><strong>eg:函数调用foo(p1, p2)被转化为foo(&amp;p0, p1, p2)，以<em>引用型参数形式</em>传回返回值。</strong></p>
+<p><strong>具体步骤可能为：</strong></p>
+<p><strong>a.主调函数将显式的实参逆序入栈；</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&quot;逆序入栈&quot; 通常是指在将一系列元素入栈（push）到栈（stack）中时，这些元素按照它们原始顺序的逆序进入栈。也就是说，最后一个元素首先入栈，然后是倒数第二个元素，依此类推，直到第一个元素最后入栈。这样做通常是为了在后续的出栈（pop）操作中，元素能够以原始顺序出现。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>b.将接收返回值的结构体变量地址作为隐藏参数入栈(若未定义该接收变量，则在栈上额外开辟空间作为接收返回值的临时变量)；</strong></p>
+<p><strong>c. 被调函数将待返回数据拷贝到隐藏参数所指向的内存地址，并将该地址存入%eax寄存器。</strong></p>
+<p>因此，在被调函数中完成返回值的赋值工作。****</p>
+<hr>
+<p>   <strong>注意:函数如何传递结构体或联合体返回值依赖于具体实现。不同编译器、平台、调用约定甚至编译参数下可能采用不同的实现方法(VC6编译器对于不超过8字节的小结构体，会通过EAX+EDX寄存器返回)。而对于超过8字节的大结构体<em>，主调函数在栈上分配用于接收返回值的临时结构体，并将地址通过栈传递给被调函数</em>；被调函数根据返回值地址设置返回值(拷贝操作)；调用返回后主调函数根据需要，再将返回值赋值给需要的临时变量(二次拷贝)。实际使用中为提高效率，通常将结构体指针作为实参传递给被调函数以接收返回值</strong>(这种方法允许你修改结构体的内容，但并不能直接返回一个全新的结构体。如果你需要返回一个全新的结构体，你可能需要动态分配内存，但这会带来额外的复杂性和责任)。</p>
+<hr>
+<p>   <strong>\5) 不要返回指向栈内存的指针，如返回被调函数内局部变量地址(包括局部数组名)。因为函数返回后，其栈帧空间被“释放”，原栈帧内分配的局部变量空间的内容是不稳定和不被保证的。</strong></p>
+<p>   <strong>函数返回值通过寄存器传递，无需空间分配等操作，故返回值的代价很低。基于此原因，C89规范中约定，不写明返回值类型的函数，返回值类型默认为int。但这会带来类型安全隐患，如函数定义时返回值为浮点数，而函数未声明或声明时未指明返回值类型，则调用时默认从寄存器EAX(而不是浮点数寄存器)中获取返回值，导致错误！因此在C++中，不写明返回值类型的函数返回值类型为void，表示不返回值。</strong></p>
+<p>GCC使用系统的标准约定来传递参数。在一些机器上，前几个参数通过寄存器传递；在另一些机器上，所有的参数都通过栈传递。原本可在所有机器上都使用寄存器来传递参数，而且此法还可能显著提高性能。但这样就与使用标准约定的代码完全不兼容。所以这种改变只在将GCC作为系统唯一的C编译器时才实用。当拥有一套完整的GNU 系统，能够用GCC来编译库时，可在特定机器上实现寄存器参数传递。</p>
+<p>在一些机器上(特别是SPARC)，一些类型的参数通过“隐匿引用”(invisible reference)来传递。这意味着值存储在内存中，将值的内存地址传给子程序。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -168,10 +269,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-17 21:38:48 / 修改时间：21:39:08" itemprop="dateCreated datePublished" datetime="2024-03-17T21:38:48+08:00">2024-03-17</time>
+              <time title="创建时间：2024-03-17 21:38:48" itemprop="dateCreated datePublished" datetime="2024-03-17T21:38:48+08:00">2024-03-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-18 21:50:14" itemprop="dateModified" datetime="2024-03-18T21:50:14+08:00">2024-03-18</time>
+              </span>
 
           
 
@@ -221,7 +328,7 @@
 <p>局部变量并不总在栈中，有时出于性能(速度)考虑会存放在寄存器中。数组&#x2F;结构体型的局部变量通常分配在栈内存中。</p>
 <p>若要确保两个对象在内存上相邻且前后关系固定，可使用结构体或数组定义。</p>
 <hr>
-<h2 id="函数调用时的具体步骤如下："><a href="#函数调用时的具体步骤如下：" class="headerlink" title="函数调用时的具体步骤如下："></a>函数调用时的具体步骤如下：</h2><p>   <strong>\1) 主调函数将被调函数所要求的参数，根据相应的函数调用约定，保存在运行时栈中。该操作会改变程序的栈指针。</strong></p>
+<h2 id="函数调用时的具体步骤如下："><a href="#函数调用时的具体步骤如下：" class="headerlink" title="函数调用时的具体步骤如下："></a>函数调用时的具体步骤如下：</h2><p>   <strong>\1) 主调函数（caller）将被调函数（callee）所要求的参数，根据相应的函数调用约定，保存在运行时栈中。该操作会改变程序的栈指针。</strong></p>
 <p>   <strong>注：x86平台将参数压入调用栈中。而x86_64平台具有16个通用64位寄存器，故调用函数时前6个参数通常由寄存器传递，其余参数才通过栈传递。</strong></p>
 <p>   <strong>\2) 主调函数将控制权移交给被调函数(使用call指令)。函数的返回地址(待执行的下条指令地址)保存在程序栈中(压栈操作隐含在call指令中)。</strong></p>
 <p>   <strong>\3) 若有必要，被调函数会设置帧基指针，并保存被调函数希望保持不变的寄存器值。</strong></p>
@@ -636,10 +743,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-13 19:02:23 / 修改时间：19:02:55" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
+              <time title="创建时间：2024-03-13 19:02:23" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-18 21:52:36" itemprop="dateModified" datetime="2024-03-18T21:52:36+08:00">2024-03-18</time>
+              </span>
 
           
 
@@ -677,7 +790,7 @@
 <li><strong>目的地址传送指令.</strong><br><strong>LEA 装入有效地址.</strong><br><strong>例: LEA DX,string ;把偏移地址存到DX.</strong><br><strong>LDS 传送目标指针,把指针内容装入DS.</strong><br><strong>例: LDS SI,string ;把段地址:偏移地址存到DS:SI.</strong><br><strong>LES 传送目标指针,把指针内容装入ES.</strong><br><strong>例: LES DI,string ;把段地址:偏移地址存到ESI.</strong><br><strong>LFS 传送目标指针,把指针内容装入FS.</strong><br><strong>例: LFS DI,string ;把段地址:偏移地址存到FSI.</strong><br><strong>LGS 传送目标指针,把指针内容装入GS.</strong><br><strong>例: LGS DI,string ;把段地址:偏移地址存到GSI.</strong><br><strong>LSS 传送目标指针,把指针内容装入SS.</strong><br><strong>例: LSS DI,string ;把段地址:偏移地址存到SSI.</strong> </li>
 <li><strong>标志传送指令.</strong><br><strong>LAHF 标志寄存器传送,把标志装入AH.</strong><br><strong>SAHF 标志寄存器传送,把AH内容装入标志寄存器.</strong><br><strong>PUSHF 标志入栈.</strong><br><strong>POPF 标志出栈.</strong><br><strong>PUSHD 32位标志入栈.</strong><br><strong>POPD 32位标志出栈.</strong></li>
 </ol>
-<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong><br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
+<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong> （其中sub ax,bx就是ax中的值减bx中的值，然后把结果放入ax中。）<br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
 <p><strong>三、逻辑运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>AND 与运算.</strong><br><strong>OR 或运算.</strong><br><strong>XOR 异或运算.</strong><br><strong>NOT 取反.</strong><br><strong>TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</strong><br><strong>SHL 逻辑左移.</strong><br><strong>SAL 算术左移.(&#x3D;SHL)</strong><br><strong>SHR 逻辑右移.</strong><br><strong>SAR 算术右移.(&#x3D;SHR)</strong><br><strong>ROL 循环左移.</strong><br><strong>ROR 循环右移.</strong><br><strong>RCL 通过进位的循环左移.</strong><br><strong>RCR 通过进位的循环右移.</strong><br><strong>以上八种移位指令,其移位次数可达255次.</strong><br><strong>移位一次时, 可直接用操作码. 如 SHL AX,1.</strong><br><strong>移位&gt;1次时, 则由寄存器CL给出移位次数.</strong><br><strong>如 MOV CL,04</strong><br><strong>SHL AX,CL</strong> </p>
 <p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
 <p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
@@ -890,7 +1003,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
