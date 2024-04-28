@@ -20,28 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一·简单nc nc（地址加端口） ls获取菜单 cat flag即可得到flag 二·rip 打开vm利用pwntools进行基本分析 ：  打开ida按f5反编译进行静态分析：  由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。 点开s找相应覆盖的偏移距离：  由此得偏移地址为0F+08&#x3D;25 后门相关知识点：  shift+f12找相应后门发现">
+  <meta name="description" content="system无内含bin&#x2F;sh解法32位的分布:返回地址+下一次的返回地址+参数1+参数2+… eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder) 64位的分布首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。 流程为：子函数返回到po">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.10刷题总结">
-<meta property="og:url" content="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一·简单nc nc（地址加端口） ls获取菜单 cat flag即可得到flag 二·rip 打开vm利用pwntools进行基本分析 ：  打开ida按f5反编译进行静态分析：  由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。 点开s找相应覆盖的偏移距离：  由此得偏移地址为0F+08&#x3D;25 后门相关知识点：  shift+f12找相应后门发现">
+<meta property="og:description" content="system无内含bin&#x2F;sh解法32位的分布:返回地址+下一次的返回地址+参数1+参数2+… eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder) 64位的分布首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。 流程为：子函数返回到po">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/Ogobet.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/OgoijY.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png">
-<meta property="article:published_time" content="2024-03-13T11:10:39.000Z">
-<meta property="article:modified_time" content="2024-03-15T12:18:41.658Z">
+<meta property="og:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
+<meta property="article:published_time" content="2024-04-25T12:38:25.657Z">
+<meta property="article:modified_time" content="2024-04-25T13:08:05.588Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg">
+<meta name="twitter:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
 
-<link rel="canonical" href="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
+<link rel="canonical" href="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/">
 
 
 <script id="page-configurations">
@@ -54,7 +47,7 @@
   };
 </script>
 
-  <title>3.10刷题总结 | Hexo</title>
+  <title> | Hexo</title>
   
 
 
@@ -159,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          3.10刷题总结
+          
         </h1>
 
         <div class="post-meta">
@@ -181,16 +174,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-03-13 19:10:39" itemprop="dateCreated datePublished" datetime="2024-03-13T19:10:39+08:00">2024-03-13</time>
+              <time title="创建时间：2024-04-25 20:38:25 / 修改时间：21:08:05" itemprop="dateCreated datePublished" datetime="2024-04-25T20:38:25+08:00">2024-04-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-15 20:18:41" itemprop="dateModified" datetime="2024-03-15T20:18:41+08:00">2024-03-15</time>
-              </span>
 
           
 
@@ -203,30 +190,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一·简单nc</p>
-<p>nc（地址加端口）</p>
-<p>ls获取菜单</p>
-<p>cat flag即可得到flag</p>
-<p>二·rip</p>
-<p>打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
-<p>打开ida按f5反编译进行静态分析：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
-<p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
-<p>点开s找相应覆盖的偏移距离：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
-<p>由此得偏移地址为0F+08&#x3D;25</p>
-<p>后门相关知识点：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
-<p>shift+f12找相应后门发现：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
-<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
-<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
-<p>进入虚拟机运行后：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
-<p>ls后cat flag即可解得</p>
+        <h2 id="system无内含bin-sh解法"><a href="#system无内含bin-sh解法" class="headerlink" title="system无内含bin&#x2F;sh解法"></a>system无内含bin&#x2F;sh解法</h2><h3 id="32位的分布"><a href="#32位的分布" class="headerlink" title="32位的分布:"></a>32位的分布:</h3><p><strong>返回地址+下一次的返回地址+参数1+参数2+…</strong></p>
+<p><strong>eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder)</strong></p>
+<h3 id="64位的分布"><a href="#64位的分布" class="headerlink" title="64位的分布"></a>64位的分布</h3><p><strong>首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。</strong></p>
+<p><strong>流程为：子函数返回到pop rdi; ret处，该指令会将当前栈顶的元素（’&#x2F;bin&#x2F;sh’字符串的地址）出栈并存入rdi中，并返回到下一条指令处。此时栈中就只有system()函数的地址了，所以下一条指令正是system()，而它需要的参数正好就在rdi寄存器中，这样就执行了system(‘&#x2F;bin&#x2F;sh’)</strong></p>
+<p><img src="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png"></p>
+<p>stdin,stdout,stderr是随着计算机系统的开启默认打开的，其中0就是stdin表示输入流，指从键盘输入，1代表stdout，2代表stderr，1,2默认是显示器</p>
 
     </div>
 
@@ -242,13 +211,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/03/13/3-10pwn%E5%86%99%E9%A2%98%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/" rel="prev" title="3.10pwn写题入门知识">
-      <i class="fa fa-chevron-left"></i> 3.10pwn写题入门知识
+    <a href="/2024/04/24/babyrop%E6%80%BB%E7%BB%93/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/03/14/gdb%E8%B0%83%E8%AF%95%E6%AD%A5%E9%AA%A4/" rel="next" title="gdb调试步骤">
-      gdb调试步骤 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -307,6 +273,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#system%E6%97%A0%E5%86%85%E5%90%ABbin-sh%E8%A7%A3%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">system无内含bin&#x2F;sh解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32%E4%BD%8D%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.1.</span> <span class="nav-text">32位的分布:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64%E4%BD%8D%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.2.</span> <span class="nav-text">64位的分布</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
