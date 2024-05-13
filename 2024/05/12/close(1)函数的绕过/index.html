@@ -20,21 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="leave：leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。当程序调用system函数时，会自动去寻找栈底即ebp指向的位置，然后将ebp+8字节的位置的数据当作函数的参数，所以如果我们想将&#x2F;bin&#x2F;sh作为system函数的参数，就可以在栈溢出的时候，先修改eip为system函数的地址，然后填充4个字节的垃圾数据，再将&#x2F;bin&amp;">
+  <meta name="description" content="close(1)函数的绕过 1.&#x2F;bin&#x2F;sh 1&gt;&amp;0 关于system执行形的绕过方式 2.execv 1&gt;&amp;0 关于execv的绕过方式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBlog">
-<meta property="og:url" content="http://example.com/2023/12/08/MyBlog/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/05/12/close(1)%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="leave：leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。当程序调用system函数时，会自动去寻找栈底即ebp指向的位置，然后将ebp+8字节的位置的数据当作函数的参数，所以如果我们想将&#x2F;bin&#x2F;sh作为system函数的参数，就可以在栈溢出的时候，先修改eip为system函数的地址，然后填充4个字节的垃圾数据，再将&#x2F;bin&amp;">
+<meta property="og:description" content="close(1)函数的绕过 1.&#x2F;bin&#x2F;sh 1&gt;&amp;0 关于system执行形的绕过方式 2.execv 1&gt;&amp;0 关于execv的绕过方式">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/da5ca471954c4957b575e41321e3fc64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6IuP55KD5Y-q5oOz5YiS5rC0,size_17,color_FFFFFF,t_70,g_se,x_16">
-<meta property="article:published_time" content="2023-12-08T14:03:46.000Z">
-<meta property="article:modified_time" content="2024-04-16T14:02:50.853Z">
+<meta property="article:published_time" content="2024-05-12T11:42:04.725Z">
+<meta property="article:modified_time" content="2024-05-12T11:42:04.921Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/da5ca471954c4957b575e41321e3fc64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6IuP55KD5Y-q5oOz5YiS5rC0,size_17,color_FFFFFF,t_70,g_se,x_16">
 
-<link rel="canonical" href="http://example.com/2023/12/08/MyBlog/">
+<link rel="canonical" href="http://example.com/2024/05/12/close(1)%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%95%E8%BF%87/">
 
 
 <script id="page-configurations">
@@ -47,7 +45,7 @@
   };
 </script>
 
-  <title>MyBlog | Hexo</title>
+  <title> | Hexo</title>
   
 
 
@@ -152,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/08/MyBlog/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/12/close(1)%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%95%E8%BF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MyBlog
+          
         </h1>
 
         <div class="post-meta">
@@ -175,15 +173,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-12-08 22:03:46" itemprop="dateCreated datePublished" datetime="2023-12-08T22:03:46+08:00">2023-12-08</time>
+              <time title="创建时间：2024-05-12 19:42:04" itemprop="dateCreated datePublished" datetime="2024-05-12T19:42:04+08:00">2024-05-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-16 22:02:50" itemprop="dateModified" datetime="2024-04-16T22:02:50+08:00">2024-04-16</time>
-              </span>
 
           
 
@@ -196,9 +187,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>leave：leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。<br>当程序调用system函数时，会自动去寻找栈底即ebp指向的位置，然后将ebp+8字节的位置的数据当作函数的参数，所以如果我们想将&#x2F;bin&#x2F;sh作为system函数的参数，就可以在栈溢出的时候，先修改eip为system函数的地址，然后填充4个字节的垃圾数据，再将&#x2F;bin&#x2F;sh的地址写入栈上，这样调用system函数的时候，就可以将&#x2F;bin&#x2F;sh作为参数，然后返回一个shell。</p>
-<p><img src="https://img-blog.csdnimg.cn/da5ca471954c4957b575e41321e3fc64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6IuP55KD5Y-q5oOz5YiS5rC0,size_17,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>注意： 为什么是在eip（即system函数地址）后面覆盖4个字节垃圾数据而不是前面提到的8个字节，这是因为当我们调用system函数的时候，在system函数中会首先执行push ebp指令，将4字节的ebp地址压入栈中，而此时的栈底距离我们的参数&#x2F;bin&#x2F;sh正好8字节，所以我们应该填充4字节垃圾数据。</p>
+        <p>close(1)函数的绕过</p>
+<p>1.&#x2F;bin&#x2F;sh 1&gt;&amp;0</p>
+<p>关于system执行形的绕过方式</p>
+<p>2.execv 1&gt;&amp;0</p>
+<p>关于execv的绕过方式</p>
 
     </div>
 
@@ -214,13 +207,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/08/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2024/05/10/iscc%20ret2libc%E6%80%BB%E7%BB%93/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/" rel="next" title="汇编指令">
-      汇编指令 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -292,7 +282,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

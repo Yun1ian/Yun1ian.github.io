@@ -20,21 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="system无内含bin&#x2F;sh解法32位的分布:返回地址+下一次的返回地址+参数1+参数2+… eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder) 64位的分布首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。 流程为：子函数返回到po">
+  <meta name="description" content="pwntools基本指令checksec查看程式開了哪些保護機制 安裝：Pwntools gdb 使用：checksec  nc &#x2F; ncat远程连线工具 使⽤ ncat 将程式在靶机连接起來，接着使用 nc 连接 使用:nc Vim编辑器 安裝：sudo apt install vim Relro：Full Relro（重定位表只读） Relocation Read Only， 重定位">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="3.10pwn写题入门知识">
+<meta property="og:url" content="http://example.com/2024/03/13/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="system无内含bin&#x2F;sh解法32位的分布:返回地址+下一次的返回地址+参数1+参数2+… eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder) 64位的分布首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。 流程为：子函数返回到po">
+<meta property="og:description" content="pwntools基本指令checksec查看程式開了哪些保護機制 安裝：Pwntools gdb 使用：checksec  nc &#x2F; ncat远程连线工具 使⽤ ncat 将程式在靶机连接起來，接着使用 nc 连接 使用:nc Vim编辑器 安裝：sudo apt install vim Relro：Full Relro（重定位表只读） Relocation Read Only， 重定位">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
-<meta property="article:published_time" content="2024-04-25T12:38:25.657Z">
-<meta property="article:modified_time" content="2024-04-25T13:08:05.588Z">
+<meta property="article:published_time" content="2024-03-13T11:05:51.000Z">
+<meta property="article:modified_time" content="2024-03-13T11:06:20.112Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
 
-<link rel="canonical" href="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/">
+<link rel="canonical" href="http://example.com/2024/03/13/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
 
 
 <script id="page-configurations">
@@ -47,7 +45,7 @@
   };
 </script>
 
-  <title> | Hexo</title>
+  <title>3.10pwn写题入门知识 | Hexo</title>
   
 
 
@@ -152,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/0425%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          3.10pwn写题入门知识
         </h1>
 
         <div class="post-meta">
@@ -176,7 +174,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-25 20:38:25 / 修改时间：21:08:05" itemprop="dateCreated datePublished" datetime="2024-04-25T20:38:25+08:00">2024-04-25</time>
+              <time title="创建时间：2024-03-13 19:05:51 / 修改时间：19:06:20" itemprop="dateCreated datePublished" datetime="2024-03-13T19:05:51+08:00">2024-03-13</time>
             </span>
 
           
@@ -190,12 +188,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="system无内含bin-sh解法"><a href="#system无内含bin-sh解法" class="headerlink" title="system无内含bin&#x2F;sh解法"></a>system无内含bin&#x2F;sh解法</h2><h3 id="32位的分布"><a href="#32位的分布" class="headerlink" title="32位的分布:"></a>32位的分布:</h3><p><strong>返回地址+下一次的返回地址+参数1+参数2+…</strong></p>
-<p><strong>eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder)</strong></p>
-<h3 id="64位的分布"><a href="#64位的分布" class="headerlink" title="64位的分布"></a>64位的分布</h3><p><strong>首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。</strong></p>
-<p><strong>流程为：子函数返回到pop rdi; ret处，该指令会将当前栈顶的元素（’&#x2F;bin&#x2F;sh’字符串的地址）出栈并存入rdi中，并返回到下一条指令处。此时栈中就只有system()函数的地址了，所以下一条指令正是system()，而它需要的参数正好就在rdi寄存器中，这样就执行了system(‘&#x2F;bin&#x2F;sh’)</strong></p>
-<p><img src="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png"></p>
-<p>stdin,stdout,stderr是随着计算机系统的开启默认打开的，其中0就是stdin表示输入流，指从键盘输入，1代表stdout，2代表stderr，1,2默认是显示器</p>
+        <h2 id="pwntools基本指令"><a href="#pwntools基本指令" class="headerlink" title="pwntools基本指令"></a>pwntools基本指令</h2><h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><p>查看程式開了哪些保護機制</p>
+<p>安裝：Pwntools gdb</p>
+<p>使用：checksec </p>
+<h3 id="nc-ncat"><a href="#nc-ncat" class="headerlink" title="nc &#x2F; ncat"></a>nc &#x2F; ncat</h3><p>远程连线工具</p>
+<p>使⽤ ncat 将程式在靶机连接起來，接着使用 nc 连接</p>
+<p>使用:nc</p>
+<h3 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h3><p>编辑器</p>
+<p>安裝：sudo apt install vim</p>
+<p>Relro：Full Relro（重定位表只读） Relocation Read Only， 重定位表只读。重定位表即.got 和 .plt个表。</p>
+<p>Stack：No Canary found（能栈溢出） 栈保护。栈溢出保护是一种缓冲区溢出攻击缓解手段。启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canary。 简单来说就是通过验证cookie，来判断执行的代码是不是恶意代码</p>
+<p>NX： NX enable（不可执行内存） Non-Executable Memory，不可执行内存。 原理是将数据所在内存页标识为不可执行，防止因为程序运行出现溢出而使得攻击者的shellcode可能会在数据区尝试执行的情况。NX是对栈和堆的一种保护机制。实验需要关闭NX和地址随机化，否则执行shellcode时，CPU就会抛出异常，而不是去执行恶意指令。Linux系统叫做NX，Windows系统中类似的机制叫DEP(Data Execute Prevention)</p>
+<p>PIE： PIE enable（开启ASLR 地址随机化） Address space layout randomization，地址空间布局随机化。通过将数据随机放置来防止攻击</p>
+<hr>
+<h1 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a><em><strong>pwntools</strong></em></h1><h2 id="接收远端传回的数据"><a href="#接收远端传回的数据" class="headerlink" title="接收远端传回的数据"></a>接收远端传回的数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interactive() : 在取得shell之后使用,直接进行交互，相当于回到shell的模式。</span><br><span class="line"></span><br><span class="line">recv(numb=字节大小, timeout=default) : 接收指定字节数。</span><br><span class="line"></span><br><span class="line">recvall() : 一直接收直到达到文件EOF。</span><br><span class="line"></span><br><span class="line">recvline(keepends=<span class="literal">True</span>) : 接收一行，keepends为是否保留行尾的\n。</span><br><span class="line"></span><br><span class="line">recvuntil(delims, drop=<span class="literal">False</span>) : 一直读到delims的pattern出现为止。</span><br><span class="line"></span><br><span class="line">recvrepeat(timeout=default) : 持续接收直到EOF或timeout。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="向远端发送数据"><a href="#向远端发送数据" class="headerlink" title="向远端发送数据"></a>向远端发送数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">send(data) : 发送数据。</span><br><span class="line"></span><br><span class="line">sendline(data) : 发送一行数据，相当于在数据末尾加\n。</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -211,10 +220,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/24/babyrop%E6%80%BB%E7%BB%93/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/" rel="prev" title="汇编指令">
+      <i class="fa fa-chevron-left"></i> 汇编指令
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/" rel="next" title="3.10刷题总结">
+      3.10刷题总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -273,7 +285,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#system%E6%97%A0%E5%86%85%E5%90%ABbin-sh%E8%A7%A3%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">system无内含bin&#x2F;sh解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32%E4%BD%8D%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.1.</span> <span class="nav-text">32位的分布:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64%E4%BD%8D%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.2.</span> <span class="nav-text">64位的分布</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pwntools%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">pwntools基本指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#checksec"><span class="nav-number">1.1.</span> <span class="nav-text">checksec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nc-ncat"><span class="nav-number">1.2.</span> <span class="nav-text">nc &#x2F; ncat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vim"><span class="nav-number">1.3.</span> <span class="nav-text">Vim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pwntools"><span class="nav-number"></span> <span class="nav-text">pwntools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E8%BF%9C%E7%AB%AF%E4%BC%A0%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">接收远端传回的数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E8%BF%9C%E7%AB%AF%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">向远端发送数据</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -287,7 +299,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
