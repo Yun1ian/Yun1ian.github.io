@@ -20,24 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点 prot值如下：  关于int 0x80以及execve函数的利用  关于系统调用的知识：Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数 应用程序调用系统调用的过程是： 1、把系统调用的编号存入 EAX 2、把函数参数存入其它通用寄存器 3、触发 0x80 号中断（int 0x80） 查看 execv">
+  <meta name="description" content="ret2csu万能gadget123456#万能gadget1：pop rbx; pop rbp; pop r12; pop r13; pop r14; pop r15; retn  #万能gadget2：mov rdx, r13; mov rsi, r14; mov edi, r15d; call qword ptr [r12+rbx*8]; add  rbx, 1; cmp  rbx, rbp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2024/05/07/retsyscall/index.html">
+<meta property="og:url" content="http://example.com/2024/05/20/ret2csu%E4%B8%87%E8%83%BDgadget/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点 prot值如下：  关于int 0x80以及execve函数的利用  关于系统调用的知识：Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数 应用程序调用系统调用的过程是： 1、把系统调用的编号存入 EAX 2、把函数参数存入其它通用寄存器 3、触发 0x80 号中断（int 0x80） 查看 execv">
+<meta property="og:description" content="ret2csu万能gadget123456#万能gadget1：pop rbx; pop rbp; pop r12; pop r13; pop r14; pop r15; retn  #万能gadget2：mov rdx, r13; mov rsi, r14; mov edi, r15d; call qword ptr [r12+rbx*8]; add  rbx, 1; cmp  rbx, rbp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://bbs.kanxue.com/upload/attach/202201/945391_Q864BA2BYXCV2A2.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/05/07/OpC231.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/05/07/OpC8hI.png">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/05/07/OpwxVL.png">
-<meta property="article:published_time" content="2024-05-07T09:09:10.179Z">
-<meta property="article:modified_time" content="2024-05-09T13:44:43.276Z">
+<meta property="article:published_time" content="2024-05-20T13:41:45.615Z">
+<meta property="article:modified_time" content="2024-05-20T13:41:45.825Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://bbs.kanxue.com/upload/attach/202201/945391_Q864BA2BYXCV2A2.png">
 
-<link rel="canonical" href="http://example.com/2024/05/07/retsyscall/">
+<link rel="canonical" href="http://example.com/2024/05/20/ret2csu%E4%B8%87%E8%83%BDgadget/">
 
 
 <script id="page-configurations">
@@ -155,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/07/retsyscall/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/20/ret2csu%E4%B8%87%E8%83%BDgadget/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,15 +173,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-05-07 17:09:10" itemprop="dateCreated datePublished" datetime="2024-05-07T17:09:10+08:00">2024-05-07</time>
+              <time title="创建时间：2024-05-20 21:41:45" itemprop="dateCreated datePublished" datetime="2024-05-20T21:41:45+08:00">2024-05-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-09 21:44:43" itemprop="dateModified" datetime="2024-05-09T21:44:43+08:00">2024-05-09</time>
-              </span>
 
           
 
@@ -199,23 +187,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="https://bbs.kanxue.com/upload/attach/202201/945391_Q864BA2BYXCV2A2.png"></p>
-<p>addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点</p>
-<p>prot值如下：</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC231.png" alt="https://ooo.0x0.ooo/2024/05/07/OpC231.png"></p>
-<p>关于int 0x80以及execve函数的利用</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC8hI.png"></p>
-<h4 id="关于系统调用的知识："><a href="#关于系统调用的知识：" class="headerlink" title="关于系统调用的知识："></a>关于系统调用的知识：</h4><p><strong>Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数</strong></p>
-<p><strong>应用程序调用系统调用的过程是：</strong></p>
-<p>1、<strong>把系统调用的编号存入 EAX</strong></p>
-<p>2、<strong>把函数参数存入其它通用寄存器</strong></p>
-<p>3、<strong>触发 0x80 号中断（int 0x80）</strong></p>
-<p>查看 execve 的系统调用号：（得到的数值需要转化为十六进制表达，给的数字为10进制）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/include/asm/unistd_32.h | grep execve </span><br></pre></td></tr></table></figure>
+        <h1 id="ret2csu万能gadget"><a href="#ret2csu万能gadget" class="headerlink" title="ret2csu万能gadget"></a>ret2csu万能gadget</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#万能gadget1：</span></span><br><span class="line">pop rbx; pop rbp; pop r12; pop r13; pop r14; pop r15; retn</span><br><span class="line">  </span><br><span class="line"><span class="comment">#万能gadget2：</span></span><br><span class="line">mov rdx, r13; mov rsi, r14; mov edi, r15d; call qword ptr [r12+rbx*<span class="number">8</span>]; add  rbx, <span class="number">1</span>; cmp  rbx, rbp; jnz   short loc_400620</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>图片表示</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpwxVL.png"></p>
-
+<p><strong>分析可得：</strong>处理后栈结构中布置的数据将要依次存入以下寄存器中—— rbx, rbq, r12, rdx, rsi, edi</p>
+<p> 在这些寄存器中，主要关注的是  r12，                   rdx，            rsi，             edi寄存器，</p>
+<p> 他们分别保存着将要调用函数的指针的地址、第三个参数、第二个参数和第一个参数。</p>
+<p>而rbx和rbp必须的需要将它们的值置为0和1。</p>
+<p><strong>原因：</strong>在gadget2中，我们call了 [r12+rbx<em>8] ，将rbx置为0即 [r12+rbx</em>8] &#x3D;&#x3D; [r12]，方便我们传参。而设置rbp为1是因为 <em>add rbx, 1; cmp rbx, rbp; jnz xxxxxx</em> 。由于我们通常使rbx&#x3D;0，从而使r12+rbx*8 &#x3D; r12，所以call指令结束后rbx必然会变成1。若此时rbp !&#x3D; 1，jnz会再次进行call，从而可能引起段错误。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
     </div>
 
     
@@ -230,13 +209,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/25/system%E6%97%A0%E5%86%85%E5%90%ABbinsh%E8%A7%A3%E6%B3%95(%E5%B7%B2%E7%9F%A5%E4%B8%A4%E8%80%85%E5%9C%B0%E5%9D%80%E7%89%88)/" rel="prev" title="">
+    <a href="/2024/05/20/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/" rel="prev" title="">
       <i class="fa fa-chevron-left"></i> 
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/05/10/iscc%20ret2libc%E6%80%BB%E7%BB%93/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -295,7 +271,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E7%9F%A5%E8%AF%86%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">关于系统调用的知识：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2csu%E4%B8%87%E8%83%BDgadget"><span class="nav-number">1.</span> <span class="nav-text">ret2csu万能gadget</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
