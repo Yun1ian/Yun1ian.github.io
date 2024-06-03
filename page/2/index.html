@@ -145,6 +145,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/12/c%E8%AF%AD%E8%A8%80%E9%83%A8%E5%88%86%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E5%88%A4%E6%96%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/12/c%E8%AF%AD%E8%A8%80%E9%83%A8%E5%88%86%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E5%88%A4%E6%96%AD/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-12 21:38:14" itemprop="dateCreated datePublished" datetime="2024-04-12T21:38:14+08:00">2024-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-26 21:08:24" itemprop="dateModified" datetime="2024-04-26T21:08:24+08:00">2024-04-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="基址寻找方式"><a href="#基址寻找方式" class="headerlink" title="基址寻找方式"></a>基址寻找方式</h4><p>rdi：可通过使用ROPgadget工具进行查找，可得地址为 0x400c83</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget  --binary <span class="string">&#x27;filename&#x27;</span> |grep <span class="string">&quot;pop rdi&quot;</span>  <span class="comment"># filename填自己的文件名</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>ljust()方法语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.ljust(width[, fillchar])</span><br></pre></td></tr></table></figure>
+
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
+<li>width – 指定字符串长度。</li>
+<li>fillchar – 填充字符，默认为空格。</li>
+</ul>
+<h3 id="strlen函数"><a href="#strlen函数" class="headerlink" title="strlen函数"></a>strlen函数</h3><blockquote>
+<p>​										strlen函数：计算的是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">字符串</a>str的长度，从字符的首地址开始遍历，以 ‘\0’ 为结束标志，然后将计算的长度返回，计算的长度并不包含’\0’。</p>
+</blockquote>
+<p>​												则有且仅有仅输入\0可防止输入的payload被改变</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/26/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%83%A8%E5%88%86%E4%BE%8B%E9%A2%98%E6%AD%A5%E9%AA%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1027,73 +1105,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/08/Leave%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/08/Leave%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">MyBlog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-08 22:03:46" itemprop="dateCreated datePublished" datetime="2023-12-08T22:03:46+08:00">2023-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-16 22:02:50" itemprop="dateModified" datetime="2024-04-16T22:02:50+08:00">2024-04-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>leave：leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。<br>当程序调用system函数时，会自动去寻找栈底即ebp指向的位置，然后将ebp+8字节的位置的数据当作函数的参数，所以如果我们想将&#x2F;bin&#x2F;sh作为system函数的参数，就可以在栈溢出的时候，先修改eip为system函数的地址，然后填充4个字节的垃圾数据，再将&#x2F;bin&#x2F;sh的地址写入栈上，这样调用system函数的时候，就可以将&#x2F;bin&#x2F;sh作为参数，然后返回一个shell。</p>
-<p><img src="https://img-blog.csdnimg.cn/da5ca471954c4957b575e41321e3fc64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6IuP55KD5Y-q5oOz5YiS5rC0,size_17,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>注意： 为什么是在eip（即system函数地址）后面覆盖4个字节垃圾数据而不是前面提到的8个字节，这是因为当我们调用system函数的时候，在system函数中会首先执行push ebp指令，将4字节的ebp地址压入栈中，而此时的栈底距离我们的参数&#x2F;bin&#x2F;sh正好8字节，所以我们应该填充4字节垃圾数据。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1163,7 +1174,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
