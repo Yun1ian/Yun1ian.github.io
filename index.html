@@ -145,6 +145,249 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/18/memcpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/08/18/memcpy/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-08-18 21:52:25" itemprop="dateCreated datePublished" datetime="2024-08-18T21:52:25+08:00">2024-08-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>memcpy指的是C和C++使用的内存拷贝函数，函数原型为void *memcpy(void *destin, void *source, unsigned n)；函数的功能是从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中，即从源source中拷贝n个字节到目标destin中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/11/%E5%AE%89%E6%BA%90%E8%B7%AF%E7%9F%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/08/11/%E5%AE%89%E6%BA%90%E8%B7%AF%E7%9F%BF/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-08-11 22:28:12" itemprop="dateCreated datePublished" datetime="2024-08-11T22:28:12+08:00">2024-08-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>看基本属性</p>
+<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215044613.png" alt="image-20240811215044613"></p>
+<p>ida查看</p>
+<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215507217.png" alt="image-20240811215507217"></p>
+<p>程序主函数存在栈溢出，但是开启了canary，需要泄露canary，主函数调用的ooo函数也存在9字节的溢出，这刚好可以用非NULL字节连接到canary（canary最低位为NULL， 且每个线程的canary是统一的）从而泄露canary，然后从主函数溢出</p>
+<p>可以泄漏的函数</p>
+<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215619605.png" alt="image-20240811215619605"></p>
+<p>会将rbp以及canary泄露出来</p>
+<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811222420078.png" alt="image-20240811222420078"></p>
+<p>但如果用ret2libc会出现超时，目前还没找到解决方法…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/04/ebp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/08/04/ebp/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-08-04 23:16:03" itemprop="dateCreated datePublished" datetime="2024-08-04T23:16:03+08:00">2024-08-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>溢出0x8字节，覆盖到ret，可以给s写入2次数据，我们可以通过第一次输入来泄露程序里的ebp地址（printf函数在输出的时候遇到’\0‘会停止，如果我们将参数s全部填满，这样就没法在末尾补上’\0‘，那样就会将ebp连带着输出），知道了ebp的地址就能够推算出参数s在栈上的地址，第二次直接往栈上写入system（‘&#x2F;bin&#x2F;sh’），之后利用leave；ret的栈劫持去到参数s的栈，让它去执行我们布置在栈上的system（‘&#x2F;bin&#x2F;sh’）来获取shell</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/10/c%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/10/c%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-10 21:35:52" itemprop="dateCreated datePublished" datetime="2024-06-10T21:35:52+08:00">2024-06-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*(_DWORD *)src = <span class="number">48</span>;</span><br></pre></td></tr></table></figure>
+
+<p>指代src的长度为48字节。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/03/LitCTF%20PWN%E9%83%A8%E5%88%86%20ATM%E9%A2%98%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -532,356 +775,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/07/retsyscall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/07/retsyscall/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-07 17:09:10" itemprop="dateCreated datePublished" datetime="2024-05-07T17:09:10+08:00">2024-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-09 21:44:43" itemprop="dateModified" datetime="2024-05-09T21:44:43+08:00">2024-05-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://bbs.kanxue.com/upload/attach/202201/945391_Q864BA2BYXCV2A2.png"></p>
-<p>addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点</p>
-<p>prot值如下：</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC231.png" alt="https://ooo.0x0.ooo/2024/05/07/OpC231.png"></p>
-<p>关于int 0x80以及execve函数的利用</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC8hI.png"></p>
-<h4 id="关于系统调用的知识："><a href="#关于系统调用的知识：" class="headerlink" title="关于系统调用的知识："></a>关于系统调用的知识：</h4><p><strong>Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数</strong></p>
-<p><strong>应用程序调用系统调用的过程是：</strong></p>
-<p>1、<strong>把系统调用的编号存入 EAX</strong></p>
-<p>2、<strong>把函数参数存入其它通用寄存器</strong></p>
-<p>3、<strong>触发 0x80 号中断（int 0x80）</strong></p>
-<p>查看 execve 的系统调用号：（得到的数值需要转化为十六进制表达，给的数字为10进制）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/include/asm/unistd_32.h | grep execve </span><br></pre></td></tr></table></figure>
-
-<p>图片表示</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpwxVL.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/system%E6%97%A0%E5%86%85%E5%90%ABbinsh%E8%A7%A3%E6%B3%95(%E5%B7%B2%E7%9F%A5%E4%B8%A4%E8%80%85%E5%9C%B0%E5%9D%80%E7%89%88)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/25/system%E6%97%A0%E5%86%85%E5%90%ABbinsh%E8%A7%A3%E6%B3%95(%E5%B7%B2%E7%9F%A5%E4%B8%A4%E8%80%85%E5%9C%B0%E5%9D%80%E7%89%88)/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-25 20:38:25" itemprop="dateCreated datePublished" datetime="2024-04-25T20:38:25+08:00">2024-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-07 17:34:28" itemprop="dateModified" datetime="2024-05-07T17:34:28+08:00">2024-05-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="system无内含bin-sh解法"><a href="#system无内含bin-sh解法" class="headerlink" title="system无内含bin&#x2F;sh解法"></a>system无内含bin&#x2F;sh解法</h2><h3 id="32位的分布"><a href="#32位的分布" class="headerlink" title="32位的分布:"></a>32位的分布:</h3><p><strong>返回地址+下一次的返回地址+参数1+参数2+…</strong></p>
-<p><strong>eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder)</strong></p>
-<h3 id="64位的分布"><a href="#64位的分布" class="headerlink" title="64位的分布"></a>64位的分布</h3><p><strong>首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。</strong></p>
-<p><strong>流程为：子函数返回到pop rdi; ret处，该指令会将当前栈顶的元素（’&#x2F;bin&#x2F;sh’字符串的地址）出栈并存入rdi中，并返回到下一条指令处。此时栈中就只有system()函数的地址了，所以下一条指令正是system()，而它需要的参数正好就在rdi寄存器中，这样就执行了system(‘&#x2F;bin&#x2F;sh’)</strong></p>
-<p><img src="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png"></p>
-<p>write函数参数含义</p>
-<p>stdin,stdout,stderr是随着计算机系统的开启默认打开的，</p>
-<p>其中0就是stdin表示输入流，指从键盘输入，1代表stdout，2代表stderr，1,2默认是显示器</p>
-<p>ROP链实现execve系统调用，这里我们可以借助ROPgadget工具自动生成ropchain，命令行如下：<code>ROPgadget --binary 文件名 --ropchain</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/24/babyrop%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/24/babyrop%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-24 21:52:28" itemprop="dateCreated datePublished" datetime="2024-04-24T21:52:28+08:00">2024-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-25 19:14:34" itemprop="dateModified" datetime="2024-04-25T19:14:34+08:00">2024-04-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> signal()是一种系统调用，用于通知运行时系统，当某种特定的“软件中断”发生时调用特定的程序。它的真正的名字应该是“Call_that_routine_when_this_interrupt_Comes_in(当该中断发生时调用那个程序）”</p>
-<p>C 库函数 <strong>void setbuf(FILE *stream, char *buffer)</strong> 定义流 stream 应如何缓冲。该函数应在与流 stream 相关的文件被打开时，且还未发生任何输入或输出操作之前被调用一次。</p>
-<p>  fd &#x3D; open(“&#x2F;dev&#x2F;urandom”, 0);<br>  if ( fd &gt; 0 )<br>    read(fd, &amp;buf, 4u);</p>
-<p>表示fd打开终端成功，会读取输入的四个字节作为buf的值</p>
-<p>memset(buf, 0, sizeof(buf));初始化buf的所有值为0。</p>
-<p>sprintf-将字符打印到字符串，C语言中的格式化输出，它将<code>a1</code>的值格式化为长整型字符串，并存储到字符数组<code>s</code>中。</p>
-<p><em><strong>*ssize_t read(int fd, void * buf, size_t count);*</strong></em>**</p>
-<p><strong>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中. 若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.</strong></p>
-<p> v5 &#x3D; read(0, buf, 0x20u);  buf[v5 - 1] &#x3D; 0; v5会被赋值为读取到的字符数。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int strncmp(const char *str1, const char *str2, size_t n)</span><br></pre></td></tr></table></figure>
-
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
-<li><strong>str1</strong> – 要进行比较的第一个字符串。</li>
-<li><strong>str2</strong> – 要进行比较的第二个字符串。</li>
-<li><strong>n</strong> – 要比较的最大字符数。</li>
-</ul>
-<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>该函数返回值如下：</p>
-<ul>
-<li><p>如果返回值 &lt; 0，则表示 str1 小于 str2。</p>
-</li>
-<li><p>如果返回值 &gt; 0，则表示 str1 大于 str2。</p>
-</li>
-<li><p>如果返回值 &#x3D; 0，则表示 str1 等于 str2。</p>
-<p>\为转义字符，而’\xhh‘表示ASCII码值与’hh’这个十六进制数相等的符号，例如’\xff’表示ASCII码为255的符号。</p>
-</li>
-</ul>
-<h2 id="第一次溢出"><a href="#第一次溢出" class="headerlink" title="第一次溢出"></a>第一次溢出</h2><blockquote>
-<p>泄露函数真实地址得到基地址</p>
-</blockquote>
-<ul>
-<li><p>要使用output函数，如puts和write函数（该函数的特征必须为可以输出地址数据的函数）</p>
-<ul>
-<li><pre><code>puts
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构造payload（泄露puts函数的地址）</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">puts_plt_addr =elf.plt[&#x27;puts&#x27;]</span><br><span class="line">puts_got_addr  =elf.got[&#x27;puts&#x27;]</span><br><span class="line">main_addr =elf.sym[&#x27;_start&#x27;]</span><br><span class="line">payload = &quot;a&quot;*54</span><br><span class="line">payload += p32(puts_plt_addr)+p32(main_addr)+p32(puts_got_addr)</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li><pre><code>write
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构造payload（泄露write函数的地址）</span><br><span class="line"></span><br><span class="line">```PYTHON</span><br><span class="line">write_plt_addr =elf.plt[&#x27;write&#x27;]</span><br><span class="line">write_got_addr =elf.got[&#x27;write&#x27;]</span><br><span class="line">main_addr =elf.sym[&#x27;main&#x27;]</span><br><span class="line">payload = &quot;a&quot;*60</span><br><span class="line">payload += p32(write_plt_addr)+p32(main_addr)+p32(1)    +p32(write_got_addr)+p32(4)</span><br></pre></td></tr></table></figure>
-
-- 因为write函数有三个参数，所以这里都要加上。
-</code></pre>
-</li>
-</ul>
-<p>大概意思即为，使用puts或者write函数的plt地址来连接puts函数的got表地址，最后返回到main函数的地址</p>
-</li>
-</ul>
-<h4 id="关于漏洞函数"><a href="#关于漏洞函数" class="headerlink" title="关于漏洞函数"></a>关于漏洞函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write</span><br></pre></td></tr></table></figure>
-
-<p>write有三个参数：</p>
-<p>参数1是模式，“1”为写模式</p>
-<p>参数2在栈上其实是一个地址，它会将这个地址上存的字符串给打印出来</p>
-<p>参数3是打印字符串的长度。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>“%p”，可以输出后面参数的地址上的值<strong>（格式为0x…）</strong></p>
-<p>“%20 $p”(无空格)，打印出偏移为21得地方的地址的值</p>
-<p>“%20 $n”(无空格)，写入%前字符串的长度到偏移为21得地方</p>
-<p>“%70d%20 $n”向偏移为21地方的地址写入整数70</p>
-<p>“%x”打出地址上的值，格式是16进制，但省去了0x，类型为str</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-15 21:50:25" itemprop="dateCreated datePublished" datetime="2024-04-15T21:50:25+08:00">2024-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-16 14:41:15" itemprop="dateModified" datetime="2024-04-16T14:41:15+08:00">2024-04-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>First</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.27.so&#x27;</span>)</span><br><span class="line">libcbase=puts_addr-libc.sym[<span class="string">&#x27;puts&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
-<p>Second</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc=LibcSearcher(<span class="string">&quot;puts&quot;</span>,puts_addr)</span><br><span class="line">libcbase=puts_addr-libc.dump(<span class="string">&quot;puts&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在ida中不用这些看地址。</p>
-<p>首先是read_got。可以在IDA中通过按ctrl+s跳转到不同的段。先看got表，也就是对应的.got.plt（而非.got）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -951,7 +844,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

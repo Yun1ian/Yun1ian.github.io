@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
 <meta property="article:published_time" content="2024-04-25T12:38:25.657Z">
-<meta property="article:modified_time" content="2024-05-07T09:34:28.783Z">
+<meta property="article:modified_time" content="2024-08-25T14:39:48.179Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png">
@@ -182,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-07 17:34:28" itemprop="dateModified" datetime="2024-05-07T17:34:28+08:00">2024-05-07</time>
+                <time title="修改时间：2024-08-25 22:39:48" itemprop="dateModified" datetime="2024-08-25T22:39:48+08:00">2024-08-25</time>
               </span>
 
           
@@ -204,7 +204,10 @@
 <p>write函数参数含义</p>
 <p>stdin,stdout,stderr是随着计算机系统的开启默认打开的，</p>
 <p>其中0就是stdin表示输入流，指从键盘输入，1代表stdout，2代表stderr，1,2默认是显示器</p>
+<p>payload&#x3D;b’a’*(offset+8)+ p64(rdi) + p64(sh) + p64(ret) + p64(sys)</p>
+<p>payload2&#x3D;b’a’*offset+ p64(ret)+ p64(rdi) + p64(sh) + p64(sys)</p>
 <p>ROP链实现execve系统调用，这里我们可以借助ROPgadget工具自动生成ropchain，命令行如下：<code>ROPgadget --binary 文件名 --ropchain</code></p>
+<p>ROPgadget –binary pwn | grep “<strong>pop</strong> <strong>rdi</strong>“ </p>
 
     </div>
 
@@ -299,7 +302,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

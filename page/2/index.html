@@ -145,6 +145,359 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/07/retsyscall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/07/retsyscall/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-07 17:09:10" itemprop="dateCreated datePublished" datetime="2024-05-07T17:09:10+08:00">2024-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-09 21:44:43" itemprop="dateModified" datetime="2024-05-09T21:44:43+08:00">2024-05-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://bbs.kanxue.com/upload/attach/202201/945391_Q864BA2BYXCV2A2.png"></p>
+<p>addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点</p>
+<p>prot值如下：</p>
+<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC231.png" alt="https://ooo.0x0.ooo/2024/05/07/OpC231.png"></p>
+<p>关于int 0x80以及execve函数的利用</p>
+<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC8hI.png"></p>
+<h4 id="关于系统调用的知识："><a href="#关于系统调用的知识：" class="headerlink" title="关于系统调用的知识："></a>关于系统调用的知识：</h4><p><strong>Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数</strong></p>
+<p><strong>应用程序调用系统调用的过程是：</strong></p>
+<p>1、<strong>把系统调用的编号存入 EAX</strong></p>
+<p>2、<strong>把函数参数存入其它通用寄存器</strong></p>
+<p>3、<strong>触发 0x80 号中断（int 0x80）</strong></p>
+<p>查看 execve 的系统调用号：（得到的数值需要转化为十六进制表达，给的数字为10进制）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/include/asm/unistd_32.h | grep execve </span><br></pre></td></tr></table></figure>
+
+<p>图片表示</p>
+<p><img src="https://ooo.0x0.ooo/2024/05/07/OpwxVL.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/system%E6%97%A0%E5%86%85%E5%90%ABbinsh%E8%A7%A3%E6%B3%95(%E5%B7%B2%E7%9F%A5%E4%B8%A4%E8%80%85%E5%9C%B0%E5%9D%80%E7%89%88)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/25/system%E6%97%A0%E5%86%85%E5%90%ABbinsh%E8%A7%A3%E6%B3%95(%E5%B7%B2%E7%9F%A5%E4%B8%A4%E8%80%85%E5%9C%B0%E5%9D%80%E7%89%88)/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-25 20:38:25" itemprop="dateCreated datePublished" datetime="2024-04-25T20:38:25+08:00">2024-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-25 22:39:48" itemprop="dateModified" datetime="2024-08-25T22:39:48+08:00">2024-08-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="system无内含bin-sh解法"><a href="#system无内含bin-sh解法" class="headerlink" title="system无内含bin&#x2F;sh解法"></a>system无内含bin&#x2F;sh解法</h2><h3 id="32位的分布"><a href="#32位的分布" class="headerlink" title="32位的分布:"></a>32位的分布:</h3><p><strong>返回地址+下一次的返回地址+参数1+参数2+…</strong></p>
+<p><strong>eg:p32(system_adder)+p(0)+p(bin&#x2F;sh_adder)</strong></p>
+<h3 id="64位的分布"><a href="#64位的分布" class="headerlink" title="64位的分布"></a>64位的分布</h3><p><strong>首先覆盖掉buf和rbp，然后是pop rdi; ret指令的地址，再接着是’&#x2F;bin&#x2F;sh’字符串的地址，最后是system()函数的地址。</strong></p>
+<p><strong>流程为：子函数返回到pop rdi; ret处，该指令会将当前栈顶的元素（’&#x2F;bin&#x2F;sh’字符串的地址）出栈并存入rdi中，并返回到下一条指令处。此时栈中就只有system()函数的地址了，所以下一条指令正是system()，而它需要的参数正好就在rdi寄存器中，这样就执行了system(‘&#x2F;bin&#x2F;sh’)</strong></p>
+<p><img src="https://ooo.0x0.ooo/2024/04/25/OpRXPi.png"></p>
+<p>write函数参数含义</p>
+<p>stdin,stdout,stderr是随着计算机系统的开启默认打开的，</p>
+<p>其中0就是stdin表示输入流，指从键盘输入，1代表stdout，2代表stderr，1,2默认是显示器</p>
+<p>payload&#x3D;b’a’*(offset+8)+ p64(rdi) + p64(sh) + p64(ret) + p64(sys)</p>
+<p>payload2&#x3D;b’a’*offset+ p64(ret)+ p64(rdi) + p64(sh) + p64(sys)</p>
+<p>ROP链实现execve系统调用，这里我们可以借助ROPgadget工具自动生成ropchain，命令行如下：<code>ROPgadget --binary 文件名 --ropchain</code></p>
+<p>ROPgadget –binary pwn | grep “<strong>pop</strong> <strong>rdi</strong>“ </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/24/babyrop%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/24/babyrop%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-24 21:52:28" itemprop="dateCreated datePublished" datetime="2024-04-24T21:52:28+08:00">2024-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-25 19:14:34" itemprop="dateModified" datetime="2024-04-25T19:14:34+08:00">2024-04-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> signal()是一种系统调用，用于通知运行时系统，当某种特定的“软件中断”发生时调用特定的程序。它的真正的名字应该是“Call_that_routine_when_this_interrupt_Comes_in(当该中断发生时调用那个程序）”</p>
+<p>C 库函数 <strong>void setbuf(FILE *stream, char *buffer)</strong> 定义流 stream 应如何缓冲。该函数应在与流 stream 相关的文件被打开时，且还未发生任何输入或输出操作之前被调用一次。</p>
+<p>  fd &#x3D; open(“&#x2F;dev&#x2F;urandom”, 0);<br>  if ( fd &gt; 0 )<br>    read(fd, &amp;buf, 4u);</p>
+<p>表示fd打开终端成功，会读取输入的四个字节作为buf的值</p>
+<p>memset(buf, 0, sizeof(buf));初始化buf的所有值为0。</p>
+<p>sprintf-将字符打印到字符串，C语言中的格式化输出，它将<code>a1</code>的值格式化为长整型字符串，并存储到字符数组<code>s</code>中。</p>
+<p><em><strong>*ssize_t read(int fd, void * buf, size_t count);*</strong></em>**</p>
+<p><strong>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中. 若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.</strong></p>
+<p> v5 &#x3D; read(0, buf, 0x20u);  buf[v5 - 1] &#x3D; 0; v5会被赋值为读取到的字符数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int strncmp(const char *str1, const char *str2, size_t n)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
+<li><strong>str1</strong> – 要进行比较的第一个字符串。</li>
+<li><strong>str2</strong> – 要进行比较的第二个字符串。</li>
+<li><strong>n</strong> – 要比较的最大字符数。</li>
+</ul>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>该函数返回值如下：</p>
+<ul>
+<li><p>如果返回值 &lt; 0，则表示 str1 小于 str2。</p>
+</li>
+<li><p>如果返回值 &gt; 0，则表示 str1 大于 str2。</p>
+</li>
+<li><p>如果返回值 &#x3D; 0，则表示 str1 等于 str2。</p>
+<p>\为转义字符，而’\xhh‘表示ASCII码值与’hh’这个十六进制数相等的符号，例如’\xff’表示ASCII码为255的符号。</p>
+</li>
+</ul>
+<h2 id="第一次溢出"><a href="#第一次溢出" class="headerlink" title="第一次溢出"></a>第一次溢出</h2><blockquote>
+<p>泄露函数真实地址得到基地址</p>
+</blockquote>
+<ul>
+<li><p>要使用output函数，如puts和write函数（该函数的特征必须为可以输出地址数据的函数）</p>
+<ul>
+<li><pre><code>puts
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构造payload（泄露puts函数的地址）</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">puts_plt_addr =elf.plt[&#x27;puts&#x27;]</span><br><span class="line">puts_got_addr  =elf.got[&#x27;puts&#x27;]</span><br><span class="line">main_addr =elf.sym[&#x27;_start&#x27;]</span><br><span class="line">payload = &quot;a&quot;*54</span><br><span class="line">payload += p32(puts_plt_addr)+p32(main_addr)+p32(puts_got_addr)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code>write
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构造payload（泄露write函数的地址）</span><br><span class="line"></span><br><span class="line">```PYTHON</span><br><span class="line">write_plt_addr =elf.plt[&#x27;write&#x27;]</span><br><span class="line">write_got_addr =elf.got[&#x27;write&#x27;]</span><br><span class="line">main_addr =elf.sym[&#x27;main&#x27;]</span><br><span class="line">payload = &quot;a&quot;*60</span><br><span class="line">payload += p32(write_plt_addr)+p32(main_addr)+p32(1)    +p32(write_got_addr)+p32(4)</span><br></pre></td></tr></table></figure>
+
+- 因为write函数有三个参数，所以这里都要加上。
+</code></pre>
+</li>
+</ul>
+<p>大概意思即为，使用puts或者write函数的plt地址来连接puts函数的got表地址，最后返回到main函数的地址</p>
+</li>
+</ul>
+<h4 id="关于漏洞函数"><a href="#关于漏洞函数" class="headerlink" title="关于漏洞函数"></a>关于漏洞函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write</span><br></pre></td></tr></table></figure>
+
+<p>write有三个参数：</p>
+<p>参数1是模式，“1”为写模式</p>
+<p>参数2在栈上其实是一个地址，它会将这个地址上存的字符串给打印出来</p>
+<p>参数3是打印字符串的长度。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>“%p”，可以输出后面参数的地址上的值<strong>（格式为0x…）</strong></p>
+<p>“%20 $p”(无空格)，打印出偏移为21得地方的地址的值</p>
+<p>“%20 $n”(无空格)，写入%前字符串的长度到偏移为21得地方</p>
+<p>“%70d%20 $n”向偏移为21地方的地址写入整数70</p>
+<p>“%x”打出地址上的值，格式是16进制，但省去了0x，类型为str</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-15 21:50:25" itemprop="dateCreated datePublished" datetime="2024-04-15T21:50:25+08:00">2024-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-21 19:41:35" itemprop="dateModified" datetime="2024-06-21T19:41:35+08:00">2024-06-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>First</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.27.so&#x27;</span>)</span><br><span class="line">libcbase=puts_addr-libc.sym[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">system_addr=libcbase+ libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">shell_addr=libcbase+<span class="built_in">next</span>(libc.search(<span class="string">b&#x27;bin/sh&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Second</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=LibcSearcher(<span class="string">&quot;puts&quot;</span>,puts_addr)</span><br><span class="line">libcbase=puts_addr-libc.dump(<span class="string">&quot;puts&quot;</span>)</span><br><span class="line">system_addr=libc_base+libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">bin_addr=libc_base+libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在ida中不用这些看地址。</p>
+<p>首先是read_got。可以在IDA中通过按ctrl+s跳转到不同的段。先看got表，也就是对应的.got.plt（而非.got）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/12/c%E8%AF%AD%E8%A8%80%E9%83%A8%E5%88%86%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E5%88%A4%E6%96%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -739,372 +1092,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/14/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/14/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">gdb调试步骤</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-14 19:33:54" itemprop="dateCreated datePublished" datetime="2024-03-14T19:33:54+08:00">2024-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-15 21:14:43" itemprop="dateModified" datetime="2024-03-15T21:14:43+08:00">2024-03-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>一.基本概念：</strong></p>
-<p>（1）<em><strong>ESP</strong></em>：栈指针寄存器(<em>extended stack pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的栈顶</strong>。</p>
-<p>（2）<em><strong>EBP</strong></em>：基址指针寄存器(<em>extended base pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的底部</strong>。</p>
-<h6 id="一般来说，我们会有如下的覆盖需求"><a href="#一般来说，我们会有如下的覆盖需求" class="headerlink" title="一般来说，我们会有如下的覆盖需求"></a>一般来说，我们会有如下的覆盖需求</h6><ul>
-<li><strong>覆盖函数返回地址</strong>，这时候就是直接看 EBP 即可。</li>
-<li><strong>覆盖栈上某个变量的内容</strong>，这时候就需要更加精细的计算了。</li>
-<li><strong>覆盖 bss 段某个变量的内容</strong>。</li>
-<li>根据现实执行情况，覆盖特定的变量或地址的内容。</li>
-</ul>
-<p>之所以我们想要覆盖某个地址，是因为我们想通过覆盖地址的方法来<strong>直接或者间接地控制程序执行流程</strong>。</p>
-<h6 id="确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"><a href="#确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式" class="headerlink" title="确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"></a>确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式</h6><ul>
-<li>相对于栈基地址的的索引，可以直接通过查看 EBP 相对偏移获得</li>
-<li>相对应栈顶指针的索引，一般需要进行调试，之后还是会转换到第一种类型。</li>
-<li>直接地址索引，就相当于直接给定了地址。</li>
-</ul>
-<p><strong>二.解题步骤（gdb调试）：</strong></p>
-<p>（1）.打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
-<p>(2).打开ida按f5反编译进行静态分析：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
-<p>(3).由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。点开s找相应覆盖的偏移距离：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
-<p>由此得偏移地址为0F+08&#x3D;25</p>
-<p>ps:后门相关知识点：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
-<p>(4).shift+f12找相应后门发现：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
-<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
-<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p>（5).进入虚拟机运行调试，ni直到进行到gets操作：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5oZL.png"></p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5qci.png"></p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5WXj.png"></p>
-<p>（6).按si进入gets函数观察输入效果：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5kzp.png"></p>
-<p>此时a已重复输入被gets读取存入栈中,顺序跟踪程序运行。</p>
-<p>（7).执行到leave操作：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og57Or.png"></p>
-<p><em><strong>leave</strong></em>：<strong>leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。</strong></p>
-<p>(8).程序根据输入后跳转到后门函数0X401185：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5ru1.png"></p>
-<p>跟随程序运行至字符串（bin&#x2F;sh）</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5KzI.png"></p>
-<p>拿到程序控制权后，通过后门函数ls获取菜单，catflag即可拿到flag。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/13/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">3.10刷题总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-13 19:10:39" itemprop="dateCreated datePublished" datetime="2024-03-13T19:10:39+08:00">2024-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-15 20:18:41" itemprop="dateModified" datetime="2024-03-15T20:18:41+08:00">2024-03-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一·简单nc</p>
-<p>nc（地址加端口）</p>
-<p>ls获取菜单</p>
-<p>cat flag即可得到flag</p>
-<p>二·rip</p>
-<p>打开vm利用pwntools进行基本分析 ：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
-<p>打开ida按f5反编译进行静态分析：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
-<p>由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。</p>
-<p>点开s找相应覆盖的偏移距离：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
-<p>由此得偏移地址为0F+08&#x3D;25</p>
-<p>后门相关知识点：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
-<p>shift+f12找相应后门发现：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
-<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
-<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
-<p>进入虚拟机运行后：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoKGG.png"></p>
-<p>ls后cat flag即可解得</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/13/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">3.10pwn写题入门知识</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-03-13 19:05:51 / 修改时间：19:06:20" itemprop="dateCreated datePublished" datetime="2024-03-13T19:05:51+08:00">2024-03-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="pwntools基本指令"><a href="#pwntools基本指令" class="headerlink" title="pwntools基本指令"></a>pwntools基本指令</h2><h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><p>查看程式開了哪些保護機制</p>
-<p>安裝：Pwntools gdb</p>
-<p>使用：checksec </p>
-<h3 id="nc-ncat"><a href="#nc-ncat" class="headerlink" title="nc &#x2F; ncat"></a>nc &#x2F; ncat</h3><p>远程连线工具</p>
-<p>使⽤ ncat 将程式在靶机连接起來，接着使用 nc 连接</p>
-<p>使用:nc</p>
-<h3 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h3><p>编辑器</p>
-<p>安裝：sudo apt install vim</p>
-<p>Relro：Full Relro（重定位表只读） Relocation Read Only， 重定位表只读。重定位表即.got 和 .plt个表。</p>
-<p>Stack：No Canary found（能栈溢出） 栈保护。栈溢出保护是一种缓冲区溢出攻击缓解手段。启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canary。 简单来说就是通过验证cookie，来判断执行的代码是不是恶意代码</p>
-<p>NX： NX enable（不可执行内存） Non-Executable Memory，不可执行内存。 原理是将数据所在内存页标识为不可执行，防止因为程序运行出现溢出而使得攻击者的shellcode可能会在数据区尝试执行的情况。NX是对栈和堆的一种保护机制。实验需要关闭NX和地址随机化，否则执行shellcode时，CPU就会抛出异常，而不是去执行恶意指令。Linux系统叫做NX，Windows系统中类似的机制叫DEP(Data Execute Prevention)</p>
-<p>PIE： PIE enable（开启ASLR 地址随机化） Address space layout randomization，地址空间布局随机化。通过将数据随机放置来防止攻击</p>
-<hr>
-<h1 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a><em><strong>pwntools</strong></em></h1><h2 id="接收远端传回的数据"><a href="#接收远端传回的数据" class="headerlink" title="接收远端传回的数据"></a>接收远端传回的数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interactive() : 在取得shell之后使用,直接进行交互，相当于回到shell的模式。</span><br><span class="line"></span><br><span class="line">recv(numb=字节大小, timeout=default) : 接收指定字节数。</span><br><span class="line"></span><br><span class="line">recvall() : 一直接收直到达到文件EOF。</span><br><span class="line"></span><br><span class="line">recvline(keepends=<span class="literal">True</span>) : 接收一行，keepends为是否保留行尾的\n。</span><br><span class="line"></span><br><span class="line">recvuntil(delims, drop=<span class="literal">False</span>) : 一直读到delims的pattern出现为止。</span><br><span class="line"></span><br><span class="line">recvrepeat(timeout=default) : 持续接收直到EOF或timeout。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="向远端发送数据"><a href="#向远端发送数据" class="headerlink" title="向远端发送数据"></a>向远端发送数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">send(data) : 发送数据。</span><br><span class="line"></span><br><span class="line">sendline(data) : 发送一行数据，相当于在数据末尾加\n。</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/" class="post-title-link" itemprop="url">汇编指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-13 19:02:23" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-18 21:52:36" itemprop="dateModified" datetime="2024-03-18T21:52:36+08:00">2024-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令***"></a>汇编指令***</h1><h3 id="一·-通用数据传送指令。"><a href="#一·-通用数据传送指令。" class="headerlink" title="一· 通用数据传送指令。"></a>一· 通用数据传送指令。</h3><h3 id="1。基本指令"><a href="#1。基本指令" class="headerlink" title="1。基本指令"></a><strong>1。基本指令</strong></h3><p><em><strong>MOV</strong></em> 传送字或字节。<br><em><strong>MOVSX</strong></em> 先符号扩展，再传送。<br><em><strong>MOVZX</strong></em> 先零扩展，再传送。<br><em><strong>PUSH</strong></em> 把字压入堆栈。<br><em><strong>POP</strong></em> 把字弹出堆栈。<br><em><strong>PUSHA</strong></em> 把AX，CX，DX，BX，SP，BP，SI，DI依次压入堆栈。<br><em><strong>POPA</strong></em> 把DI，SI，BP，SP，BX，DX，CX，AX依次弹出堆栈。<br><em><strong>PUSHAD</strong></em> 把EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI依次压入堆栈。<br><em><strong>POPAD</strong></em> 把EDI，ESI，EBP，ESP，EBX，EDX，ECX，EAX依次弹出堆栈。<br><em><strong>BSWAP</strong></em> 交换32位寄存器里字节的顺序<br><em><strong>XCHG</strong></em> 交换字或字节。( 至少有一个操作数为寄存器，段寄存器不可作为操作数)<br><em><strong>CMPXCHG</strong></em> 比较并交换操作数。( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )<br><em><strong>XADD</strong></em> 先交换再累加。( 结果在第一个操作数里 )<br><em><strong>XLAT</strong></em> 字节查表转换。<br><em><strong>── BX</strong></em> 指向一张 256 字节的表的起点， AL 为表的索引值 (0-255，即0-FFH); 返回 AL 为查表结果。 ( [BX+AL]-&gt;AL )</p>
-<h3 id="2。-输入输出端口传送指令。"><a href="#2。-输入输出端口传送指令。" class="headerlink" title="2。 输入输出端口传送指令。"></a>2。 输入输出端口传送指令。</h3><p>IN I&#x2F;O端口输入。 ( 语法: IN 累加器， {端口号│DX} )<br>OUT I&#x2F;O端口输出。 ( 语法: OUT {端口号│DX}，累加器 )<br>输入输出端口由立即方式指定时， 其范围是 0-255; 由寄存器 DX 指定时，<br>其范围是 0-65535。</p>
-<h3 id="3。-目的地址传送指令。"><a href="#3。-目的地址传送指令。" class="headerlink" title="3。 目的地址传送指令。"></a>3。 目的地址传送指令。</h3><p>LEA 装入有效地址。<br>例: LEA DX，string ;把偏移地址存到DX。<br>LDS 传送目标指针，把指针内容装入DS。<br>例: LDS SI，string ;把段地址:偏移地址存到DS:SI。<br>LES 传送目标指针，把指针内容装入ES。<br>例: LES DI，string ;把段地址:偏移地址存到ES:DI。<br>LFS 传送目标指针，把指针内容装入FS。<br>例: LFS DI，string ;把段地址:偏移地址存到FS:DI。<br>LGS 传送目标指针，把指针内容装入GS。<br>例: LGS DI，string ;把段地址:偏移地址存到GS:DI。<br>LSS 传送目标指针，把指针内容装入SS。<br>例: LSS DI，string ;把段地址:偏移地址存到SS:DI。</p>
-<h3 id="4。-标志传送指令。"><a href="#4。-标志传送指令。" class="headerlink" title="4。 标志传送指令。"></a>4。 标志传送指令。</h3><p>LAHF 标志寄存器传送，把标志装入AH。<br>SAHF 标志寄存器传送，把AH内容装入标志寄存器。<br>PUSHF 标志入栈。<br>POPF 标志出栈。<br>PUSHD 32位标志入栈。<br>POPD 32位标志出栈。</p>
-<h2 id="二、算术运算指令"><a href="#二、算术运算指令" class="headerlink" title="二、算术运算指令"></a>二、算术运算指令</h2><p>──────────────────────────────<br>ADD 加法。<br>ADC 带进位加法。<br>INC 加 1。<br>AAA 加法的ASCII码调整。<br>DAA 加法的十进制调整。<br>SUB 减法。<br>SBB 带借位减法。<br>DEC 减 1。<br>NEC 求反(以 0 减之)。<br>CMP 比较。(两操作数作减法，仅修改标志位，不回送结果)。<br>AAS 减法的ASCII码调整。<br>DAS 减法的十进制调整。<br>MUL 无符号乘法。<br>IMUL 整数乘法。<br>以上两条，结果回送AH和AL(字节运算)，或DX和AX(字运算)，<br>AAM 乘法的ASCII码调整。<br>DIV 无符号除法。<br>IDIV 整数除法。<br>以上两条，结果回送:<br>商回送AL，余数回送AH， (字节运算);<br>或 商回送AX，余数回送DX， (字运算)。<br>AAD 除法的ASCII码调整。<br>CBW 字节转换为字。 (把AL中字节的符号扩展到AH中去)<br>CWD 字转换为双字。 (把AX中的字的符号扩展到DX中去)<br>CWDE 字转换为双字。 (把AX中的字符号扩展到EAX中去)<br>CDQ 双字扩展。 (把EAX中的字的符号扩展到EDX中去)</p>
-<h2 id="三、逻辑运算指令"><a href="#三、逻辑运算指令" class="headerlink" title="三、逻辑运算指令"></a>三、逻辑运算指令</h2><p>────────────────────────────<br>AND 与运算。<br>OR 或运算。<br>XOR 异或运算。<br>NOT 取反。<br>TEST 测试。(两操作数作与运算，仅修改标志位，不回送结果)。<br>SHL 逻辑左移。<br>SAL 算术左移。(&#x3D;SHL)<br>SHR 逻辑右移。<br>SAR 算术右移。(&#x3D;SHR)<br>ROL 循环左移。<br>ROR 循环右移。<br>RCL 通过进位的循环左移。<br>RCR 通过进位的循环右移。<br>以上八种移位指令，其移位次数可达255次。<br>移位一次时， 可直接用操作码。 如 SHL AX，1。<br>移位&gt;1次时， 则由寄存器CL给出移位次数。<br>如 MOV CL，04<br>SHL AX，CL</p>
-<h2 id="四、串指令"><a href="#四、串指令" class="headerlink" title="四、串指令"></a>四、串指令</h2><p>───────────────────────────<br>DS:SI 源串段寄存器 :源串变址。<br>ES:DI 目标串段寄存器:目标串变址。<br>CX 重复次数计数器。<br>AL&#x2F;AX 扫描值。<br>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量。<br>Z标志 用来控制扫描或比较操作的结束。<br>MOVS 串传送。<br>( MOVSB 传送字符。 MOVSW 传送字。 MOVSD 传送双字。 )<br>CMPS 串比较。<br>( CMPSB 比较字符。 CMPSW 比较字。 )<br>SCAS 串扫描。<br>把AL或AX的内容与目标串作比较，比较结果反映在标志位。<br>LODS 装入串。<br>把源串中的元素(字或字节)逐一装入AL或AX中。<br>( LODSB 传送字符。 LODSW 传送字。 LODSD 传送双字。 )<br>STOS 保存串。<br>是LODS的逆过程。<br>REP 当CX&#x2F;ECX&lt;&gt;0时重复。<br>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复。</p>
-<h2 id="五、程序转移指令"><a href="#五、程序转移指令" class="headerlink" title="五、程序转移指令"></a>五、程序转移指令</h2><p>──────────────────────────<br>1&gt;无条件转移指令 (长转移)<br>JMP 无条件转移指令<br>CALL 过程调用<br>RET&#x2F;RETF过程返回。<br>2&gt;条件转移指令 (短转移，-128到+127的距离内)<br>( 当且仅当(SF XOR OF)&#x3D;1时，OP1 JA&#x2F;JNBE 不小于或不等于时转移。<br>JAE&#x2F;JNB 大于或等于转移。<br>JB&#x2F;JNAE 小于转移。<br>JBE&#x2F;JNA 小于或等于转移。<br>以上四条，测试无符号整数运算的结果(标志C和Z)。<br>JG&#x2F;JNLE 大于转移。<br>JGE&#x2F;JNL 大于或等于转移。<br>JL&#x2F;JNGE 小于转移。<br>JLE&#x2F;JNG 小于或等于转移。<br>以上四条，测试带符号整数运算的结果(标志S，O和Z)。<br>JE&#x2F;JZ 等于转移。<br>JNE&#x2F;JNZ 不等于时转移。<br>JC 有进位时转移。<br>JNC 无进位时转移。<br>JNO 不溢出时转移。<br>JNP&#x2F;JPO 奇偶性为奇数时转移。<br>JNS 符号位为 “0” 时转移。<br>JO 溢出转移。<br>JP&#x2F;JPE 奇偶性为偶数时转移。<br>JS 符号位为 “1” 时转移。<br>3&gt;循环控制指令(短转移)<br>LOOP CX不为零时循环。<br>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环。<br>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环。<br>JCXZ CX为零时转移。<br>JECXZ ECX为零时转移。<br>4&gt;中断指令<br>INT 中断指令<br>INTO 溢出中断<br>IRET 中断返回<br>5&gt;处理器控制指令<br>HLT 处理器暂停， 直到出现中断或复位信号才继续。<br>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态。<br>ESC 转换到外处理器。<br>LOCK 封锁总线。<br>NOP 空操作。<br>STC 置进位标志位。<br>CLC 清进位标志位。<br>CMC 进位标志取反。<br>STD 置方向标志位。<br>CLD 清方向标志位。<br>STI 置中断允许位。<br>CLI 清中断允许位。</p>
-<h2 id="六、伪指令"><a href="#六、伪指令" class="headerlink" title="六、伪指令"></a>六、伪指令</h2><p>───────────────────────────<br>DW 定义字(2字节)。<br>PROC 定义过程。<br>ENDP 过程结束。<br>SEGMENT 定义段。<br>ASSUME 建立段寄存器寻址。<br>ENDS 段结束。<br>END 程序结束。</p>
-<p><strong>一.机械码,又称机器码.</strong>**<br><strong>ultraedit打开,编辑exe文件时你会看到</strong><br><strong>许许多多的由0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F组成的数码,这些数码</strong><br><strong>就是机器码.</strong><br><strong>修改程序时必须通过修改机器码来修改exe文件.</strong></p>
-<p><strong>二.需要熟练掌握的全部汇编知识(只有这么多)</strong><br><strong>不大容易理解,可先强行背住,混个脸儿熟,以后慢慢的就理解了</strong><br><strong>cmp a,b 比较a与b</strong><br><strong>mov a,b 把b的值送给a</strong><br><strong>ret 返回主程序</strong><br><strong>nop 无作用,英文“no operation”的简写，意思是“do nothing”(机器码90)机器码的含义参看上面</strong>**<br>***(解释:ultraedit打开编辑exe文件时你看到90,等同于汇编语句nop)**<br><strong>call 调用子程序</strong><br><strong>je 或jz 若相等则跳(机器码74 或0F84)</strong><br><strong>jne或jnz 若不相等则跳(机器码75或0F85)</strong><br><strong>jmp 无条件跳(机器码EB)</strong><br><strong>jb 若小于则跳</strong><br><strong>ja 若大于则跳</strong><br><strong>jg 若大于则跳</strong><br><strong>jge 若大于等于则跳</strong><br><strong>jl 若小于则跳</strong><br><strong>jle 若小于等于则跳</strong><br><strong>pop 出栈</strong><br><strong>push 压栈</strong></p>
-<p><strong>三.常见修改(机器码)</strong><br><strong>74&#x3D;&gt;75 74&#x3D;&gt;90 74&#x3D;&gt;EB</strong><br><strong>75&#x3D;&gt;74 75&#x3D;&gt;90 75&#x3D;&gt;EB</strong></p>
-<p><strong>jnz-&gt;nop</strong><br><strong>75-&gt;90(相应的机器码修改)</strong></p>
-<p><strong>jnz -&gt; jmp</strong><br><strong>75 -&gt; EB(相应的机器码修改)</strong></p>
-<p><strong>jnz -&gt; jz</strong><br><strong>75-&gt;74 (正常) 0F 85 -&gt; 0F 84(特殊情况下,有时,相应的机器码修改)</strong></p>
-<p><strong>四.两种不同情况的不同修改方法</strong><br><strong>1.修改为jmp</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;jmp相应的机器码EB （出错信息向上找到的第一个跳转）jmp的作用是绝对跳，无条件跳，从而跳过下面的出错信息</strong></p>
-<p><strong>xxxxxxxxxxxx 出错信息，例如：注册码不对，sorry,未注册版不能…，”Function Not Avaible in Demo” 或 “Command Not Avaible” 或 “Can’t save in Shareware&#x2F;Demo”等 （我们希望把它跳过，不让它出现）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 正确路线所在</strong></p>
-<p><strong>2.修改为nop</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;nop相应的机器码90 （正确信息向上找到的第一个跳转） nop的作用是抹掉这个跳转，使这个跳转无效，失去作用，从而使程序顺利来到紧跟其后的正确信息处</strong></p>
-<p><strong>xxxxxxxxxxxx 正确信息，例如：注册成功，谢谢您的支持等（我们希望它不被跳过，让它出现，程序一定要顺利来到这里）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 出错信息（我们希望不要跳到这里，不让它出现）它们在存贮器和寄存器、寄存器和输入输出端口之间传送数据.</strong> </p>
-<ol>
-<li><strong>通用数据传送指令.</strong><br><strong>MOV 传送字或字节.</strong><br><strong>MOVSX 先符号扩展,再传送.</strong><br><strong>MOVZX 先零扩展,再传送.</strong><br><strong>PUSH 把字压入堆栈.</strong><br><strong>POP 把字弹出堆栈.</strong><br><strong>PUSHA 把AX,CX,DX,BX,SP,BP,SI,DI依次压入堆栈.</strong><br><strong>POPA 把DI,SI,BP,SP,BX,DX,CX,AX依次弹出堆栈.</strong><br><strong>PUSHAD 把EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI依次压入堆栈.</strong><br><strong>POPAD 把EDI,ESI,EBP,ESP,EBX,EDX,ECX,EAX依次弹出堆栈.</strong><br><strong>BSWAP 交换32位寄存器里字节的顺序</strong><br><strong>XCHG 交换字或字节.( 至少有一个操作数为寄存器,段寄存器不可作为操作数)</strong><br><strong>CMPXCHG 比较并交换操作数.( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )</strong><br><strong>XADD 先交换再累加.( 结果在第一个操作数里 )</strong><br><strong>XLAT 字节查表转换.</strong><br><strong>── BX 指向一张 256 字节的表的起点, AL 为表的索引值 (0-255,即</strong><br><strong>0-FFH); 返回 AL 为查表结果. ( [BX+AL]-&gt;AL )</strong></li>
-<li><strong>输入输出端口传送指令.</strong><br><strong>IN I&#x2F;O端口输入. ( 语法: IN 累加器, {端口号│DX} )</strong><br><strong>OUT I&#x2F;O端口输出. ( 语法: OUT {端口号│DX},累加器 )</strong><br><strong>输入输出端口由立即方式指定时, 其范围是 0-255; 由寄存器 DX 指定时,</strong><br><strong>其范围是 0-65535.</strong></li>
-<li><strong>目的地址传送指令.</strong><br><strong>LEA 装入有效地址.</strong><br><strong>例: LEA DX,string ;把偏移地址存到DX.</strong><br><strong>LDS 传送目标指针,把指针内容装入DS.</strong><br><strong>例: LDS SI,string ;把段地址:偏移地址存到DS:SI.</strong><br><strong>LES 传送目标指针,把指针内容装入ES.</strong><br><strong>例: LES DI,string ;把段地址:偏移地址存到ESI.</strong><br><strong>LFS 传送目标指针,把指针内容装入FS.</strong><br><strong>例: LFS DI,string ;把段地址:偏移地址存到FSI.</strong><br><strong>LGS 传送目标指针,把指针内容装入GS.</strong><br><strong>例: LGS DI,string ;把段地址:偏移地址存到GSI.</strong><br><strong>LSS 传送目标指针,把指针内容装入SS.</strong><br><strong>例: LSS DI,string ;把段地址:偏移地址存到SSI.</strong> </li>
-<li><strong>标志传送指令.</strong><br><strong>LAHF 标志寄存器传送,把标志装入AH.</strong><br><strong>SAHF 标志寄存器传送,把AH内容装入标志寄存器.</strong><br><strong>PUSHF 标志入栈.</strong><br><strong>POPF 标志出栈.</strong><br><strong>PUSHD 32位标志入栈.</strong><br><strong>POPD 32位标志出栈.</strong></li>
-</ol>
-<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong> （其中sub ax,bx就是ax中的值减bx中的值，然后把结果放入ax中。）<br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
-<p><strong>三、逻辑运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>AND 与运算.</strong><br><strong>OR 或运算.</strong><br><strong>XOR 异或运算.</strong><br><strong>NOT 取反.</strong><br><strong>TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</strong><br><strong>SHL 逻辑左移.</strong><br><strong>SAL 算术左移.(&#x3D;SHL)</strong><br><strong>SHR 逻辑右移.</strong><br><strong>SAR 算术右移.(&#x3D;SHR)</strong><br><strong>ROL 循环左移.</strong><br><strong>ROR 循环右移.</strong><br><strong>RCL 通过进位的循环左移.</strong><br><strong>RCR 通过进位的循环右移.</strong><br><strong>以上八种移位指令,其移位次数可达255次.</strong><br><strong>移位一次时, 可直接用操作码. 如 SHL AX,1.</strong><br><strong>移位&gt;1次时, 则由寄存器CL给出移位次数.</strong><br><strong>如 MOV CL,04</strong><br><strong>SHL AX,CL</strong> </p>
-<p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
-<p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
-<p><strong>六、伪指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DW 定义字(2字节).</strong><br><strong>PROC 定义过程.</strong><br><strong>ENDP 过程结束.</strong><br><strong>SEGMENT 定义段.</strong><br><strong>ASSUME 建立段寄存器寻址.</strong><br><strong>ENDS 段结束.</strong><br><strong>END 程序结束</strong><br><strong>————————————————</strong>**</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1174,7 +1161,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
