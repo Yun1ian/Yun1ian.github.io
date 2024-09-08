@@ -145,6 +145,272 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/06/Canary%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/06/Canary%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-06 20:56:24 / 修改时间：20:56:25" itemprop="dateCreated datePublished" datetime="2024-09-06T20:56:24+08:00">2024-09-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h1><p>canary位置的前一位正前方往往是&#x2F;x00，为printf以及puts输出读取的最后界限（读到此为止）。所以要多一个覆盖，但这会导致输出的canary最后一位被覆盖，所以要在读数的基础上减去该数的hex形式</p>
+<p>canary末尾字节必为00</p>
+<p>canary&#x3D;u64(p.recv(7).rjust(8,b’\x00’)) 接受前七字节的地址，末尾用00补全。</p>
+<p>p64覆盖rbp要跟返回地址，不能直接进后门函数。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/03/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/03/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-03 21:10:39" itemprop="dateCreated datePublished" datetime="2024-09-03T21:10:39+08:00">2024-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-05 20:12:08" itemprop="dateModified" datetime="2024-09-05T20:12:08+08:00">2024-09-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>RAP:用来存放返回值</p>
+<p>RBP,RSP：做栈，保护栈</p>
+<hr>
+<p>以上为编译器发展的近况，与操作系统（cpu）无关。</p>
+<hr>
+<p><strong>rax，rbx，rcx,rdx,rsi,rdi,rbp,rsp</strong>等r8之前的寄存器前三十二位为<strong>eax</strong>等（exx形式），后三十二位为xx（例：ax）。</p>
+<p>r8之后为r8d等.（rxx形式），后32位为rxxw。</p>
+<hr>
+<p>rip：存放当前执行的指令的地址。</p>
+<hr>
+<p>(gdb) disassemble $rip 反编译rip中地址所对应的命令</p>
+<p>rip可换为其对应的命令函数名（eg：main)</p>
+<hr>
+<p>set disassembly-flavor intel将反编译转化为英特尔模式 在gdb运行编译程序时直接输入命令</p>
+<hr>
+<p>设置断点： </p>
+<p>b * 0x8048489 </p>
+<p>查看断点 个数，地址，所在函数位置</p>
+<p>i b</p>
+<p>执行到断点位置</p>
+<p>c </p>
+<p>查看寄存器信息</p>
+<p>i r </p>
+<p>使断点有效（已设置断点）：</p>
+<p>enable  b id[b-id为中断编号]</p>
+<p>enable id</p>
+<p>使断点失效（已设置断点）：</p>
+<p>标准写法：disable b id[b-id为中断编号]</p>
+<p>不标准写法：d 2（2指断电的num），disable 2</p>
+<hr>
+<p>lea &#x3D;》Load effective address（原含义）</p>
+<p>现含义：lea rax，[rbp-0x18]   用于计算等 op后长度更短，必须加方括号，不加为原含义</p>
+<hr>
+<p>xor异或指令：</p>
+<p>eg：xor ebx,ebx （两指令）&#x3D;&gt;将ebx&#x3D;0 （对比mov ebx ，0（三指令）更短）</p>
+<p>但xor有影响标志寄存器的副作用，但mov没有</p>
+<hr>
+<p>jcc系列</p>
+<p><img src="https://ooo.0x0.ooo/2024/09/04/OtIhnB.png"></p>
+<hr>
+<h1 id="cmp："><a href="#cmp：" class="headerlink" title="cmp："></a>cmp：</h1><h5 id="大概类用于sub，减的作用。"><a href="#大概类用于sub，减的作用。" class="headerlink" title="大概类用于sub，减的作用。"></a>大概类用于sub，减的作用。</h5><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><h3 id="cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"><a href="#cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）" class="headerlink" title="cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"></a>cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）</h3><h3 id="sub：sub-al-，0x61——al-al-0x61赋值且存储"><a href="#sub：sub-al-，0x61——al-al-0x61赋值且存储" class="headerlink" title="sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储"></a>sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储</h3><hr>
+<p>ni：步入</p>
+<p>si：步过</p>
+<p>finish：步出函数</p>
+<p>PTR——指针</p>
+<p>8		 		16				32				64				个01位（bit）</p>
+<p> BYTE 	WROD		DWORD		QWORD</p>
+<p>拿多少内存的数赋值</p>
+<hr>
+<p>cpu进行运算。从寄存器中取数。</p>
+<p>定义的数优先存在16个寄存器中，其余过多的参数存在虚拟内存中。</p>
+<p>如果刚开始就过多，参数从寄存器移到虚拟内存（push），使用时候从虚拟内存移到寄存器中。</p>
+<p>查看内存的数：</p>
+<h1 id="X-20i-4RIP"><a href="#X-20i-4RIP" class="headerlink" title="X&#x2F;20i 4RIP"></a>X&#x2F;20i 4RIP</h1><h6 id="与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编"><a href="#与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编" class="headerlink" title="{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}"></a>{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}</h6><p>20：以下20行关于XXX的指令</p>
+<p>rip：相当于上句的xxx                  </p>
+<p>i：采用汇编的形式呈现     b:以byte形式看一个字节的形式显示     g：以八个字节的形式呈现      w以四个字节的形式呈现      </p>
+<p>d：以十进制显示  （常用搭配bd）     x：以十六进制显示</p>
+<h1 id="x-20b-rbp-0x10"><a href="#x-20b-rbp-0x10" class="headerlink" title="x&#x2F;20b $rbp-0x10"></a>x&#x2F;20b $rbp-0x10</h1><p>看最后方地址的内容是什么，连续看20句相关内容</p>
+<h1 id="x-20i-0向5555555552ce"><a href="#x-20i-0向5555555552ce" class="headerlink" title="x&#x2F;20i 0向5555555552ce"></a>x&#x2F;20i 0向5555555552ce</h1><p>从末尾地址往下看20行以汇编形式呈现</p>
+<hr>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><p>*0x1111111111 &#x3D;19   *地址&#x3D;值</p>
+<p>$rbp&#x3D;19   $寄存器&#x3D;值</p>
+<p>{char[4]} 0x131312&#x3D;“ACE”</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/02/%E6%A0%88%E8%BF%81%E7%A7%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/02/%E6%A0%88%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-02 20:58:15 / 修改时间：20:58:20" itemprop="dateCreated datePublished" datetime="2024-09-02T20:58:15+08:00">2024-09-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>每条指令的作用：</p>
+<ol>
+<li><p><code>push eip+4;</code></p>
+<ul>
+<li>这条指令将当前指令指针寄存器（<code>eip</code>）加上 4 的值压入栈中。这里的 <code>eip+4</code> 实际上是下一条指令的地址（假设没有其他的分支跳转或中断），因为 <code>eip</code> 指向当前正在执行的指令的地址。这样做通常是为了将返回地址（即函数调用指令的下一条指令地址）保存到栈中，以便函数调用完成后可以正确地返回。</li>
+</ul>
+</li>
+<li><p><code>push ebp;</code></p>
+<ul>
+<li>这条指令将当前基指针寄存器（<code>ebp</code>）的值压入栈中。<code>ebp</code> 通常用于指向当前栈帧的基址，因此将其值保存下来是为了在函数调用完成后能够恢复到调用函数之前的栈帧状态。</li>
+</ul>
+</li>
+<li><p><code>mov ebp, esp;</code></p>
+<ul>
+<li>这条指令将栈指针寄存器（<code>esp</code>）的值复制到基指针寄存器（<code>ebp</code>）。这意味着函数的栈帧基址现在被设置为当前栈顶的位置。之后，函数可以通过 <code>ebp</code> 寄存器访问其局部变量和参数。</li>
+</ul>
+</li>
+</ol>
+<p>这段代码的整体作用是设置一个新的栈帧，使得函数可以在其局部变量和参数上进行操作，同时保留调用函数前的栈帧状态，以便在函数返回时能够恢复原始状态。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/08/18/memcpy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -586,195 +852,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/15/%E5%88%A4%E6%96%ADsym%E4%BB%A5%E5%8F%8Aexe%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/15/%E5%88%A4%E6%96%ADsym%E4%BB%A5%E5%8F%8Aexe%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-15 21:24:53 / 修改时间：21:24:58" itemprop="dateCreated datePublished" datetime="2024-05-15T21:24:53+08:00">2024-05-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在x64架构下execve和sys_rt_sigreturn的系统调用就是59（0x3B）和15（0xF），可以直接用execve（“&#x2F;bin&#x2F;sh”,0,0）或者有SROP的方法伪造signal frame构造execve（“&#x2F;bin&#x2F;sh”,0,0）再利用sys_rt_sigreturn来getshell</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/12/close(1)%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%95%E8%BF%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/12/close(1)%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%95%E8%BF%87/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-12 19:42:04" itemprop="dateCreated datePublished" datetime="2024-05-12T19:42:04+08:00">2024-05-12</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>close(1)函数的绕过</p>
-<p>1.&#x2F;bin&#x2F;sh 1&gt;&amp;0</p>
-<p>关于system执行形的绕过方式</p>
-<p>2.execv 1&gt;&amp;0</p>
-<p>关于execv的绕过方式</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/10/iscc%20ret2libc%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/10/iscc%20ret2libc%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-10 21:42:20 / 修改时间：21:43:03" itemprop="dateCreated datePublished" datetime="2024-05-10T21:42:20+08:00">2024-05-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=fmtstr_payload(<span class="number">4</span>, &#123;<span class="number">0x0804C030</span>:<span class="number">5</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">上述为偏移量，写入地址，写入数据</span><br><span class="line">fmtstr_payload(offset, writes, numbwritten=0, write_size=‘byte’)</span><br><span class="line">第一个参数表示格式化字符串的偏移；</span><br><span class="line">第二个参数表示需要利用%n写入的数据，采用字典形式，我们要将printf的GOT数据改为system函数地址，就写成&#123;printfGOT:systemAddress&#125;；本题是将0804a048处改为0x2223322</span><br><span class="line">第三个参数表示已经输出的字符个数，这里没有，为0，采用默认值即可；</span><br><span class="line">第四个参数表示写入方式，是按字节（byte）、按双字节（short）还是按四字节（int），对应着hhn、hn和n，默认值是byte，即按hhn写。</span><br><span class="line">fmtstr_payload函数返回的就是payload</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.sendlineafter(<span class="string">&#x27;fun!\n&#x27;</span>,payload)</span><br></pre></td></tr></table></figure>
-
-<p>前者是在什么之后发送payload 部分题目卡的严需要分段发送，后方为发送内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">write_addr=u32(p.recv(<span class="number">4</span>))<span class="comment">#32为位数 4为接受地址的字节长度</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(write_addr))<span class="comment">#hex为把数值转为16进制形式</span></span><br></pre></td></tr></table></figure>
-
-<p>栈溢出要溢出数目（edp+距edp数目）+偏移数</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -844,7 +921,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

