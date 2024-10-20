@@ -145,6 +145,262 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/echo%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/echo%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">echo函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:11:19 / 修改时间：18:48:59" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:19+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>echo</p>
+<p>echo 有多种解法，可以通过管道符号重定向把flag的内容读出来，可以利⽤bash报错信息把flag读出来 &#x2F;flag</p>
+<p> echo <code>&lt;/flag</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/" class="post-title-link" itemprop="url">execve函数的三个变量意义</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:11:10 / 修改时间：15:20:58" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:10+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>execve这个函数有三个参数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file,<span class="type">char</span> *<span class="type">const</span> argv[],<span class="type">char</span> *<span class="type">const</span> envp[])</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第一个参数，是要打开运行的二进制文件，这个是个文件路径，绝对路径和相对路径都可以</strong></p>
+<p>1、文件路径为&#x2F;bin&#x2F;sh，这个sh其实是个shell程序，如果argv是空（0也可以），那么就会去打开一个shell，所以execve(“&#x2F;bin&#x2F;sh”,0,0)是我们最常用的，but如果argv不为空呢，sh就可以变成变成一个shell脚本解析器，这时候argv应该是这么组成char *argv[]&#x3D;{“&#x2F;bin&#x2F;sh”,”flag”,NULL}<br>2、文件路径为&#x2F;bin&#x2F;cat，这个cat故名思议就是打印文件内容的程序，函数形式为execve(“&#x2F;bin&#x2F;cat”,argv,0),argv[]&#x3D;{“&#x2F;bin&#x2F;cat”,”flag”,NULL}这样子这个数组的第一个内容是文件路径，这个和execve的第一个参数一样，但是吧由于argv的特性，所以数组的第一个一定得是这个，然后第二个就是我们要解析的脚本路径，我这边是相对路径，然后第三个是空，这个是argv的要求，要求最后一个一定得是NULL，这个有什么用呢，如果argv里面的要解析的文件不是shell程序，那么就会把文件内容以报错的形式输出出来，如果题目把0(标准输入)和1(标准输出)关了，还能这么拿到flag</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br></pre></td></tr></table></figure>
+
+<p>在说明第二个参数之前，我们要说明一下这个execve的功能，我们知道程序的执行是由进程执行的，那么如果使用的execve，这个函数后面的代码全部不执行，转头去执行我们第一个参数指向的二进制代码<br>主函数是有参数的，可以通过这个参数传一些信息给主函数</p>
+<p><strong>第二个参数，我们上面提到了主函数有两个参数，第二个参数叫做argv，这个刚好和我们第二个参数名字一样，其实我们第二个参数就是原封不动的传给要去执行的二进制代码的argv参数，这个参数的详细介绍后面再说</strong><br><strong>第三个参数是环境变量，这个我并没有细究，因为通常都是NULL</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">gdb调试知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-08 15:11:02" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:02+08:00">2024-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-20 17:30:06" itemprop="dateModified" datetime="2024-10-20T17:30:06+08:00">2024-10-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>RAP:用来存放返回值</p>
+<p>RBP,RSP：做栈，保护栈</p>
+<p>pop edp：ebp转换到指向原来所在地址的栈中内容（一般是个地址）</p>
+<hr>
+<p>以上为编译器发展的近况，与操作系统（cpu）无关。</p>
+<hr>
+<p><strong>rax，rbx，rcx,rdx,rsi,rdi,rbp,rsp</strong>等r8之前的寄存器前三十二位为<strong>eax</strong>等（exx形式），后三十二位为xx（例：ax）。</p>
+<p>r8之后为r8d等.（rxx形式），后32位为rxxw。</p>
+<hr>
+<p>rip：存放当前执行的指令的地址。</p>
+<hr>
+<p>(gdb) disassemble $rip 反编译rip中地址所对应的命令</p>
+<p>rip可换为其对应的命令函数名（eg：main)</p>
+<hr>
+<p>set disassembly-flavor intel将反编译转化为英特尔模式 在gdb运行编译程序时直接输入命令</p>
+<hr>
+<p>设置断点： </p>
+<p>b * 0x8048489 </p>
+<p>查看断点 个数，地址，所在函数位置</p>
+<p>i b</p>
+<p>执行到断点位置</p>
+<p>c </p>
+<p>查看寄存器信息</p>
+<p>i r </p>
+<p>使断点有效（已设置断点）：</p>
+<p>enable  b id[b-id为中断编号]</p>
+<p>enable id</p>
+<p>使断点失效（已设置断点）：</p>
+<p>标准写法：disable b id[b-id为中断编号]</p>
+<p>不标准写法：d 2（2指断电的num），disable 2</p>
+<hr>
+<p>lea &#x3D;》Load effective address（原含义）</p>
+<p>现含义：lea rax，[rbp-0x18]   用于计算等 op后长度更短，必须加方括号，不加为原含义</p>
+<hr>
+<p>xor异或指令：</p>
+<p>eg：xor ebx,ebx （两指令）&#x3D;&gt;将ebx&#x3D;0 （对比mov ebx ，0（三指令）更短）</p>
+<p>但xor有影响标志寄存器的副作用，但mov没有</p>
+<hr>
+<p>jcc系列</p>
+<p><img src="https://ooo.0x0.ooo/2024/09/04/OtIhnB.png"></p>
+<hr>
+<h1 id="cmp："><a href="#cmp：" class="headerlink" title="cmp："></a>cmp：</h1><h5 id="大概类用于sub，减的作用。"><a href="#大概类用于sub，减的作用。" class="headerlink" title="大概类用于sub，减的作用。"></a>大概类用于sub，减的作用。</h5><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><h3 id="cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"><a href="#cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）" class="headerlink" title="cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"></a>cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）</h3><h3 id="sub：sub-al-，0x61——al-al-0x61赋值且存储"><a href="#sub：sub-al-，0x61——al-al-0x61赋值且存储" class="headerlink" title="sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储"></a>sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储</h3><hr>
+<p>ni：步入</p>
+<p>si：步过</p>
+<p>finish：步出函数</p>
+<p>PTR——指针</p>
+<p>8		 		16				32				64				个01位（bit）</p>
+<p> BYTE 	WROD		DWORD		QWORD</p>
+<p>拿多少内存的数赋值</p>
+<hr>
+<p>cpu进行运算。从寄存器中取数。</p>
+<p>定义的数优先存在16个寄存器中，其余过多的参数存在虚拟内存中。</p>
+<p>如果刚开始就过多，参数从寄存器移到虚拟内存（push），使用时候从虚拟内存移到寄存器中。</p>
+<p>查看内存的数：</p>
+<h1 id="X-20i-4RIP"><a href="#X-20i-4RIP" class="headerlink" title="X&#x2F;20i 4RIP"></a>X&#x2F;20i 4RIP</h1><h6 id="与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编"><a href="#与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编" class="headerlink" title="{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}"></a>{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}</h6><p>20：以下20行关于XXX的指令</p>
+<p>rip：相当于上句的xxx                  </p>
+<p>i：采用汇编的形式呈现     b:以byte形式看一个字节的形式显示     g：以八个字节的形式呈现      w以四个字节的形式呈现      </p>
+<p>d：以十进制显示  （常用搭配bd）     x：以十六进制显示</p>
+<h1 id="x-20b-rbp-0x10"><a href="#x-20b-rbp-0x10" class="headerlink" title="x&#x2F;20b $rbp-0x10"></a>x&#x2F;20b $rbp-0x10</h1><p>看最后方地址的内容是什么，连续看20句相关内容</p>
+<h1 id="x-20i-0向5555555552ce"><a href="#x-20i-0向5555555552ce" class="headerlink" title="x&#x2F;20i 0向5555555552ce"></a>x&#x2F;20i 0向5555555552ce</h1><p>从末尾地址往下看20行以汇编形式呈现</p>
+<hr>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><p>*0x1111111111 &#x3D;19   *地址&#x3D;值</p>
+<p>$rbp&#x3D;19   $寄存器&#x3D;值</p>
+<p>{char[4]} 0x131312&#x3D;“ACE”</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/Leave%E6%8C%87%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,199 +918,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/retsyscall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/retsyscall/" class="post-title-link" itemprop="url">retsyscall</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:08:35 / 修改时间：15:25:23" itemprop="dateCreated datePublished" datetime="2024-10-08T15:08:35+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>addr要略比实际靠前，要取ctrl+s显示bss段开始靠前一点</p>
-<p>prot值如下：</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC231.png" alt="https://ooo.0x0.ooo/2024/05/07/OpC231.png"></p>
-<p>关于int 0x80以及execve函数的利用</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpC8hI.png"></p>
-<h4 id="关于系统调用的知识："><a href="#关于系统调用的知识：" class="headerlink" title="关于系统调用的知识："></a>关于系统调用的知识：</h4><p><strong>Linux 的系统调用通过 int 80h 实现，用系统调用号来区分入口函数</strong></p>
-<p><strong>应用程序调用系统调用的过程是：</strong></p>
-<p>1、<strong>把系统调用的编号存入 EAX</strong></p>
-<p>2、<strong>把函数参数存入其它通用寄存器</strong></p>
-<p>3、<strong>触发 0x80 号中断（int 0x80）</strong></p>
-<p>查看 execve 的系统调用号：（得到的数值需要转化为十六进制表达，给的数字为10进制）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/include/asm/unistd_32.h | grep execve </span><br></pre></td></tr></table></figure>
-
-<p>图片表示</p>
-<p><img src="https://ooo.0x0.ooo/2024/05/07/OpwxVL.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/rop%E9%9D%99%E6%80%81%E9%93%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/rop%E9%9D%99%E6%80%81%E9%93%BE/" class="post-title-link" itemprop="url">rop静态链</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:08:26 / 修改时间：15:25:56" itemprop="dateCreated datePublished" datetime="2024-10-08T15:08:26+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="rop静态链"><a href="#rop静态链" class="headerlink" title="rop静态链"></a>rop静态链</h1><p>ROPgadget     –binary  文件名 –rapchain</p>
-<p>根据个人需求以及输入长度等进行优化删除</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/system/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/system/" class="post-title-link" itemprop="url">system</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:08:19 / 修改时间：15:26:09" itemprop="dateCreated datePublished" datetime="2024-10-08T15:08:19+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>system@plt</code>地址，因为plt地址需要返回值，所以需要的位数更多。</p>
-<p>sh可以作为字符串bin&#x2F;sh的替代品。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -924,7 +987,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

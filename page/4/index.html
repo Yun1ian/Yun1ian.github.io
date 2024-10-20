@@ -145,6 +145,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">例题关于gdb调试的步骤</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:03:18 / 修改时间：15:37:22" itemprop="dateCreated datePublished" datetime="2024-10-08T15:03:18+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>一.基本概念：</strong></p>
+<p>（1）<em><strong>ESP</strong></em>：栈指针寄存器(<em>extended stack pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的栈顶</strong>。</p>
+<p>（2）<em><strong>EBP</strong></em>：基址指针寄存器(<em>extended base pointer</em>)，其内存放着一个指针，该指针永远指向<strong>系统栈最上面一个栈帧的底部</strong>。</p>
+<h6 id="一般来说，我们会有如下的覆盖需求"><a href="#一般来说，我们会有如下的覆盖需求" class="headerlink" title="一般来说，我们会有如下的覆盖需求"></a>一般来说，我们会有如下的覆盖需求</h6><ul>
+<li><strong>覆盖函数返回地址</strong>，这时候就是直接看 EBP 即可。</li>
+<li><strong>覆盖栈上某个变量的内容</strong>，这时候就需要更加精细的计算了。</li>
+<li><strong>覆盖 bss 段某个变量的内容</strong>。</li>
+<li>根据现实执行情况，覆盖特定的变量或地址的内容。</li>
+</ul>
+<p>之所以我们想要覆盖某个地址，是因为我们想通过覆盖地址的方法来<strong>直接或者间接地控制程序执行流程</strong>。</p>
+<h6 id="确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"><a href="#确定填充长度-主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开-IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式" class="headerlink" title="确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式"></a>确定填充长度 主要是计算我们所要操作的地址与我们所要覆盖的地址的距离。常见的操作方法就是打开 IDA，根据其给定的地址计算偏移。一般变量会有以下几种索引模式</h6><ul>
+<li>相对于栈基地址的的索引，可以直接通过查看 EBP 相对偏移获得</li>
+<li>相对应栈顶指针的索引，一般需要进行调试，之后还是会转换到第一种类型。</li>
+<li>直接地址索引，就相当于直接给定了地址。</li>
+</ul>
+<p><strong>二.解题步骤（gdb调试）：</strong></p>
+<p>（1）.打开vm利用pwntools进行基本分析 ：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgokGx.jpg"></p>
+<p>(2).打开ida按f5反编译进行静态分析：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoZ31.png" alt="img"></p>
+<p>(3).由文件得有且仅有一输入的过程可操作，而gets是一个高危函数，因此联想到栈溢出的知识点。点开s找相应覆盖的偏移距离：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogobet.png"></p>
+<p>由此得偏移地址为0F+08&#x3D;25</p>
+<p>ps:后门相关知识点：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo7gq.png"></p>
+<p>(4).shift+f12找相应后门发现：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/Ogo1Wv.png"></p>
+<p>而&#x2F;bin&#x2F;sh在函数fun()中</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/14/OgoijY.png"></p>
+<p>则将fun函数的地址返回给在s数组后看到的r中就可以</p>
+<p>（5).进入虚拟机运行调试，ni直到进行到gets操作：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5oZL.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5qci.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5WXj.png"></p>
+<p>（6).按si进入gets函数观察输入效果：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5kzp.png"></p>
+<p>此时a已重复输入被gets读取存入栈中,顺序跟踪程序运行。</p>
+<p>（7).执行到leave操作：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og57Or.png"></p>
+<p><em><strong>leave</strong></em>：<strong>leave指令将RSP寄存器的内容复制到RBP寄存器中,然后RSP寄存器的地址+8。</strong></p>
+<p>(8).程序根据输入后跳转到后门函数0X401185：</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5ru1.png"></p>
+<p>跟随程序运行至字符串（bin&#x2F;sh）</p>
+<p><img src="https://ooo.0x0.ooo/2024/03/15/Og5KzI.png"></p>
+<p>拿到程序控制权后，通过后门函数ls获取菜单，catflag即可拿到flag。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E5%88%A4%E6%96%ADsym%E4%BB%A5%E5%8F%8Aexe%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E5%88%A4%E6%96%ADsym%E4%BB%A5%E5%8F%8Aexe%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">判断sym以及exe使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:03:07 / 修改时间：15:40:26" itemprop="dateCreated datePublished" datetime="2024-10-08T15:03:07+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在x64架构下execve和sys_rt_sigreturn的系统调用就是59（0x3B）和15（0xF），可以直接用execve（“&#x2F;bin&#x2F;sh”,0,0）或者有SROP的方法伪造signal frame构造execve（“&#x2F;bin&#x2F;sh”,0,0）再利用sys_rt_sigreturn来getshell</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E7%94%9F%E6%88%90Shellcode%E4%BB%A5%E5%8F%8AASLR%E4%BD%9C%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E7%94%9F%E6%88%90Shellcode%E4%BB%A5%E5%8F%8AASLR%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">生成Shellcode以及ASLR作用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:02:57 / 修改时间：15:40:39" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:57+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>ASLR主要影响stack、share library、heap几个部分。<br>当ASLR&#x3D;0时，栈和堆的地址都不会改变。<br>当ASLR&#x3D;1时，栈的地址变了，堆的地址不变。<br>当ASLR&#x3D;2时，栈和堆的地址都变了。</p>
+<p>生成shellcode<br>32位：<br>print(shellcraft.sh()) 生成的是shell的汇编代码<br>print(asm(shellcraft.sh())) 生成的是shell的机械码</p>
+<p>64位：<br>context.arch&#x3D;“amd64”<br>print(shellcraft.sh()) 生成的是shell的汇编代码<br>print(asm(shellcraft.sh())) 生成的是shell的机械码</p>
+<p>gcc -fno-stack-protector -z execstack -no-pie -g -o ret2 ret2.c</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E5%88%B7%E9%A2%98%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%931-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -525,10 +749,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-10-08 15:02:17 / 修改时间：15:44:52" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:17+08:00">2024-10-08</time>
+              <time title="创建时间：2024-10-08 15:02:17" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:17+08:00">2024-10-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-20 21:37:12" itemprop="dateModified" datetime="2024-10-20T21:37:12+08:00">2024-10-20</time>
+              </span>
 
           
 
@@ -560,6 +790,14 @@
 </li>
 </ol>
 <p>这段代码的整体作用是设置一个新的栈帧，使得函数可以在其局部变量和参数上进行操作，同时保留调用函数前的栈帧状态，以便在函数返回时能够恢复原始状态。</p>
+<p>主要通过两次leave ret指令得到目的，最主要是要得到ebp值也就是栈底的地址，来更精确地进行两次leave</p>
+<p>32位模板：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload1 = p32(write_plt_addr) + p32(main_addr) + p32(<span class="number">1</span>) //<span class="comment">#此前为需要执行的命令</span></span><br><span class="line">     + p32(write_got_addr) + p32(<span class="number">4</span>)//<span class="comment">#此为必要的，一为返回的地址，二为</span></span><br><span class="line"></span><br><span class="line">payload2 = offset*<span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>64位模板（仅参考）：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload=(p64(gift)+p64(main)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;\x00&#x27;</span>)<span class="comment"># 依次是需要执行的命令进行ret2libc</span></span><br><span class="line">payload+=p64(leak-<span class="number">0X8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 </span></span><br><span class="line">本题存在libc 所以每次ebp值不同</span><br><span class="line">payload1=(p64(pop_rdi)+p64(bin_sh_addr)+p64(system_addr)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;a&#x27;</span>)<span class="comment">#p64执行获取shell步骤</span></span><br><span class="line">payload1+=p64(leak2-<span class="number">0x8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 之前依次是需要执行的命令进行getshell 若leak2的值不减去0x8 会导致第一个地址的命令无法执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\111Blog\myBlog\source_posts\栈迁移\8.png" alt="8"></p>
 
       
     </div>
@@ -757,7 +995,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

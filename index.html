@@ -145,6 +145,1343 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/20/pwntools%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/20/pwntools%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">pwntools常用函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-20 19:16:57 / 修改时间：19:17:33" itemprop="dateCreated datePublished" datetime="2024-10-20T19:16:57+08:00">2024-10-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>flat([cyclic(0x50), passwd_addr + 0x4])</code>以下是对这一行代码的解析：</p>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><ol>
+<li><strong><code>cyclic(0x50)</code></strong>:<ul>
+<li><code>cyclic</code> 是 <code>pwntools</code> 中的一个函数，用于生成一个长度为 0x50（即 80 字节）的循环模式字符串。这个字符串通常用于缓冲区溢出攻击中，以便在后续的溢出过程中更容易地识别栈的偏移量。</li>
+<li>例如，它可能生成一个像 <code>abcdeabcdeabcde...</code> 的模式，以帮助开发者确定输入数据中某个特定点的偏移量。</li>
+</ul>
+</li>
+<li><strong><code>passwd_addr + 0x4</code></strong>:<ul>
+<li><code>passwd_addr</code> 代表一个变量，通常是某个内存地址，可能是程序中存储密码的地方。</li>
+<li><code>+ 0x4</code> 表示在这个地址的基础上偏移 4 字节。这可能是因为你想访问该地址后面的数据，比如一个指针或某个结构体的字段。</li>
+</ul>
+</li>
+<li><strong><code>flat([...])</code></strong>:<ul>
+<li><code>flat</code> 是 <code>pwntools</code> 提供的另一个函数，用于将传入的列表展平为一个连续的字节串。它会将列表中的元素（比如字节串、整数等）按顺序组合成一个连续的内存块。</li>
+<li>在这个上下文中，<code>flat</code> 会将 <code>cyclic(0x50)</code> 生成的字节串和 <code>passwd_addr + 0x4</code> 的值（通常是以字节形式表示的内存地址）连接在一起，形成一个最终的输入数据。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/18/%E5%A0%86%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/18/%E5%A0%86%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">堆的学习总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-18 20:02:52 / 修改时间：22:43:38" itemprop="dateCreated datePublished" datetime="2024-10-18T20:02:52+08:00">2024-10-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><blockquote>
+<p>堆（heap）是一种数据结构，在程序运行的过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。</p>
+<p>堆是程序虚拟地址空间中的一块连续的线性区域，它<strong>由低地址向高地址方向增长（和栈的增长方向相反）</strong>，管理堆的程序也称为堆管理器。</p>
+</blockquote>
+<p>目前 Linux 标准发行版中使用的堆分配器是 Glibc 中的堆分配器：<code>ptmalloc2</code></p>
+<p>堆的基本操作是分配和回收，<code>ptmalloc2</code> 主要通过 <code>malloc()</code> 和 <code>free()</code> 函数来分配和释放内存块<strong>（漏洞的主要产生地）</strong>。</p>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="堆的基本操作"><a href="#堆的基本操作" class="headerlink" title="堆的基本操作"></a>堆的基本操作</h2><h3 id="malloc-未初始化仅分配"><a href="#malloc-未初始化仅分配" class="headerlink" title="malloc(未初始化仅分配)"></a>malloc(未初始化仅分配)</h3><blockquote>
+<p>函数定义：<code>void *malloc(size_t size)</code></p>
+<p>其中：</p>
+<p><code>size</code> 是内存块的大小，以字节为单位</p>
+</blockquote>
+<p><code>malloc()</code> 的作用是分配所需的内存空间（<em>不会对内存空间进行初始化</em>，这点与calloc不同），并返回一个指向它的指针；如果请求失败，则返回 NULL</p>
+<ul>
+<li>当 <code>size = 0</code> 时，返回当前系统允许的堆的最小内存块</li>
+<li>当 <code>size</code> 为负数时，<strong>由于在大多数系统上，size_t 是无符号数（这一点非常重要）</strong>，所以程序就会申请很大的内存空间，但通常来说都会失败，因为系统没有那么多的内存可以分配</li>
+</ul>
+<p>以一个简单的例子来看看 <code>malloc()</code> 函数和堆：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> *ptr = <span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过 GDB 调试可以看到，在执行 <code>malloc()</code> 函数前，程序的地址空间里是没有堆的：</p>
+<p>执行 <code>malloc()</code> 函数后：</p>
+<p>可见程序中最开始是没有堆这部分空间的，在用户通过 <code>malloc()</code> 申请内存后才会出现，并且会一次性申请很大空间的堆段（<code>0x555555559000 ~ 0x55555557a000</code>）</p>
+<blockquote>
+<p>注意：新版本的 Glibc 对堆结构的管理有些区别，以上图是在 Glibc 2.37 的 Kali Linux 2024.1 中进行的测试</p>
+<p>而在 Glibc 2.23 的 Ubuntu 16.04 中是这样的：</p>
+</blockquote>
+<hr>
+<h4 id="calloc（初始化分配）"><a href="#calloc（初始化分配）" class="headerlink" title="calloc（初始化分配）"></a>calloc（初始化分配）</h4><blockquote>
+<p>函数定义：<code>void *calloc(size_t nitems, size_t size)</code></p>
+<p>其中：</p>
+<p><code>nitems</code> 为要被分配的元素个数；<code>size</code> 为元素的大小</p>
+</blockquote>
+<p><code>calloc()</code> 在功能上与 <code>malloc()</code> 几乎相同，最大区别在于 <em><code>calloc()</code> 申请内存空间后会将其全部初始化为 0</em></p>
+<p>与malloc函数相似，使用 <code>calloc()</code> 函数时需要注意，如果分配的内存块过大，可能会导致内存不足的问题</p>
+<hr>
+<h4 id="realloc"><a href="#realloc" class="headerlink" title="realloc"></a>realloc</h4><blockquote>
+<p>函数定义：<code>void *realloc(void *ptr, size_t size)</code></p>
+<p>其中：</p>
+<p><code>ptr</code> 是一个指向要重新分配内存的内存块的指针；<code>size</code> 是内存块的新的大小，以字节为单位</p>
+</blockquote>
+<p><code>realloc()</code> 的作用是调整之前通过 <code>malloc()</code> 或 <code>calloc()</code> 所分配的 <code>ptr</code> 所指向的内存块的大小，并返回一个指向重新分配大小的内存的指针；如果请求失败，则返回 NULL</p>
+<ul>
+<li>如果 <code>ptr</code> 为空指针，则会分配一个新的内存块，且函数返回一个指向它的指针，相当于 <code>malloc()</code></li>
+<li>如果 <code>size = 0</code>，且 <code>ptr</code> 指向一个已存在的内存块，则 <code>ptr</code> 所指向的内存块会被释放，并返回一个空指针，相当于 <code>free()</code></li>
+</ul>
+<p>另外，针对重新申请的大小与之前申请内存的大小的关系，又有三种不同的情况：</p>
+<ol>
+<li><p>如果重新申请的大小 &gt; 之前申请内存的大小，且当前内存段后面有需要的内存空间，则<strong>直接扩展这段内存空间，<code>realloc()</code> 将返回原指针</strong></p>
+</li>
+<li><p>如果重新申请的大小 &gt; 之前申请内存的大小，且当前内存段后面的空闲空间不够，那么就使用堆中的第一个能够满足这一要求的内存块，将目前的数据复制到新的位置，并将原来的数据块释放掉，返回新的内存块地址，<strong>相当于 <code>free() + malloc()</code></strong></p>
+<blockquote>
+<p>**如果 chunk 与 top chunk 相邻，直接扩展这个 chunk 到新 size 大小    **</p>
+<p><strong>如果 chunk 与 top chunk 不相邻，相当于 free(ptr),malloc(new_size)</strong></p>
+</blockquote>
+</li>
+<li><p>如果重新申请的大小 &lt; 之前申请内存的大小，堆块会直接缩小，被削减的内存会释放，<strong>这里的释放与 <code>free()</code> 不同</strong></p>
+<blockquote>
+<ul>
+<li>如果相差不足以容得下一个最小 chunk(64 位下 32 个字节，32 位下 16 个字节)，则保持不变</li>
+<li>如果相差可以容得下一个最小 chunk，则切割原 chunk 为两部分，free 掉后一部分</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><blockquote>
+<p>函数定义：<code>void free(void *ptr)</code></p>
+<p>其中:</p>
+<p><code>ptr</code> 是一个指向要释放内存的内存块的指针</p>
+</blockquote>
+<p><code>free()</code> 的作用是释放之前通过 <code>malloc()</code>、<code>calloc()</code> 或 <code>realloc()</code> 所分配的内存空间，该函数<strong>不返回任何值</strong></p>
+<ul>
+<li><p>如果传递的参数 <code>ptr</code> 是一个空指针，则无任何效果</p>
+</li>
+<li><p>当参数 <code>ptr</code> 已经被释放之后，再次释放会出现乱七八糟的效果（<strong>Double Free堆漏洞</strong>）</p>
+</li>
+<li><p>当释放很大的内存空间时，程序会将这些内存空间还给系统，以便于减小程序所使用的内存空间（被 <code>mallopt</code> 禁用的情况下除外）</p>
+<p><em>备注： mallopt函数可以控制 内存分配的函数 形如int mallopt(int param,int value)</em></p>
+<p>param 的取值可以为</p>
+<blockquote>
+<p>M_CHECK_ACTION</p>
+<p>M_MMAP_MAX</p>
+<p>M_MMAP_THRESHOLD</p>
+<p>M_MXFAST（从glibc2.3起）</p>
+<p>M_PERTURB（从glibc2.4起）</p>
+<p>M_TOP_PAD</p>
+<p>M_TRIM_THRESHOLD</p>
+</blockquote>
+<p>value是以 <a target="_blank" rel="noopener" href="http://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=53426">字节</a>为单位的。</p>
+</li>
+</ul>
+<p>还是以上面的例子来看，执行 <code>free()</code> 之后堆段并不会消失：</p>
+<p>但是堆中的内容发生了变化：</p>
+<p>我们申请的空间变成了 <code>Free chunk</code></p>
+<blockquote>
+<p>注意：新版本的 Glibc 对堆结构的管理有些区别，上图是在 Glibc 2.37 的 Kali Linux 2024.1 中进行的测试</p>
+<p>而在 Glibc 2.23 的 Ubuntu 16.04 中是这样的：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出7.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出7.png)</p>
+</blockquote>
+<p>通过 <code>free()</code> 释放的堆块不会立刻被回收，它们会变成 <code>Free chunk</code> 并加上了一种 <code>xxx bin</code> 的名字，例如上图 Glibc 2.23 中的 <code>fastbins</code>（<code>fast bin</code>）</p>
+<p><em>通常来说，当堆块释放后，如果与另一个被释放的堆块或者 <code>top chunk</code> 相邻，则这些空间会被合并</em>（<strong>但是 fast bin 是个特例，不会轻易合并</strong>）</p>
+<hr>
+<h3 id="内存分配背后的系统调用"><a href="#内存分配背后的系统调用" class="headerlink" title="内存分配背后的系统调用"></a>内存分配背后的系统调用</h3><blockquote>
+<p>无论是 <code>malloc</code> 函数还是 <code>free</code> 函数，我们动态申请和释放内存时，都经常会使用，但是它们并不是真正与系统交互的函数</p>
+<p>这些函数背后的系统调用主要是 <code>brk</code> 函数以及 <code>mmap</code> 函数</p>
+</blockquote>
+<ol>
+<li><code>brk</code> 是将 DATA 数据段的最高地址指针 <code>_edata</code> 往高地址推（<code>_edata</code> 指向数据段的最高地址）</li>
+<li><code>mmap</code> 是在进程的虚拟地址空间中（堆和栈中间，称为文件映射区域的地方）找一块空闲的虚拟内存</li>
+</ol>
+<p><code>brk</code> 和 <code>mmap</code> 这两种方式分配的都是虚拟内存，没有分配物理内存</p>
+<p>在第一次访问已分配的虚拟地址空间的时候，发生缺页中断，操作系统负责分配物理内存，然后建立虚拟内存和物理内存之间的映射关系</p>
+<ul>
+<li><code>malloc</code> 小于 <code>128k</code>（<code>0x20000</code> 字节）的内存时，使用 <code>brk</code> 分配内存</li>
+<li><code>malloc</code> 大于等于 <code>128k</code>（<code>0x20000</code> 字节）的内存时，使用 <code>mmap</code> 分配内存，在堆和栈之间找一块空闲内存分配</li>
+</ul>
+<p>第一次执行 <code>malloc</code> 可能出现的系统调用如下：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出19.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出19.png)</p>
+<blockquote>
+<p>注意：</p>
+<p><code>brk</code> 会直接拓展原来的堆，<code>mmap</code> 会单独映射一块内存</p>
+<p><strong><code>mmap</code> 分配的内存与 libc 基地址之前存在固定的偏移，因此可以推算出 libc 的基地址</strong></p>
+</blockquote>
+<hr>
+<h4 id="brk"><a href="#brk" class="headerlink" title="brk"></a>brk</h4><blockquote>
+<p>对于堆的操作，操作系统提供了 <code>brk</code> 函数，Glibc 库提供了 <code>sbrk</code> 函数，我们可以通过增加 <code>brk</code> 的大小来向操作系统申请内存</p>
+</blockquote>
+<p>初始时，堆的起始地址 <code>start_brk</code> 以及堆的当前末尾 <code>brk</code> 指向同一地址。根据是否开启 ASLR，两者的具体位置会有所不同：</p>
+<ul>
+<li>不开启 ASLR 保护时，<code>start_brk</code> 以及 <code>brk</code> 会指向 DATA&#x2F;BSS 段的结尾。</li>
+<li>开启 ASLR 保护时，<code>start_brk</code> 以及 <code>brk</code> 也会指向同一位置，只是这个位置是在 DATA&#x2F;BSS 段结尾后的随机偏移处</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出18.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出18.png)</p>
+<hr>
+<h4 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h4><blockquote>
+<p><code>malloc</code> 会使用 <code>mmap</code> 来创建独立的匿名映射段。匿名映射的目的主要是可以申请以 0 填充的内存，并且这块内存仅被调用进程所使用</p>
+</blockquote>
+<ul>
+<li>在执行 <code>mmap</code> 之前，只有 <code>.so</code> 文件的 <code>mmap</code> 段</li>
+<li>执行 <code>mmap</code> 之后，我们申请的内存与已经存在的内存段结合在了一起，构成了新的 <code>mmap</code> 段</li>
+</ul>
+<hr>
+<h2 id="堆的结构"><a href="#堆的结构" class="headerlink" title="堆的结构"></a>堆的结构</h2><h3 id="微观结构"><a href="#微观结构" class="headerlink" title="微观结构"></a>微观结构</h3><h4 id="malloc-chunk"><a href="#malloc-chunk" class="headerlink" title="malloc_chunk"></a>malloc_chunk</h4><blockquote>
+<p><code>chunk</code> 也叫块，在内存中表示的意思就是一块内存，这块内存在 <code>ptmalloc2</code> 内部用 <code>malloc_chunk</code> 结构体来表示</p>
+<p>在程序的执行过程中，我们称由 <code>malloc()</code> 申请的内存为 <code>chunk</code>，<code>chunk</code> 也是堆的最小操作单元</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/heap-structure/#malloc_chunk">堆相关数据结构 - CTF Wiki</a></p>
+</blockquote>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出15.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出15.png)</p>
+<p><code>malloc_chunk</code> 的结构体定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  This struct declaration is misleading (but accurate and necessary).</span></span><br><span class="line"><span class="comment">  It declares a &quot;view&quot; into memory allowing access to necessary</span></span><br><span class="line"><span class="comment">  fields at known offsets from a given base. See explanation below.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  INTERNAL_SIZE_T      prev_size;  <span class="comment">/* Size of previous chunk (if free).  */</span></span><br><span class="line">  INTERNAL_SIZE_T      size;       <span class="comment">/* Size in bytes, including overhead. */</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Only used for large blocks: pointer to next larger size.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一些参数的解释：</p>
+<ul>
+<li><code>prev_size</code><ol>
+<li>如果该 <code>chunk</code> 的物理相邻的前一地址 <code>chunk</code>（两个指针的地址差值为前一个 <code>chunk</code> 的大小）是空闲的话，那么 <code>prev_size</code> 记录的是前一个 <code>chunk</code> 的大小（包括 <code>chunk</code> 头）</li>
+<li>否则，<code>prev_size</code> 可以用来存储物理相邻的前一个 <code>chunk</code> 的数据。这里的前一个 <code>chunk</code> 指的是较低地址的 <code>chunk</code></li>
+</ol>
+</li>
+<li><code>size</code><ol>
+<li><code>size</code> 表示该 <code>chunk</code> 的大小，大小必须是 <code>2 * SIZE_SZ</code> 的整数倍。如果申请的内存大小不是 <code>2 * SIZE_SZ</code> 的整数倍，会被转换成满足大小的最小的 <code>2 * SIZE_SZ</code> 的倍数</li>
+<li>32 位系统中，<code>SIZE_SZ</code> 是 4；64 位系统中，<code>SIZE_SZ</code> 是 8。 该字段的低三个比特位对 <code>chunk</code> 的大小没有影响，它们从高到低分别表示</li>
+<li>一般来说，堆中第一个被分配的内存块的 <code>size</code> 字段的 <code>P</code> 位都会被设置为 1，以便于防止访问前面的非法内存；当一个 <code>chunk</code> 的 <code>size</code> 的 <code>P</code> 位为 0 时，我们能通过 <code>prev_size</code> 字段来获取上一个 <code>chunk</code> 的大小以及地址。这也方便进行空闲 <code>chunk</code> 之间的合并</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>（A）NON_MAIN_ARENA</code></td>
+<td>记录当前 <code>chunk</code> 是否不属于主线程，1 表示不属于，0 表示属于</td>
+<td></td>
+</tr>
+<tr>
+<td><code>（M）IS_MAPPED</code></td>
+<td>记录当前 <code>chunk</code> 是否是由 <code>mmap</code> 分配的</td>
+<td></td>
+</tr>
+<tr>
+<td><code>（P）PREV_INUSE</code></td>
+<td>记录前一个 <code>chunk</code> 块是否被分配，0 表示空闲，1 表示使用中</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>fd、bk</code><ol>
+<li><code>chunk</code> 处于分配状态时，从 <code>fd</code> 字段开始是用户的数据。<code>chunk</code> 空闲时，会被添加到对应的空闲管理链表中</li>
+<li>通过 <code>fd</code> 和 <code>bk</code> 可以将空闲的 <code>chunk</code> 块加入到空闲的 <code>chunk</code> 块链表进行统一管理</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fd</code></td>
+<td>指向下一个（非物理相邻）空闲的 <code>chunk</code></td>
+</tr>
+<tr>
+<td><code>bk</code></td>
+<td>指向上一个（非物理相邻）空闲的 <code>chunk</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>fd_nextsize、bk_nextsize</code><ol>
+<li>只有 <code>chunk</code> 空闲的时候才使用，不过其用于较大的 <code>chunk</code>（<code>large chunk</code>）</li>
+<li>一般空闲的 <code>large chunk</code> 在 <code>fd</code> 的遍历顺序中，按照由大到小的顺序排列。<strong>这样做可以避免在寻找合适 chunk 时挨个遍历</strong></li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fd_nextsize</code></td>
+<td>指向前一个与当前 <code>chunk</code> 大小不同的第一个空闲块，不包含 <code>bin</code> 的头指针</td>
+</tr>
+<tr>
+<td><code>bk_nextsize</code></td>
+<td>指向后一个与当前 <code>chunk</code> 大小不同的第一个空闲块，不包含 <code>bin</code> 的头指针</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：</p>
+<p><strong>无论一个 chunk 的大小如何，处于分配状态还是释放状态，它们都使用一个统一的结构</strong></p>
+<p><em>虽然在分配状态和释放状态下，<code>chunk</code> 都是同一个数据结构，但是它们的表现形式是不一样的</em></p>
+</blockquote>
+<ul>
+<li><code>chunk</code> 处于分配状态（<code>Allocated chunk</code>）：</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出9.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出9.png)</p>
+<p><strong>前两个字段称为 <code>chunk header</code>，后面的部分称为 <code>user data</code></strong></p>
+<p>每次 <code>malloc</code> 申请得到的内存指针，其实指向 <code>user data</code> 的起始处</p>
+<blockquote>
+<p><code>chunk</code> 中的空间复用：</p>
+<p>当一个 <code>chunk</code> 处于使用状态时，它的下一个 <code>chunk</code> 的 <code>prev_size</code> 域无效，所以下一个 <code>chunk</code> 的该部分也可以被当前 <code>chunk</code> 使用</p>
+</blockquote>
+<ul>
+<li><code>chunk</code> 处于释放状态（<code>Freed chunk</code>）（可能是循环双向链表，也可能是单向链表）：</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出8.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出8.png)</p>
+<p>如果一个 <code>chunk</code> 处于 <code>free</code> 状态，那么会有两个位置记录其相应的大小：</p>
+<ol>
+<li>该 <code>chunk</code> 本身的 <code>size</code> 字段会记录</li>
+<li>该 <code>chunk</code> 后面的一个 <code>chunk</code> 会记录</li>
+</ol>
+<blockquote>
+<p>堆管理器会通过 <code>prev_size</code> 字段以及 <code>size</code> 字段合并两个物理相邻的空闲 <code>chunk</code> 块</p>
+</blockquote>
+<hr>
+<h4 id="top-chunk"><a href="#top-chunk" class="headerlink" title="top chunk"></a>top chunk</h4><blockquote>
+<p>程序第一次进行 <code>malloc</code> 的时候，<code>heap</code> 会被分为两块，一块给用户，剩下的那块就是 <code>top chunk</code>，简而言之，**<code>top chunk</code> 就是处于当前堆的物理地址最高的 <code>chunk</code>**</p>
+<p><code>top chunk</code> 不属于任何一个 <code>bin</code>，它的作用在于：</p>
+<ol>
+<li>当所有的 <code>bin</code> 都无法满足用户请求的大小时，如果 <code>top chunk</code> 不小于用户请求的大小，就从 <code>top chunk</code> 中进行分配，并将剩下的部分作为新的 <code>top chunk</code></li>
+<li>否则，就对 <code>heap</code> 进行扩展后再进行分配（在 <code>main arena</code> 中通过 <code>sbrk</code> 扩展 <code>heap</code>，而在 <code>thread arena</code> 中通过 <code>mmap</code> 分配新的 <code>heap</code>）</li>
+</ol>
+</blockquote>
+<ul>
+<li>初始情况下，可以将 <code>unsorted chunk</code> 作为 <code>top chunk</code></li>
+<li><code>top chunk</code> 的 <code>PREV_INUSE</code> 位始终为 1（否则其前面的 <code>chunk</code> 就会被合并到 <code>top chunk</code> 中）</li>
+</ul>
+<hr>
+<h4 id="last-remainder-chunk"><a href="#last-remainder-chunk" class="headerlink" title="last remainder chunk"></a>last remainder chunk</h4><blockquote>
+<p>在用户使用 <code>malloc</code> 请求分配内存时，<code>ptmalloc2</code> 找到的 <code>chunk</code> 可能并不和申请的内存大小一致，这时候就将分割之后的剩余部分称之为 <code>last remainder chunk</code></p>
+</blockquote>
+<ul>
+<li><code>unsorted bin</code> 也会存这一块</li>
+<li><code>top chunk</code> 分割剩下的部分不会作为 <code>last remainder</code></li>
+</ul>
+<hr>
+<h3 id="宏观结构"><a href="#宏观结构" class="headerlink" title="宏观结构"></a>宏观结构</h3><h4 id="arena"><a href="#arena" class="headerlink" title="arena"></a>arena</h4><blockquote>
+<p>无论是主线程还是新创建的线程，在第一次申请内存时，都会有独立的 <code>arena</code>，<code>arena</code> 就是用来管理线程中的这些堆的，也可以理解为堆管理器所持有的内存池</p>
+</blockquote>
+<ul>
+<li>一个线程只有一个 <code>arnea</code>，并且这些线程的 <code>arnea</code> 都是独立的不是相同的</li>
+</ul>
+<p>但也不是每一个线程都会有对应的 <code>arena</code>，对于不同系统，<code>arena</code> 数量的约束如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">txtFor 32 bit systems:</span><br><span class="line">     Number of arena = 2 * number of cores.</span><br><span class="line">For 64 bit systems:</span><br><span class="line">     Number of arena = 8 * number of cores.</span><br></pre></td></tr></table></figure>
+
+<p>因为每个系统的核数是有限的，当线程数大于核数的二倍（超线程技术）时，就必然有线程处于等待状态，所以没有必要为每个线程分配一个 <code>arena</code></p>
+<ul>
+<li>主线程的 <code>arnea</code> 称为 <code>main_arena</code>，子线程的 <code>arnea</code> 称为 <code>thread_arena</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出16.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出16.png)</p>
+<ul>
+<li>主线程无论一开始 <code>malloc</code> 多少空间，只要 <code>size &lt; 128KB</code>，<code>kernel</code> 都会分配 <code>132KB</code> 具有读写权限的 <code>heap segment</code>，这部分称为 <code>main_arena</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出17.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出17.png)</p>
+<p>例如这张图中：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出2.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出2.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heap segment` 地址为 `0x555555559000 ~ 0x55555557a000`，具有 `rw` 权限，总共：`(0x55555557a000 - 0x555555559000)B / 1024 = 132KB</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<p><code>main_arena</code> 并不在申请的 <code>heap</code> 中，而是一个全局变量，在 <code>libc.so</code> 的数据段中</p>
+</blockquote>
+<p>后续申请的内存会一直从这个 <code>arena</code> 中获取，直到空间不足</p>
+<p>当 <code>arena</code> 空间不足时，它可以通过增加 <code>brk</code> 的方式来增加堆的空间；类似地，<code>arena</code> 也可以通过减小 <code>brk</code> 来缩小自己的空间</p>
+<p>即使将所有 <code>main_arena</code> 所分配出去的内存块 <code>free</code> 完，也不会立即还给 <code>kernel</code>，而是交由 Glibc 来管理。当后面程序再次申请内存时，在 Glibc 中管理的内存充足的情况下，Glibc 就会根据堆分配的算法来给程序分配相应的内存</p>
+<hr>
+<h4 id="heap-info"><a href="#heap-info" class="headerlink" title="heap_info"></a>heap_info</h4><blockquote>
+<p>程序刚开始执行时，每个线程是没有 <code>heap</code> 区域的。当其申请内存时，就需要 <code>heap_info</code> 这个结构来记录对应的信息</p>
+<p>当该 <code>heap</code> 的资源被使用完后，就必须得再次申请内存了。此外，一般申请的 <code>heap</code> 是不连续的，因此需要记录不同 <code>heap</code> 之间的链接结构</p>
+</blockquote>
+<ul>
+<li><strong><code>heap_info</code> 这个数据结构是专门为从 <code>Memory Mapping Segment</code> 处申请的内存准备的，即为非主线程准备的</strong></li>
+<li>主线程可以通过 <code>sbrk()</code> 函数扩展 <code>program break location</code> 获得（直到触及 <code>Memory Mapping Segment</code>），只有一个 <code>heap</code>，没有 <code>heap_info</code> 数据结构</li>
+</ul>
+<p><code>heap_info</code> 的主要结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> HEAP_MIN_SIZE (32 * 1024)</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> HEAP_MAX_SIZE</span></span><br><span class="line"><span class="meta"># <span class="keyword">ifdef</span> DEFAULT_MMAP_THRESHOLD_MAX</span></span><br><span class="line"><span class="meta">#  <span class="keyword">define</span> HEAP_MAX_SIZE (2 * DEFAULT_MMAP_THRESHOLD_MAX)</span></span><br><span class="line"><span class="meta"># <span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#  <span class="keyword">define</span> HEAP_MAX_SIZE (1024 * 1024) <span class="comment">/* must be a power of two */</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* HEAP_MIN_SIZE and HEAP_MAX_SIZE limit the size of mmap()ed heaps</span></span><br><span class="line"><span class="comment">   that are dynamically created for multi-threaded programs.  The</span></span><br><span class="line"><span class="comment">   maximum size must be a power of two, for fast determination of</span></span><br><span class="line"><span class="comment">   which heap belongs to a chunk.  It should be much larger than the</span></span><br><span class="line"><span class="comment">   mmap threshold, so that requests with a size just below that</span></span><br><span class="line"><span class="comment">   threshold can be fulfilled without creating too many heaps.  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* A heap is a single contiguous memory region holding (coalesceable)</span></span><br><span class="line"><span class="comment">   malloc_chunks.  It is allocated with mmap() and always starts at an</span></span><br><span class="line"><span class="comment">   address aligned to HEAP_MAX_SIZE.  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_heap_info</span></span><br><span class="line">&#123;</span><br><span class="line">  mstate ar_ptr; <span class="comment">/* Arena for this heap. */</span></span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">_heap_info</span> *prev; <span class="comment">/* Previous heap. */</span></span><br><span class="line">  <span class="type">size_t</span> size;   <span class="comment">/* Current size in bytes. */</span></span><br><span class="line">  <span class="type">size_t</span> mprotect_size; <span class="comment">/* Size in bytes that has been mprotected</span></span><br><span class="line"><span class="comment">                           PROT_READ|PROT_WRITE.  */</span></span><br><span class="line">  <span class="comment">/* Make sure the following data is properly aligned, particularly</span></span><br><span class="line"><span class="comment">     that sizeof (heap_info) + 2 * SIZE_SZ is a multiple of</span></span><br><span class="line"><span class="comment">     MALLOC_ALIGNMENT. */</span></span><br><span class="line">  <span class="type">char</span> pad[<span class="number">-6</span> * SIZE_SZ &amp; MALLOC_ALIGN_MASK];</span><br><span class="line">&#125; heap_info;</span><br></pre></td></tr></table></figure>
+
+<p>该结构主要是描述堆的基本信息，包括：</p>
+<ul>
+<li>堆对应的 <code>arena</code> 的地址</li>
+<li>由于一个线程申请一个堆之后，可能会使用完，之后就必须得再次申请。因此，一个线程可能会有多个堆。<code>prev</code> 即记录了上一个 <code>heap_info</code> 的地址。这里可以看到每个堆的 <code>heap_info</code> 是通过单向链表进行链接的</li>
+<li><code>size</code> 表示当前堆的大小</li>
+<li><code>pad</code> 确保分配的空间是按照 <code>MALLOC_ALIGN_MASK + 1</code> 对齐的</li>
+</ul>
+<hr>
+<h4 id="malloc-state"><a href="#malloc-state" class="headerlink" title="malloc_state"></a>malloc_state</h4><blockquote>
+<p><code>malloc_state</code> 结构用于管理堆，记录每个 <code>arena</code> 当前申请的内存的具体状态，例如：是否有空闲 <code>chunk</code>，空闲 <code>chunk</code> 的大小等等</p>
+</blockquote>
+<ul>
+<li>无论是 <code>thread_arena</code> 还是 <code>main_arena</code>，它们都只有一个 <code>malloc state</code> 结构</li>
+<li>由于 <code>thread</code> 的 <code>arena</code> 可能有多个，<code>malloc state</code> 结构会在最新申请的 <code>arena</code> 中</li>
+</ul>
+<p><code>malloc_state</code> 的结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">malloc_state</span> &#123;</span><br><span class="line">    <span class="comment">/* Serialize access.  */</span></span><br><span class="line">    __libc_lock_define(, mutex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Flags (formerly in max_fast).  */</span></span><br><span class="line">    <span class="type">int</span> flags;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Fastbins */</span></span><br><span class="line">    mfastbinptr fastbinsY[ NFASTBINS ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Base of the topmost chunk -- not otherwise kept in a bin */</span></span><br><span class="line">    mchunkptr top;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The remainder from the most recent split of a small request */</span></span><br><span class="line">    mchunkptr last_remainder;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Normal bins packed as described above */</span></span><br><span class="line">    mchunkptr bins[ NBINS * <span class="number">2</span> - <span class="number">2</span> ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Bitmap of bins, help to speed up the process of determinating if a given bin is definitely empty.*/</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> binmap[ BINMAPSIZE ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Linked list, points to the next arena */</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_state</span> *next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Linked list for free arenas.  Access to this field is serialized</span></span><br><span class="line"><span class="comment">       by free_list_lock in arena.c.  */</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_state</span> *next_free;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Number of threads attached to this arena.  0 if the arena is on</span></span><br><span class="line"><span class="comment">       the free list.  Access to this field is serialized by</span></span><br><span class="line"><span class="comment">       free_list_lock in arena.c.  */</span></span><br><span class="line">    INTERNAL_SIZE_T attached_threads;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Memory allocated from the system in this arena.  */</span></span><br><span class="line">    INTERNAL_SIZE_T system_mem;</span><br><span class="line">    INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>libc_lock_define(, mutex)</code><br>该变量用于控制程序串行访问同一个分配区，当一个线程获取了分配区之后，其它线程要想访问该分配区，就必须等待该线程分配完成后才能够使用。</li>
+<li><code>flags</code><br><code>flags</code> 记录了分配区的一些标志，比如 <code>bit0</code> 记录了分配区是否有 <code>fast bin chunk</code>，<code>bit1</code> 标识分配区是否能返回连续的虚拟地址空间。具体如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   FASTCHUNKS_BIT held in max_fast indicates that there are probably</span></span><br><span class="line"><span class="comment">   some fastbin chunks. It is set true on entering a chunk into any</span></span><br><span class="line"><span class="comment">   fastbin, and cleared only in malloc_consolidate.</span></span><br><span class="line"><span class="comment">   The truth value is inverted so that have_fastchunks will be true</span></span><br><span class="line"><span class="comment">   upon startup (since statics are zero-filled), simplifying</span></span><br><span class="line"><span class="comment">   initialization checks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FASTCHUNKS_BIT (1U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> have_fastchunks(M) (((M)-&gt;flags &amp; FASTCHUNKS_BIT) == 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> clear_fastchunks(M) catomic_or(&amp;(M)-&gt;flags, FASTCHUNKS_BIT)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_fastchunks(M) catomic_and(&amp;(M)-&gt;flags, ~FASTCHUNKS_BIT)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   NONCONTIGUOUS_BIT indicates that MORECORE does not return contiguous</span></span><br><span class="line"><span class="comment">   regions.  Otherwise, contiguity is exploited in merging together,</span></span><br><span class="line"><span class="comment">   when possible, results from consecutive MORECORE calls.</span></span><br><span class="line"><span class="comment">   The initial value comes from MORECORE_CONTIGUOUS, but is</span></span><br><span class="line"><span class="comment">   changed dynamically if mmap is ever used as an sbrk substitute.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NONCONTIGUOUS_BIT (2U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> contiguous(M) (((M)-&gt;flags &amp; NONCONTIGUOUS_BIT) == 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> noncontiguous(M) (((M)-&gt;flags &amp; NONCONTIGUOUS_BIT) != 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_noncontiguous(M) ((M)-&gt;flags |= NONCONTIGUOUS_BIT)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_contiguous(M) ((M)-&gt;flags &amp;= ~NONCONTIGUOUS_BIT)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ARENA_CORRUPTION_BIT is set if a memory corruption was detected on the</span></span><br><span class="line"><span class="comment">   arena.  Such an arena is no longer used to allocate chunks.  Chunks</span></span><br><span class="line"><span class="comment">   allocated in that arena before detecting corruption are not freed.  */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ARENA_CORRUPTION_BIT (4U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> arena_is_corrupt(A) (((A)-&gt;flags &amp; ARENA_CORRUPTION_BIT))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_arena_corrupt(A) ((A)-&gt;flags |= ARENA_CORRUPTION_BIT)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>fastbinsY[NFASTBINS]</code><br>存放每个 <code>fast chunk</code> 链表头部的指针</li>
+<li><code>top</code><br>指向分配区的 <code>top chunk</code></li>
+<li><code>last_reminder</code><br>最新的 <code>chunk</code> 分割之后剩下的那部分</li>
+<li><code>bins</code><br>用于存储 <code>unstored bin</code>，<code>small bin</code> 和 <code>large bin</code> 的 <code>chunk</code> 链表</li>
+<li><code>binmap</code><br><code>ptmalloc2</code> 用 1 个 <code>bit</code> 来标识某一个 <code>bin</code> 中是否包含空闲 <code>chunk</code></li>
+</ul>
+<blockquote>
+<p>注意：</p>
+<p><code>main_arena</code> 的 <code>malloc_state</code> 并不是 <code>heap segment</code> 的一部分，而是一个全局变量，存储在 <code>libc.so</code> 的数据段</p>
+</blockquote>
+<hr>
+<h2 id="bin-的种类"><a href="#bin-的种类" class="headerlink" title="bin 的种类"></a>bin 的种类</h2><blockquote>
+<p>Glibc 为了让 <code>malloc</code> 可以更快找到合适大小的 <code>chunk</code>，用户 <code>free</code> 释放掉的 <code>chunk</code> 不会马上归还给系统，而是将该 <code>chunk</code> 根据大小加入到合适的 <code>bin</code> 中</p>
+<p>当用户再一次通过 <code>malloc</code> 请求分配内存时，<code>ptmalloc2</code> 会试图在空闲的 <code>chunk</code> 中挑选一块合适的空间给用户，这样可以避免频繁的系统调用，降低内存分配的开销</p>
+<p><code>bin</code> 的中文意思为垃圾桶，就像要删除的文件会先放入 Windows 的回收站一样不会立即删除，很生动形象了</p>
+</blockquote>
+<p><code>ptmalloc2</code> 会根据空闲的 <code>chunk</code> 的大小以及使用状态，将 <code>chunk</code> 初步放入相应的 <code>bin</code> 中，<code>bin</code> 的种类主要分为：</p>
+<ul>
+<li><code>fast bin</code></li>
+<li><code>small bin</code></li>
+<li><code>large bin</code></li>
+<li><code>unsorted bin</code></li>
+<li><code>tcache</code></li>
+</ul>
+<p>Glibc 提供了两个数组：<code>fastbinsY[]</code> 和 <code>bins[]</code> 用来存放这些 <code>bin</code></p>
+<p>具体来说，可分为：</p>
+<ul>
+<li>10 个 <code>fast bin</code>，存储在 <code>fastbinsY[]</code> 中</li>
+<li>1 个 <code>unsorted bin</code>，存储在 <code>bins[1]</code> 中</li>
+<li>62 个 <code>small bin</code>，存储在 <code>bins[2]</code> 至 <code>bins[63]</code> 中</li>
+<li>63 个 <code>large bin</code>，存储在 <code>bins[64]</code> 至 <code>bins[126]</code> 中</li>
+</ul>
+<p>其中虽然定义了 <code>bins[128]</code>，但是 <code>bins[0]</code> 和 <code>bins[127]</code> 其实是不存在的</p>
+<p><code>chunk</code> 在 <code>bin</code> 上以链表的形式存放：（<code>fast bin</code> 是<strong>单链表</strong>，其他的 <code>bin</code> 都是<strong>双链表</strong>）</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出10.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出10.png)</p>
+<hr>
+<h3 id="fast-bin"><a href="#fast-bin" class="headerlink" title="fast bin"></a>fast bin</h3><blockquote>
+<p><code>fast bin</code> 非常像高速缓存 cache，为了减少一些较小的 <code>chunk</code> 在合并、分割以及中间检查的过程中的开销，<code>ptmalloc2</code> 中专门设计了 <code>fast bin</code>，对应的变量就是 <code>malloc state</code> 中的 <code>fastbinsY[]</code> 数组，用于提高小内存分配效率</p>
+<p><code>fast bin</code> 存储在 <code>fastbinsY[]</code> 处，是 10 个<strong>单链表</strong>（最后 3 个链表保留未使用）</p>
+<p>对于<strong>高速缓存（Cache）</strong>：</p>
+<p>它是一种用于存储和快速访问数据的硬件或软件组件。它的主要目的是提高数据的访问速度，减少延迟。以下是高速缓存的一些关键概念和功能：</p>
+<ol>
+<li><p><strong>原理</strong>：高速缓存利用局部性原理，即程序在访问某些数据后，很可能会在不久的将来再次访问相同的数据。基于这一原理，缓存存储了近期使用的数据。</p>
+<p><strong>时间局部性（Temporal Locality）</strong>：</p>
+<p>当某个数据被访问后，近期内再次访问该数据的可能性很高。比如，在循环结构中，程序可能会多次访问同一块数据。因此，缓存会保留近期使用过的数据，以便快速响应后续的访问请求。</p>
+<p><strong>空间局部性（Spatial Locality）</strong>：</p>
+<p>当某个数据被访问时，临近地址的数据在不久的将来也可能会被访问。例如，在数组或连续内存区域中，访问一个元素后，往往会访问它周围的元素。因此，缓存通常会预取一块数据，而不仅仅是单个数据项，从而提高数据访问的效率。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p><strong>时间局部性</strong>：在一个简单的循环中，访问同一个数组的元素多次。</p>
+<p><strong>空间局部性</strong>：访问数组时，程序会依次访问相邻的元素。</p>
+<h3 id="高速缓存的设计"><a href="#高速缓存的设计" class="headerlink" title="高速缓存的设计"></a>高速缓存的设计</h3><p>基于局部性原理，高速缓存的设计考虑了以下几个方面：</p>
+<p><strong>缓存行（Cache Line）</strong>：缓存通常以固定大小的数据块存储，常见的大小是32字节或64字节，这样可以有效利用空间局部性。</p>
+<p><strong>预取机制</strong>：一些高级的缓存系统会根据访问模式预测将来可能需要的数据，并提前将其加载到缓存中，以减少访问延迟。</p>
+<p><strong>替换策略</strong>：如前所述，使用LRU或LFU等策略，确保缓存中保留高概率再次使用的数据。</p>
+<p>通过利用局部性原理，高速缓存能够显著提高系统性能，降低内存访问的延迟。</p>
+<p><strong>类型</strong>：</p>
+<p><strong>指令缓存</strong>：存储CPU执行的指令。</p>
+<p><strong>数据缓存</strong>：存储数据处理所需的数据。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>fast bin</code> 的 <code>chunk</code> 大小（含 <code>chunk</code> 头部）为：<code>16 ~ 64</code> 字节（64 位为 <code>32 ~ 128</code> 字节）</li>
+<li>相邻 <code>bin</code> 存放的大小相差 8 字节（64 位为 16 字节）</li>
+<li><strong>采取 <code>LIFO</code> 策略</strong>（最近释放的 <code>chunk</code> 会更早地被分配）</li>
+<li><code>chunk</code> 的 <code>PREV_INUSE</code> 位（下一个物理相邻的 <code>chunk</code> 的 <code>P</code> 位）总为 1，释放到 <code>fastbin</code> 的 <code>chunk</code> 不会被清除 <code>PREV_INUSE</code> 标志位</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出11.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出11.png)</p>
+<p>如果遇到以下两种情况，<code>ptmalloc2</code> 会首先判断 <code>fast bin</code> 中相应的 <code>bin</code> 中是否有对应大小的空闲块，如果有的话，就会直接从这个 <code>bin</code> 中获取 <code>chunk</code>；如果没有的话，<code>ptmalloc2</code> 才会做接下来的一系列操作：</p>
+<ul>
+<li>在 32 位系统中（<code>SIZE_SZ = 4</code>），用户需要的 <code>chunk</code> 大小 &lt; 64 字节</li>
+<li>在 64 位系统中（<code>SIZE_SZ = 8</code>），用户需要的 <code>chunk</code> 大小 &lt; 128 字节</li>
+</ul>
+<p>关于 <code>fast bin</code> 的大小定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> DEFAULT_MXFAST </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEFAULT_MXFAST (64 * SIZE_SZ / 4) </span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> </span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* The maximum fastbin request size we support */</span> </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_FAST_SIZE (80 * SIZE_SZ / 4)</span></span><br></pre></td></tr></table></figure>
+
+<p>在 32 位系统中，<code>fast bin</code> <strong>默认支持</strong>最大的 <code>chunk</code> 的数据空间大小为 64 字节：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_MXFAST = (<span class="number">64</span> * <span class="number">4</span> / <span class="number">4</span>) = <span class="number">64</span></span><br></pre></td></tr></table></figure>
+
+<p>但是其<strong>可以支持</strong>的 <code>chunk</code> 的数据空间最大为 80 字节：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAX_FAST_SIZE = (<span class="number">80</span> * <span class="number">4</span> / <span class="number">4</span>) = <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>fast bin</code> 最多可以支持的 <code>bin</code> 的个数为 10 个</strong>，在 32 位系统中，用户数据空间从第 8 字节开始一直到第 80 字节（不包括 <code>prev_size</code> 和 <code>size</code> 字段的 8 字节）</p>
+<blockquote>
+<p>注意：</p>
+<p><strong>fast bin 中的 <code>chunk</code> 的 <code>PREV_INUSE</code> 位（下一个物理相邻的 chunk 的 P 位）始终被置为 1</strong>，因此它们不会和其它被释放的 <code>chunk</code> 合并，这也是为什么前面说 fast bin 是个特例，不会轻易合并</p>
+<p>但是，当释放的 <code>chunk</code> 与该 <code>chunk</code> 相邻的空闲 <code>chunk</code> 合并后的大小 &gt; <code>FASTBIN_CONSOLIDATION_THRESHOLD</code> 时，说明内存碎片较多，此时就需要把 <code>fast bin</code> 中的 <code>chunk</code> 都进行合并，以减少内存碎片对系统的影响</p>
+</blockquote>
+<hr>
+<h3 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h3><blockquote>
+<p><code>unsorted bin</code> 非常像缓冲区 buffer，可以视为空闲 <code>chunk</code> 回归其所属 <code>bin</code> 之前的缓冲区</p>
+<p>大小超过 <code>fast bin</code> 阈值的 <code>chunk</code> 被释放时会加入到这里，这使得 <code>ptmalloc2</code> 可以复用最近释放的chunk，从而提升效率</p>
+</blockquote>
+<ul>
+<li><code>unsorted bin</code> 处于 <code>bins[1]</code> 处，因此 <code>unsorted bin</code> 只有 1 个<strong>双向循环链表</strong></li>
+<li><code>unsorted bin</code> 中的空闲 <code>chunk</code> 处于<strong>乱序状态</strong></li>
+<li>**<code>unsorted bin</code> 在使用的过程中，采用的遍历顺序是 <code>FIFO</code>**（插入的时候插入到 unsorted bin 的头部，取出的时候从链表尾获取）</li>
+<li>在 <code>malloc</code> 分配时，如果在 <code>fast bin</code>、<code>small bin</code> 中找不到对应大小的 <code>chunk</code>，就会尝试从 <code>unsorted bin</code> 中寻找 <code>chunk</code>。如果取出来的 <code>chunk</code> 大小刚好满足，就会直接返回给用户；如果在 <code>unsorted bin</code> 中没有合适的 <code>chunk</code>，就会把 <code>unsorted bin</code> 中的所有 <code>chunk</code> 分别加入到所属的 <code>bin</code> 中，然后再在 <code>bin</code> 中分配合适的 <code>chunk</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出14.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出14.png)</p>
+<blockquote>
+<p>当 <code>free</code> 的 <code>chunk</code> 大小 &gt;&#x3D; 144 字节时，为了效率，Glibc 并不会马上将 <code>chunk</code> 放到相对应的 <code>bin</code> 中，而会先放到 <code>unsorted bin</code></p>
+<p>下次 <code>malloc</code> 时会先查找 <code>unsorted bin</code> 中是否有合适的 <code>chunk</code>，找不到才会去对应的 <code>bin</code> 中寻找，此时会顺便把 <code>unsorted bin</code> 的 <code>chunk</code> 放到对应的 <code>bin</code> 中，但 <code>small bin</code> 除外，为了效率，反⽽先从 <code>small bin</code> 找</p>
+</blockquote>
+<hr>
+<h3 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chunk size` 小于 `0x200` 字节（64 位为 `0x400` 字节）的 `chunk` 叫做 `small chunk`，而 `small bin` 存放的就是这些 `small chunk</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>small bin</code> 存储在 <code>bins[2]</code> 至 <code>bins[63]</code> 处，是 62 个<strong>双向循环链表</strong>（每个链表都有链表头结点，这样可以方便对于链表内部结点的管理）</li>
+<li><code>fast bin</code> 的 <code>chunk</code> 大小（含 <code>chunk</code> 头部）为：<code>16 ~ 496</code> 字节（64 位为 <code>32 ~ 1008</code> 字节）</li>
+<li>相邻 <code>bin</code> 存放的大小相差 8 字节（64 位为 16 字节）</li>
+<li><em>每个链表中存储的 <code>chunk</code> 大小都一致</em></li>
+<li><strong>采取 <code>FIFO</code> 策略</strong>（最近释放的 <code>chunk</code> 会被最后分配），这点和 <code>fast bin</code> 相反</li>
+<li>同样与 <code>fast bin</code> 相反的是：<em>相邻的空闲 <code>chunk</code> 会被合并</em></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出12.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出12.png)</p>
+<p><code>small bin</code> 中每个 <code>chunk</code> 的大小与其所在的 <code>bin</code> 的 <code>index</code> 的关系为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chunk_size = <span class="number">2</span> * SIZE_SZ * index</span><br></pre></td></tr></table></figure>
+
+<p><code>small bin</code> 的大小再分成 62 个 <code>bin</code>，大小从 16 字节（64 位为 32 字节）开始，每次固定增加 8 字节（64 位为 16 字节）：</p>
+<table>
+<thead>
+<tr>
+<th>下标 index</th>
+<th>SIZE_SZ&#x3D;4（32 位）</th>
+<th>SIZE_SZ&#x3D;8（64 位）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>16</td>
+<td>32</td>
+</tr>
+<tr>
+<td>3</td>
+<td>24</td>
+<td>48</td>
+</tr>
+<tr>
+<td>4</td>
+<td>32</td>
+<td>64</td>
+</tr>
+<tr>
+<td>5</td>
+<td>40</td>
+<td>80</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td><code>2 * 4 * x</code></td>
+<td><code>2 * 8 * x</code></td>
+</tr>
+<tr>
+<td>63</td>
+<td>504</td>
+<td>1008</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：</p>
+<p><code>fast bin</code> 中的 <code>chunk</code> 是有可能被放到 <code>small bin</code> 中去的</p>
+</blockquote>
+<hr>
+<h3 id="large-bin"><a href="#large-bin" class="headerlink" title="large bin"></a>large bin</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">large bin` 存放的是大于等于 `0x200` 字节（64 位为 `0x400` 字节）的 `chunk</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>large bin</code> 存储在 <code>bins[64]</code> 至 <code>bins[126]</code> 处，是 63 个<strong>双向循环链表</strong></li>
+<li><em>每个 bin 中的 chunk 的大小不一致（按大小降序排列）</em></li>
+<li><strong>采取 <code>FIFO</code> 策略</strong></li>
+<li>插入和删除可以发生在任意位置</li>
+<li>相邻空闲 <code>chunk</code> 会被合并</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">large bin` 的 `freed chunk` 会多两个指针 `fd_nextsize`、`bk_nextsize`，分别指向前一块和后一块 `large chunk</span><br></pre></td></tr></table></figure>
+
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出13.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出13.png)</p>
+<p><code>large bin</code> 的大小再分成 63 个 <code>bin</code>，但大小不再是固定大小增加，而是按照公差分为 6 组：</p>
+<table>
+<thead>
+<tr>
+<th>组</th>
+<th>bin 的数量</th>
+<th>公差</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32</td>
+<td>0x40</td>
+</tr>
+<tr>
+<td>2</td>
+<td>16</td>
+<td>0x200</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8</td>
+<td>0x1000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>0x8000</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>0x40000</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>不限制，大小和 large bin 剩余的大小相同</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="tcache"><a href="#tcache" class="headerlink" title="tcache"></a>tcache</h3><blockquote>
+<p><code>tcache</code> 是 libc2.26（Ubuntu 17.10）之后引进的一种新机制，类似于 <code>fast bin</code> 一样的东西，目的是提升堆管理的性能，但提升性能的同时舍弃了很多安全检查，也因此有了很多新的利用方式</p>
+</blockquote>
+<ul>
+<li>每条链上最多可以有 7 个 <code>chunk</code></li>
+<li><code>malloc</code> 的时候优先去 <code>tcache</code> 找</li>
+<li><code>free</code> 的时候当 <code>tcache</code> 满了才放入 <code>fastbin</code> 或 <code>unsorted bin</code></li>
+</ul>
+<p>基本工作方式：</p>
+<ul>
+<li><code>malloc</code> 时，会先 <code>malloc</code> 一块内存用来存放 <code>tcache_perthread_struct</code></li>
+<li><code>free</code> 内存，且 <code>size</code> 小于 <code>small bin size</code> 时<ol>
+<li>先放到对应的 <code>tcache</code> 中，直到 <code>tcache</code> 被填满（默认是 7 个）</li>
+<li><code>tcache</code> 被填满之后，再次 <code>free</code> 的内存和之前一样被放到 <code>fast bin</code> 或者 <code>unsorted bin</code> 中</li>
+<li><code>tcache</code> 中的 <code>chunk</code> 不会合并（不取消 <code>PREV_INUSE</code> 位）</li>
+</ol>
+</li>
+<li><code>malloc</code> 内存，且 <code>size</code> 在 <code>tcache</code> 范围内<ol>
+<li>先从 <code>tcache</code> 取 <code>chunk</code>，直到 <code>tcache</code> 为空</li>
+<li><code>tcache</code> 为空后，从 <code>bin</code> 中找</li>
+<li><code>tcache</code> 为空时，如果 <code>fast bin</code>、<code>small bin</code>、<code>unsorted bin</code> 中有 <code>size</code> 符合的 <code>chunk</code>，会先把 <code>fast bin</code>、<code>small bin</code>、<code>unsorted bin</code> 中的 <code>chunk</code> 放到 <code>tcache</code> 中，直到填满；之后再从 <code>tcache</code> 中取；因此 <code>chunk</code> 在 <code>bin</code> 中和 <code>tcache</code> 中的顺序会反过来</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/11/%E5%A0%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/11/%E5%A0%86/" class="post-title-link" itemprop="url">堆</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-11 20:45:09 / 修改时间：20:53:54" itemprop="dateCreated datePublished" datetime="2024-10-11T20:45:09+08:00">2024-10-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="堆（仅供个人查阅）"><a href="#堆（仅供个人查阅）" class="headerlink" title="堆（仅供个人查阅）"></a>堆（仅供个人查阅）</h1><blockquote>
+<p>堆（heap）是一种数据结构，在程序运行的过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存</p>
+<p>堆是程序虚拟地址空间中的一块连续的线性区域，它<strong>由低地址向高地址方向增长（和栈的增长方向相反）</strong>，管理堆的程序也称为堆管理器</p>
+</blockquote>
+<p>原文源自（<a target="_blank" rel="noopener" href="https://www.uf4te.cn/posts/463ab4ed.html%EF%BC%89">https://www.uf4te.cn/posts/463ab4ed.html）</a></p>
+<p>目前 Linux 标准发行版中使用的堆分配器是 Glibc 中的堆分配器：<code>ptmalloc2</code></p>
+<p>堆的基本操作是分配和回收，<code>ptmalloc2</code> 主要通过 <code>malloc()</code> 和 <code>free()</code> 函数来分配和释放内存块</p>
+<hr>
+<h2 id="堆的基本操作"><a href="#堆的基本操作" class="headerlink" title="堆的基本操作"></a>堆的基本操作</h2><h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h3><blockquote>
+<p>函数声明：<code>void *malloc(size_t size)</code></p>
+<p><code>size</code> 是内存块的大小，以字节为单位</p>
+</blockquote>
+<p><code>malloc()</code> 的作用是分配所需的内存空间（<em>不会对内存空间进行初始化</em>），并返回一个指向它的指针；如果请求失败，则返回 NULL</p>
+<ul>
+<li>当 <code>size = 0</code> 时，返回当前系统允许的堆的最小内存块</li>
+<li>当 <code>size</code> 为负数时，<strong>由于在大多数系统上，size_t 是无符号数（这一点非常重要）</strong>，所以程序就会申请很大的内存空间，但通常来说都会失败，因为系统没有那么多的内存可以分配</li>
+</ul>
+<p>以一个简单的例子来看看 <code>malloc()</code> 函数和堆：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> *ptr = <span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过 GDB 调试可以看到，在执行 <code>malloc()</code> 函数前，程序的地址空间里是没有堆的：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出1.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出1.png)</p>
+<p>执行 <code>malloc()</code> 函数后：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出2.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出2.png)</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出3.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出3.png)</p>
+<p>可见程序中最开始是没有堆这部分空间的，在用户通过 <code>malloc()</code> 申请内存后才会出现，并且会一次性申请很大空间的堆段（<code>0x555555559000 ~ 0x55555557a000</code>）</p>
+<blockquote>
+<p>注意：新版本的 Glibc 对堆结构的管理有些区别，上图是在 Glibc 2.37 的 Kali Linux 2024.1 中进行的测试</p>
+<p>而在 Glibc 2.23 的 Ubuntu 16.04 中是这样的：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出6.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出6.png)</p>
+</blockquote>
+<hr>
+<h4 id="calloc"><a href="#calloc" class="headerlink" title="calloc"></a>calloc</h4><blockquote>
+<p>函数声明：<code>void *calloc(size_t nitems, size_t size)</code></p>
+<p><code>nitems</code> 为要被分配的元素个数；<code>size</code> 为元素的大小</p>
+</blockquote>
+<p><code>calloc()</code> 在功能上与 <code>malloc()</code> 几乎相同，区别在于 <em><code>calloc()</code> 申请内存空间后会将其全部初始化为 0</em></p>
+<p>使用 <code>calloc()</code> 函数时需要注意，如果分配的内存块过大，可能会导致内存不足的问题</p>
+<hr>
+<h4 id="realloc"><a href="#realloc" class="headerlink" title="realloc"></a>realloc</h4><blockquote>
+<p>函数声明：<code>void *realloc(void *ptr, size_t size)</code></p>
+<p><code>ptr</code> 是一个指向要重新分配内存的内存块的指针；<code>size</code> 是内存块的新的大小，以字节为单位</p>
+</blockquote>
+<p><code>realloc()</code> 的作用是重新调整之前通过 <code>malloc()</code> 或 <code>calloc()</code> 所分配的 <code>ptr</code> 所指向的内存块的大小，并返回一个指向重新分配大小的内存的指针；如果请求失败，则返回 NULL</p>
+<ul>
+<li>如果 <code>ptr</code> 为空指针，则会分配一个新的内存块，且函数返回一个指向它的指针，相当于 <code>malloc()</code></li>
+<li>如果 <code>size = 0</code>，且 <code>ptr</code> 指向一个已存在的内存块，则 <code>ptr</code> 所指向的内存块会被释放，并返回一个空指针，相当于 <code>free()</code></li>
+</ul>
+<p>另外，针对重新申请的大小与之前申请内存的大小的关系，又有三种不同的情况：</p>
+<ol>
+<li>如果重新申请的大小 &gt; 之前申请内存的大小，且当前内存段后面有需要的内存空间，则直接扩展这段内存空间，<code>realloc()</code> 将返回原指针</li>
+<li>如果重新申请的大小 &gt; 之前申请内存的大小，且当前内存段后面的空闲空间不够，那么就使用堆中的第一个能够满足这一要求的内存块，将目前的数据复制到新的位置，并将原来的数据块释放掉，返回新的内存块地址，相当于 <code>free() + malloc()</code></li>
+<li>如果重新申请的大小 &lt; 之前申请内存的大小，堆块会直接缩小，被削减的内存会释放，这里的释放与 <code>free()</code> 不同</li>
+</ol>
+<hr>
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><blockquote>
+<p>函数声明：<code>void free(void *ptr)</code></p>
+<p><code>ptr</code> 是一个指向要释放内存的内存块的指针</p>
+</blockquote>
+<p><code>free()</code> 的作用是释放之前通过 <code>malloc()</code>、<code>calloc()</code> 或 <code>realloc()</code> 所分配的内存空间，该函数不返回任何值</p>
+<ul>
+<li><p>如果传递的参数 <code>ptr</code> 是一个空指针，则不会执行任何动作</p>
+</li>
+<li><p>当参数 <code>ptr</code> 已经被释放之后，再次释放会出现乱七八糟的效果（Double Free——漏洞）</p>
+</li>
+<li><p>当释放很大的内存空间时，程序会将这些内存空间还给系统，以便于减小程序所使用的内存空间（被 <code>mallopt</code> 禁用的情况下除外）</p>
+<p>ps: mallopt函数可以控制 内存分配的函数 形如int mallopt(int param,int value)</p>
+<p>param 的取值可以为M_CHECK_ACTION、M_MMAP_MAX、M_MMAP_THRESHOLD、M_MXFAST（从glibc2.3起）、M_PERTURB（从glibc2.4起）、M_TOP_PAD、M_TRIM_THRESHOLD。</p>
+<p>value是以 <a target="_blank" rel="noopener" href="http://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=53426">字节</a>为单位的。</p>
+</li>
+</ul>
+<p>还是以上面的例子来看，执行 <code>free()</code> 之后堆段并不会消失：</p>
+<p>但是堆中的内容发生了变化：</p>
+<p>我们申请的空间变成了 <code>Free chunk</code></p>
+<blockquote>
+<p>注意：新版本的 Glibc 对堆结构的管理有些区别，上图是在 Glibc 2.37 的 Kali Linux 2024.1 中进行的测试</p>
+<p>而在 Glibc 2.23 的 Ubuntu 16.04 中是这样的：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出7.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出7.png)</p>
+</blockquote>
+<p>通过 <code>free()</code> 释放的堆块不会立刻被回收，它们会变成 <code>Free chunk</code> 并加上了一种 <code>xxx bin</code> 的名字，例如上图 Glibc 2.23 中的 <code>fastbins</code>（<code>fast bin</code>）</p>
+<p><em>通常来说，当堆块释放后，如果与另一个被释放的堆块或者 <code>top chunk</code> 相邻，则这些空间会被合并</em>（<strong>但是 fast bin 是个特例，不会轻易合并</strong>）</p>
+<hr>
+<h3 id="内存分配背后的系统调用"><a href="#内存分配背后的系统调用" class="headerlink" title="内存分配背后的系统调用"></a>内存分配背后的系统调用</h3><blockquote>
+<p>无论是 <code>malloc</code> 函数还是 <code>free</code> 函数，我们动态申请和释放内存时，都经常会使用，但是它们并不是真正与系统交互的函数</p>
+<p>这些函数背后的系统调用主要是 <code>brk</code> 函数以及 <code>mmap</code> 函数</p>
+</blockquote>
+<ol>
+<li><code>brk</code> 是将 DATA 数据段的最高地址指针 <code>_edata</code> 往高地址推（<code>_edata</code> 指向数据段的最高地址）</li>
+<li><code>mmap</code> 是在进程的虚拟地址空间中（堆和栈中间，称为文件映射区域的地方）找一块空闲的虚拟内存</li>
+</ol>
+<p><code>brk</code> 和 <code>mmap</code> 这两种方式分配的都是虚拟内存，没有分配物理内存</p>
+<p>在第一次访问已分配的虚拟地址空间的时候，发生缺页中断，操作系统负责分配物理内存，然后建立虚拟内存和物理内存之间的映射关系</p>
+<ul>
+<li><code>malloc</code> 小于 <code>128k</code>（<code>0x20000</code> 字节）的内存时，使用 <code>brk</code> 分配内存</li>
+<li><code>malloc</code> 大于等于 <code>128k</code>（<code>0x20000</code> 字节）的内存时，使用 <code>mmap</code> 分配内存，在堆和栈之间找一块空闲内存分配</li>
+</ul>
+<p>第一次执行 <code>malloc</code> 可能出现的系统调用如下：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出19.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出19.png)</p>
+<blockquote>
+<p>注意：</p>
+<p><code>brk</code> 会直接拓展原来的堆，<code>mmap</code> 会单独映射一块内存</p>
+<p><strong><code>mmap</code> 分配的内存与 libc 基地址之前存在固定的偏移，因此可以推算出 libc 的基地址</strong></p>
+</blockquote>
+<hr>
+<h4 id="brk"><a href="#brk" class="headerlink" title="brk"></a>brk</h4><blockquote>
+<p>对于堆的操作，操作系统提供了 <code>brk</code> 函数，Glibc 库提供了 <code>sbrk</code> 函数，我们可以通过增加 <code>brk</code> 的大小来向操作系统申请内存</p>
+</blockquote>
+<p>初始时，堆的起始地址 <code>start_brk</code> 以及堆的当前末尾 <code>brk</code> 指向同一地址。根据是否开启 ASLR，两者的具体位置会有所不同：</p>
+<ul>
+<li>不开启 ASLR 保护时，<code>start_brk</code> 以及 <code>brk</code> 会指向 DATA&#x2F;BSS 段的结尾。</li>
+<li>开启 ASLR 保护时，<code>start_brk</code> 以及 <code>brk</code> 也会指向同一位置，只是这个位置是在 DATA&#x2F;BSS 段结尾后的随机偏移处</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出18.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出18.png)</p>
+<hr>
+<h4 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h4><blockquote>
+<p><code>malloc</code> 会使用 <code>mmap</code> 来创建独立的匿名映射段。匿名映射的目的主要是可以申请以 0 填充的内存，并且这块内存仅被调用进程所使用</p>
+</blockquote>
+<ul>
+<li>在执行 <code>mmap</code> 之前，只有 <code>.so</code> 文件的 <code>mmap</code> 段</li>
+<li>执行 <code>mmap</code> 之后，我们申请的内存与已经存在的内存段结合在了一起，构成了新的 <code>mmap</code> 段</li>
+</ul>
+<hr>
+<h2 id="堆的结构"><a href="#堆的结构" class="headerlink" title="堆的结构"></a>堆的结构</h2><h3 id="微观结构"><a href="#微观结构" class="headerlink" title="微观结构"></a>微观结构</h3><h4 id="malloc-chunk"><a href="#malloc-chunk" class="headerlink" title="malloc_chunk"></a>malloc_chunk</h4><blockquote>
+<p><code>chunk</code> 也叫块，在内存中表示的意思就是一块内存，这块内存在 <code>ptmalloc2</code> 内部用 <code>malloc_chunk</code> 结构体来表示</p>
+<p>在程序的执行过程中，我们称由 <code>malloc()</code> 申请的内存为 <code>chunk</code>，<code>chunk</code> 也是堆的最小操作单元</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/heap-structure/#malloc_chunk">堆相关数据结构 - CTF Wiki</a></p>
+</blockquote>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出15.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出15.png)</p>
+<p><code>malloc_chunk</code> 的结构体定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  This struct declaration is misleading (but accurate and necessary).</span></span><br><span class="line"><span class="comment">  It declares a &quot;view&quot; into memory allowing access to necessary</span></span><br><span class="line"><span class="comment">  fields at known offsets from a given base. See explanation below.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  INTERNAL_SIZE_T      prev_size;  <span class="comment">/* Size of previous chunk (if free).  */</span></span><br><span class="line">  INTERNAL_SIZE_T      size;       <span class="comment">/* Size in bytes, including overhead. */</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Only used for large blocks: pointer to next larger size.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一些参数的解释：</p>
+<ul>
+<li><code>prev_size</code><ol>
+<li>如果该 <code>chunk</code> 的物理相邻的前一地址 <code>chunk</code>（两个指针的地址差值为前一个 <code>chunk</code> 的大小）是空闲的话，那么 <code>prev_size</code> 记录的是前一个 <code>chunk</code> 的大小（包括 <code>chunk</code> 头）</li>
+<li>否则，<code>prev_size</code> 可以用来存储物理相邻的前一个 <code>chunk</code> 的数据。这里的前一个 <code>chunk</code> 指的是较低地址的 <code>chunk</code></li>
+</ol>
+</li>
+<li><code>size</code><ol>
+<li><code>size</code> 表示该 <code>chunk</code> 的大小，大小必须是 <code>2 * SIZE_SZ</code> 的整数倍。如果申请的内存大小不是 <code>2 * SIZE_SZ</code> 的整数倍，会被转换成满足大小的最小的 <code>2 * SIZE_SZ</code> 的倍数</li>
+<li>32 位系统中，<code>SIZE_SZ</code> 是 4；64 位系统中，<code>SIZE_SZ</code> 是 8。 该字段的低三个比特位对 <code>chunk</code> 的大小没有影响，它们从高到低分别表示</li>
+<li>一般来说，堆中第一个被分配的内存块的 <code>size</code> 字段的 <code>P</code> 位都会被设置为 1，以便于防止访问前面的非法内存；当一个 <code>chunk</code> 的 <code>size</code> 的 <code>P</code> 位为 0 时，我们能通过 <code>prev_size</code> 字段来获取上一个 <code>chunk</code> 的大小以及地址。这也方便进行空闲 <code>chunk</code> 之间的合并</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>（A）NON_MAIN_ARENA</code></td>
+<td>记录当前 <code>chunk</code> 是否不属于主线程，1 表示不属于，0 表示属于</td>
+<td></td>
+</tr>
+<tr>
+<td><code>（M）IS_MAPPED</code></td>
+<td>记录当前 <code>chunk</code> 是否是由 <code>mmap</code> 分配的</td>
+<td></td>
+</tr>
+<tr>
+<td><code>（P）PREV_INUSE</code></td>
+<td>记录前一个 <code>chunk</code> 块是否被分配，0 表示空闲，1 表示使用中</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>fd、bk</code><ol>
+<li><code>chunk</code> 处于分配状态时，从 <code>fd</code> 字段开始是用户的数据。<code>chunk</code> 空闲时，会被添加到对应的空闲管理链表中</li>
+<li>通过 <code>fd</code> 和 <code>bk</code> 可以将空闲的 <code>chunk</code> 块加入到空闲的 <code>chunk</code> 块链表进行统一管理</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fd</code></td>
+<td>指向下一个（非物理相邻）空闲的 <code>chunk</code></td>
+</tr>
+<tr>
+<td><code>bk</code></td>
+<td>指向上一个（非物理相邻）空闲的 <code>chunk</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>fd_nextsize、bk_nextsize</code><ol>
+<li>只有 <code>chunk</code> 空闲的时候才使用，不过其用于较大的 <code>chunk</code>（<code>large chunk</code>）</li>
+<li>一般空闲的 <code>large chunk</code> 在 <code>fd</code> 的遍历顺序中，按照由大到小的顺序排列。<strong>这样做可以避免在寻找合适 chunk 时挨个遍历</strong></li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fd_nextsize</code></td>
+<td>指向前一个与当前 <code>chunk</code> 大小不同的第一个空闲块，不包含 <code>bin</code> 的头指针</td>
+</tr>
+<tr>
+<td><code>bk_nextsize</code></td>
+<td>指向后一个与当前 <code>chunk</code> 大小不同的第一个空闲块，不包含 <code>bin</code> 的头指针</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：</p>
+<p><strong>无论一个 chunk 的大小如何，处于分配状态还是释放状态，它们都使用一个统一的结构</strong></p>
+<p><em>虽然在分配状态和释放状态下，<code>chunk</code> 都是同一个数据结构，但是它们的表现形式是不一样的</em></p>
+</blockquote>
+<ul>
+<li><code>chunk</code> 处于分配状态（<code>Allocated chunk</code>）：</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出9.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出9.png)</p>
+<p><strong>前两个字段称为 <code>chunk header</code>，后面的部分称为 <code>user data</code></strong></p>
+<p>每次 <code>malloc</code> 申请得到的内存指针，其实指向 <code>user data</code> 的起始处</p>
+<blockquote>
+<p><code>chunk</code> 中的空间复用：</p>
+<p>当一个 <code>chunk</code> 处于使用状态时，它的下一个 <code>chunk</code> 的 <code>prev_size</code> 域无效，所以下一个 <code>chunk</code> 的该部分也可以被当前 <code>chunk</code> 使用</p>
+</blockquote>
+<ul>
+<li><code>chunk</code> 处于释放状态（<code>Freed chunk</code>）（可能是循环双向链表，也可能是单向链表）：</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出8.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出8.png)</p>
+<p>如果一个 <code>chunk</code> 处于 <code>free</code> 状态，那么会有两个位置记录其相应的大小：</p>
+<ol>
+<li>该 <code>chunk</code> 本身的 <code>size</code> 字段会记录</li>
+<li>该 <code>chunk</code> 后面的一个 <code>chunk</code> 会记录</li>
+</ol>
+<blockquote>
+<p>堆管理器会通过 <code>prev_size</code> 字段以及 <code>size</code> 字段合并两个物理相邻的空闲 <code>chunk</code> 块</p>
+</blockquote>
+<hr>
+<h4 id="top-chunk"><a href="#top-chunk" class="headerlink" title="top chunk"></a>top chunk</h4><blockquote>
+<p>程序第一次进行 <code>malloc</code> 的时候，<code>heap</code> 会被分为两块，一块给用户，剩下的那块就是 <code>top chunk</code>，简而言之，**<code>top chunk</code> 就是处于当前堆的物理地址最高的 <code>chunk</code>**</p>
+<p><code>top chunk</code> 不属于任何一个 <code>bin</code>，它的作用在于：</p>
+<ol>
+<li>当所有的 <code>bin</code> 都无法满足用户请求的大小时，如果 <code>top chunk</code> 不小于用户请求的大小，就从 <code>top chunk</code> 中进行分配，并将剩下的部分作为新的 <code>top chunk</code></li>
+<li>否则，就对 <code>heap</code> 进行扩展后再进行分配（在 <code>main arena</code> 中通过 <code>sbrk</code> 扩展 <code>heap</code>，而在 <code>thread arena</code> 中通过 <code>mmap</code> 分配新的 <code>heap</code>）</li>
+</ol>
+</blockquote>
+<ul>
+<li>初始情况下，可以将 <code>unsorted chunk</code> 作为 <code>top chunk</code></li>
+<li><code>top chunk</code> 的 <code>PREV_INUSE</code> 位始终为 1（否则其前面的 <code>chunk</code> 就会被合并到 <code>top chunk</code> 中）</li>
+</ul>
+<hr>
+<h4 id="last-remainder-chunk"><a href="#last-remainder-chunk" class="headerlink" title="last remainder chunk"></a>last remainder chunk</h4><blockquote>
+<p>在用户使用 <code>malloc</code> 请求分配内存时，<code>ptmalloc2</code> 找到的 <code>chunk</code> 可能并不和申请的内存大小一致，这时候就将分割之后的剩余部分称之为 <code>last remainder chunk</code></p>
+</blockquote>
+<ul>
+<li><code>unsorted bin</code> 也会存这一块</li>
+<li><code>top chunk</code> 分割剩下的部分不会作为 <code>last remainder</code></li>
+</ul>
+<hr>
+<h3 id="宏观结构"><a href="#宏观结构" class="headerlink" title="宏观结构"></a>宏观结构</h3><h4 id="arena"><a href="#arena" class="headerlink" title="arena"></a>arena</h4><blockquote>
+<p>无论是主线程还是新创建的线程，在第一次申请内存时，都会有独立的 <code>arena</code>，<code>arena</code> 就是用来管理线程中的这些堆的，也可以理解为堆管理器所持有的内存池</p>
+</blockquote>
+<ul>
+<li>一个线程只有一个 <code>arnea</code>，并且这些线程的 <code>arnea</code> 都是独立的不是相同的</li>
+</ul>
+<p>但也不是每一个线程都会有对应的 <code>arena</code>，对于不同系统，<code>arena</code> 数量的约束如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">txtFor 32 bit systems:</span><br><span class="line">     Number of arena = 2 * number of cores.</span><br><span class="line">For 64 bit systems:</span><br><span class="line">     Number of arena = 8 * number of cores.</span><br></pre></td></tr></table></figure>
+
+<p>因为每个系统的核数是有限的，当线程数大于核数的二倍（超线程技术）时，就必然有线程处于等待状态，所以没有必要为每个线程分配一个 <code>arena</code></p>
+<ul>
+<li>主线程的 <code>arnea</code> 称为 <code>main_arena</code>，子线程的 <code>arnea</code> 称为 <code>thread_arena</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出16.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出16.png)</p>
+<ul>
+<li>主线程无论一开始 <code>malloc</code> 多少空间，只要 <code>size &lt; 128KB</code>，<code>kernel</code> 都会分配 <code>132KB</code> 具有读写权限的 <code>heap segment</code>，这部分称为 <code>main_arena</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出17.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出17.png)</p>
+<p>例如这张图中：</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出2.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出2.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heap segment` 地址为 `0x555555559000 ~ 0x55555557a000`，具有 `rw` 权限，总共：`(0x55555557a000 - 0x555555559000)B / 1024 = 132KB</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<p><code>main_arena</code> 并不在申请的 <code>heap</code> 中，而是一个全局变量，在 <code>libc.so</code> 的数据段中</p>
+</blockquote>
+<p>后续申请的内存会一直从这个 <code>arena</code> 中获取，直到空间不足</p>
+<p>当 <code>arena</code> 空间不足时，它可以通过增加 <code>brk</code> 的方式来增加堆的空间；类似地，<code>arena</code> 也可以通过减小 <code>brk</code> 来缩小自己的空间</p>
+<p>即使将所有 <code>main_arena</code> 所分配出去的内存块 <code>free</code> 完，也不会立即还给 <code>kernel</code>，而是交由 Glibc 来管理。当后面程序再次申请内存时，在 Glibc 中管理的内存充足的情况下，Glibc 就会根据堆分配的算法来给程序分配相应的内存</p>
+<hr>
+<h4 id="heap-info"><a href="#heap-info" class="headerlink" title="heap_info"></a>heap_info</h4><blockquote>
+<p>程序刚开始执行时，每个线程是没有 <code>heap</code> 区域的。当其申请内存时，就需要 <code>heap_info</code> 这个结构来记录对应的信息</p>
+<p>当该 <code>heap</code> 的资源被使用完后，就必须得再次申请内存了。此外，一般申请的 <code>heap</code> 是不连续的，因此需要记录不同 <code>heap</code> 之间的链接结构</p>
+</blockquote>
+<ul>
+<li><strong><code>heap_info</code> 这个数据结构是专门为从 <code>Memory Mapping Segment</code> 处申请的内存准备的，即为非主线程准备的</strong></li>
+<li>主线程可以通过 <code>sbrk()</code> 函数扩展 <code>program break location</code> 获得（直到触及 <code>Memory Mapping Segment</code>），只有一个 <code>heap</code>，没有 <code>heap_info</code> 数据结构</li>
+</ul>
+<p><code>heap_info</code> 的主要结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> HEAP_MIN_SIZE (32 * 1024)</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> HEAP_MAX_SIZE</span></span><br><span class="line"><span class="meta"># <span class="keyword">ifdef</span> DEFAULT_MMAP_THRESHOLD_MAX</span></span><br><span class="line"><span class="meta">#  <span class="keyword">define</span> HEAP_MAX_SIZE (2 * DEFAULT_MMAP_THRESHOLD_MAX)</span></span><br><span class="line"><span class="meta"># <span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#  <span class="keyword">define</span> HEAP_MAX_SIZE (1024 * 1024) <span class="comment">/* must be a power of two */</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* HEAP_MIN_SIZE and HEAP_MAX_SIZE limit the size of mmap()ed heaps</span></span><br><span class="line"><span class="comment">   that are dynamically created for multi-threaded programs.  The</span></span><br><span class="line"><span class="comment">   maximum size must be a power of two, for fast determination of</span></span><br><span class="line"><span class="comment">   which heap belongs to a chunk.  It should be much larger than the</span></span><br><span class="line"><span class="comment">   mmap threshold, so that requests with a size just below that</span></span><br><span class="line"><span class="comment">   threshold can be fulfilled without creating too many heaps.  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* A heap is a single contiguous memory region holding (coalesceable)</span></span><br><span class="line"><span class="comment">   malloc_chunks.  It is allocated with mmap() and always starts at an</span></span><br><span class="line"><span class="comment">   address aligned to HEAP_MAX_SIZE.  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_heap_info</span></span><br><span class="line">&#123;</span><br><span class="line">  mstate ar_ptr; <span class="comment">/* Arena for this heap. */</span></span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">_heap_info</span> *prev; <span class="comment">/* Previous heap. */</span></span><br><span class="line">  <span class="type">size_t</span> size;   <span class="comment">/* Current size in bytes. */</span></span><br><span class="line">  <span class="type">size_t</span> mprotect_size; <span class="comment">/* Size in bytes that has been mprotected</span></span><br><span class="line"><span class="comment">                           PROT_READ|PROT_WRITE.  */</span></span><br><span class="line">  <span class="comment">/* Make sure the following data is properly aligned, particularly</span></span><br><span class="line"><span class="comment">     that sizeof (heap_info) + 2 * SIZE_SZ is a multiple of</span></span><br><span class="line"><span class="comment">     MALLOC_ALIGNMENT. */</span></span><br><span class="line">  <span class="type">char</span> pad[<span class="number">-6</span> * SIZE_SZ &amp; MALLOC_ALIGN_MASK];</span><br><span class="line">&#125; heap_info;</span><br></pre></td></tr></table></figure>
+
+<p>该结构主要是描述堆的基本信息，包括：</p>
+<ul>
+<li>堆对应的 <code>arena</code> 的地址</li>
+<li>由于一个线程申请一个堆之后，可能会使用完，之后就必须得再次申请。因此，一个线程可能会有多个堆。<code>prev</code> 即记录了上一个 <code>heap_info</code> 的地址。这里可以看到每个堆的 <code>heap_info</code> 是通过单向链表进行链接的</li>
+<li><code>size</code> 表示当前堆的大小</li>
+<li><code>pad</code> 确保分配的空间是按照 <code>MALLOC_ALIGN_MASK + 1</code> 对齐的</li>
+</ul>
+<hr>
+<h4 id="malloc-state"><a href="#malloc-state" class="headerlink" title="malloc_state"></a>malloc_state</h4><blockquote>
+<p><code>malloc_state</code> 结构用于管理堆，记录每个 <code>arena</code> 当前申请的内存的具体状态，例如：是否有空闲 <code>chunk</code>，空闲 <code>chunk</code> 的大小等等</p>
+</blockquote>
+<ul>
+<li>无论是 <code>thread_arena</code> 还是 <code>main_arena</code>，它们都只有一个 <code>malloc state</code> 结构</li>
+<li>由于 <code>thread</code> 的 <code>arena</code> 可能有多个，<code>malloc state</code> 结构会在最新申请的 <code>arena</code> 中</li>
+</ul>
+<p><code>malloc_state</code> 的结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">malloc_state</span> &#123;</span><br><span class="line">    <span class="comment">/* Serialize access.  */</span></span><br><span class="line">    __libc_lock_define(, mutex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Flags (formerly in max_fast).  */</span></span><br><span class="line">    <span class="type">int</span> flags;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Fastbins */</span></span><br><span class="line">    mfastbinptr fastbinsY[ NFASTBINS ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Base of the topmost chunk -- not otherwise kept in a bin */</span></span><br><span class="line">    mchunkptr top;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The remainder from the most recent split of a small request */</span></span><br><span class="line">    mchunkptr last_remainder;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Normal bins packed as described above */</span></span><br><span class="line">    mchunkptr bins[ NBINS * <span class="number">2</span> - <span class="number">2</span> ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Bitmap of bins, help to speed up the process of determinating if a given bin is definitely empty.*/</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> binmap[ BINMAPSIZE ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Linked list, points to the next arena */</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_state</span> *next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Linked list for free arenas.  Access to this field is serialized</span></span><br><span class="line"><span class="comment">       by free_list_lock in arena.c.  */</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_state</span> *next_free;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Number of threads attached to this arena.  0 if the arena is on</span></span><br><span class="line"><span class="comment">       the free list.  Access to this field is serialized by</span></span><br><span class="line"><span class="comment">       free_list_lock in arena.c.  */</span></span><br><span class="line">    INTERNAL_SIZE_T attached_threads;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Memory allocated from the system in this arena.  */</span></span><br><span class="line">    INTERNAL_SIZE_T system_mem;</span><br><span class="line">    INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>libc_lock_define(, mutex)</code><br>该变量用于控制程序串行访问同一个分配区，当一个线程获取了分配区之后，其它线程要想访问该分配区，就必须等待该线程分配完成后才能够使用。</li>
+<li><code>flags</code><br><code>flags</code> 记录了分配区的一些标志，比如 <code>bit0</code> 记录了分配区是否有 <code>fast bin chunk</code>，<code>bit1</code> 标识分配区是否能返回连续的虚拟地址空间。具体如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   FASTCHUNKS_BIT held in max_fast indicates that there are probably</span></span><br><span class="line"><span class="comment">   some fastbin chunks. It is set true on entering a chunk into any</span></span><br><span class="line"><span class="comment">   fastbin, and cleared only in malloc_consolidate.</span></span><br><span class="line"><span class="comment">   The truth value is inverted so that have_fastchunks will be true</span></span><br><span class="line"><span class="comment">   upon startup (since statics are zero-filled), simplifying</span></span><br><span class="line"><span class="comment">   initialization checks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FASTCHUNKS_BIT (1U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> have_fastchunks(M) (((M)-&gt;flags &amp; FASTCHUNKS_BIT) == 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> clear_fastchunks(M) catomic_or(&amp;(M)-&gt;flags, FASTCHUNKS_BIT)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_fastchunks(M) catomic_and(&amp;(M)-&gt;flags, ~FASTCHUNKS_BIT)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   NONCONTIGUOUS_BIT indicates that MORECORE does not return contiguous</span></span><br><span class="line"><span class="comment">   regions.  Otherwise, contiguity is exploited in merging together,</span></span><br><span class="line"><span class="comment">   when possible, results from consecutive MORECORE calls.</span></span><br><span class="line"><span class="comment">   The initial value comes from MORECORE_CONTIGUOUS, but is</span></span><br><span class="line"><span class="comment">   changed dynamically if mmap is ever used as an sbrk substitute.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NONCONTIGUOUS_BIT (2U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> contiguous(M) (((M)-&gt;flags &amp; NONCONTIGUOUS_BIT) == 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> noncontiguous(M) (((M)-&gt;flags &amp; NONCONTIGUOUS_BIT) != 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_noncontiguous(M) ((M)-&gt;flags |= NONCONTIGUOUS_BIT)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_contiguous(M) ((M)-&gt;flags &amp;= ~NONCONTIGUOUS_BIT)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ARENA_CORRUPTION_BIT is set if a memory corruption was detected on the</span></span><br><span class="line"><span class="comment">   arena.  Such an arena is no longer used to allocate chunks.  Chunks</span></span><br><span class="line"><span class="comment">   allocated in that arena before detecting corruption are not freed.  */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ARENA_CORRUPTION_BIT (4U)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> arena_is_corrupt(A) (((A)-&gt;flags &amp; ARENA_CORRUPTION_BIT))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> set_arena_corrupt(A) ((A)-&gt;flags |= ARENA_CORRUPTION_BIT)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>fastbinsY[NFASTBINS]</code><br>存放每个 <code>fast chunk</code> 链表头部的指针</li>
+<li><code>top</code><br>指向分配区的 <code>top chunk</code></li>
+<li><code>last_reminder</code><br>最新的 <code>chunk</code> 分割之后剩下的那部分</li>
+<li><code>bins</code><br>用于存储 <code>unstored bin</code>，<code>small bin</code> 和 <code>large bin</code> 的 <code>chunk</code> 链表</li>
+<li><code>binmap</code><br><code>ptmalloc2</code> 用 1 个 <code>bit</code> 来标识某一个 <code>bin</code> 中是否包含空闲 <code>chunk</code></li>
+</ul>
+<blockquote>
+<p>注意：</p>
+<p><code>main_arena</code> 的 <code>malloc_state</code> 并不是 <code>heap segment</code> 的一部分，而是一个全局变量，存储在 <code>libc.so</code> 的数据段</p>
+</blockquote>
+<hr>
+<h2 id="bin-的种类"><a href="#bin-的种类" class="headerlink" title="bin 的种类"></a>bin 的种类</h2><blockquote>
+<p>Glibc 为了让 <code>malloc</code> 可以更快找到合适大小的 <code>chunk</code>，用户 <code>free</code> 释放掉的 <code>chunk</code> 不会马上归还给系统，而是将该 <code>chunk</code> 根据大小加入到合适的 <code>bin</code> 中</p>
+<p>当用户再一次通过 <code>malloc</code> 请求分配内存时，<code>ptmalloc2</code> 会试图在空闲的 <code>chunk</code> 中挑选一块合适的空间给用户，这样可以避免频繁的系统调用，降低内存分配的开销</p>
+<p><code>bin</code> 的中文意思为垃圾桶，就像要删除的文件会先放入 Windows 的回收站一样不会立即删除，很生动形象了</p>
+</blockquote>
+<p><code>ptmalloc2</code> 会根据空闲的 <code>chunk</code> 的大小以及使用状态，将 <code>chunk</code> 初步放入相应的 <code>bin</code> 中，<code>bin</code> 的种类主要分为：</p>
+<ul>
+<li><code>fast bin</code></li>
+<li><code>small bin</code></li>
+<li><code>large bin</code></li>
+<li><code>unsorted bin</code></li>
+<li><code>tcache</code></li>
+</ul>
+<p>Glibc 提供了两个数组：<code>fastbinsY[]</code> 和 <code>bins[]</code> 用来存放这些 <code>bin</code></p>
+<p>具体来说，可分为：</p>
+<ul>
+<li>10 个 <code>fast bin</code>，存储在 <code>fastbinsY[]</code> 中</li>
+<li>1 个 <code>unsorted bin</code>，存储在 <code>bins[1]</code> 中</li>
+<li>62 个 <code>small bin</code>，存储在 <code>bins[2]</code> 至 <code>bins[63]</code> 中</li>
+<li>63 个 <code>large bin</code>，存储在 <code>bins[64]</code> 至 <code>bins[126]</code> 中</li>
+</ul>
+<p>其中虽然定义了 <code>bins[128]</code>，但是 <code>bins[0]</code> 和 <code>bins[127]</code> 其实是不存在的</p>
+<p><code>chunk</code> 在 <code>bin</code> 上以链表的形式存放：（<code>fast bin</code> 是<strong>单链表</strong>，其他的 <code>bin</code> 都是<strong>双链表</strong>）</p>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出10.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出10.png)</p>
+<hr>
+<h3 id="fast-bin"><a href="#fast-bin" class="headerlink" title="fast bin"></a>fast bin</h3><blockquote>
+<p><code>fast bin</code> 非常像高速缓存 cache，为了减少一些较小的 <code>chunk</code> 在合并、分割以及中间检查的过程中的开销，<code>ptmalloc2</code> 中专门设计了 <code>fast bin</code>，对应的变量就是 <code>malloc state</code> 中的 <code>fastbinsY[]</code> 数组，用于提高小内存分配效率</p>
+</blockquote>
+<ul>
+<li><code>fast bin</code> 存储在 <code>fastbinsY[]</code> 处，是 10 个<strong>单链表</strong>（最后 3 个链表保留未使用）</li>
+<li><code>fast bin</code> 的 <code>chunk</code> 大小（含 <code>chunk</code> 头部）为：<code>16 ~ 64</code> 字节（64 位为 <code>32 ~ 128</code> 字节）</li>
+<li>相邻 <code>bin</code> 存放的大小相差 8 字节（64 位为 16 字节）</li>
+<li><strong>采取 <code>LIFO</code> 策略</strong>（最近释放的 <code>chunk</code> 会更早地被分配）</li>
+<li><code>chunk</code> 的 <code>PREV_INUSE</code> 位（下一个物理相邻的 <code>chunk</code> 的 <code>P</code> 位）总为 1，释放到 <code>fastbin</code> 的 <code>chunk</code> 不会被清除 <code>PREV_INUSE</code> 标志位</li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出11.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出11.png)</p>
+<p>如果遇到以下两种情况，<code>ptmalloc2</code> 会首先判断 <code>fast bin</code> 中相应的 <code>bin</code> 中是否有对应大小的空闲块，如果有的话，就会直接从这个 <code>bin</code> 中获取 <code>chunk</code>；如果没有的话，<code>ptmalloc2</code> 才会做接下来的一系列操作：</p>
+<ul>
+<li>在 32 位系统中（<code>SIZE_SZ = 4</code>），用户需要的 <code>chunk</code> 大小 &lt; 64 字节</li>
+<li>在 64 位系统中（<code>SIZE_SZ = 8</code>），用户需要的 <code>chunk</code> 大小 &lt; 128 字节</li>
+</ul>
+<p>关于 <code>fast bin</code> 的大小定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> DEFAULT_MXFAST </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEFAULT_MXFAST (64 * SIZE_SZ / 4) </span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> </span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* The maximum fastbin request size we support */</span> </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_FAST_SIZE (80 * SIZE_SZ / 4)</span></span><br></pre></td></tr></table></figure>
+
+<p>在 32 位系统中，<code>fast bin</code> <strong>默认支持</strong>最大的 <code>chunk</code> 的数据空间大小为 64 字节：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">DEFAULT_MXFAST = (<span class="number">64</span> * <span class="number">4</span> / <span class="number">4</span>) = <span class="number">64</span></span><br></pre></td></tr></table></figure>
+
+<p>但是其<strong>可以支持</strong>的 <code>chunk</code> 的数据空间最大为 80 字节：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MAX_FAST_SIZE = (<span class="number">80</span> * <span class="number">4</span> / <span class="number">4</span>) = <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>fast bin</code> 最多可以支持的 <code>bin</code> 的个数为 10 个</strong>，在 32 位系统中，用户数据空间从第 8 字节开始一直到第 80 字节（不包括 <code>prev_size</code> 和 <code>size</code> 字段的 8 字节）</p>
+<blockquote>
+<p>注意：</p>
+<p><strong>fast bin 中的 <code>chunk</code> 的 <code>PREV_INUSE</code> 位（下一个物理相邻的 chunk 的 P 位）始终被置为 1</strong>，因此它们不会和其它被释放的 <code>chunk</code> 合并，这也是为什么前面说 fast bin 是个特例，不会轻易合并</p>
+<p>但是，当释放的 <code>chunk</code> 与该 <code>chunk</code> 相邻的空闲 <code>chunk</code> 合并后的大小 &gt; <code>FASTBIN_CONSOLIDATION_THRESHOLD</code> 时，说明内存碎片较多，此时就需要把 <code>fast bin</code> 中的 <code>chunk</code> 都进行合并，以减少内存碎片对系统的影响</p>
+</blockquote>
+<hr>
+<h3 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h3><blockquote>
+<p><code>unsorted bin</code> 非常像缓冲区 buffer，可以视为空闲 <code>chunk</code> 回归其所属 <code>bin</code> 之前的缓冲区</p>
+<p>大小超过 <code>fast bin</code> 阈值的 <code>chunk</code> 被释放时会加入到这里，这使得 <code>ptmalloc2</code> 可以复用最近释放的chunk，从而提升效率</p>
+</blockquote>
+<ul>
+<li><code>unsorted bin</code> 处于 <code>bins[1]</code> 处，因此 <code>unsorted bin</code> 只有 1 个<strong>双向循环链表</strong></li>
+<li><code>unsorted bin</code> 中的空闲 <code>chunk</code> 处于<strong>乱序状态</strong></li>
+<li>**<code>unsorted bin</code> 在使用的过程中，采用的遍历顺序是 <code>FIFO</code>**（插入的时候插入到 unsorted bin 的头部，取出的时候从链表尾获取）</li>
+<li>在 <code>malloc</code> 分配时，如果在 <code>fast bin</code>、<code>small bin</code> 中找不到对应大小的 <code>chunk</code>，就会尝试从 <code>unsorted bin</code> 中寻找 <code>chunk</code>。如果取出来的 <code>chunk</code> 大小刚好满足，就会直接返回给用户；如果在 <code>unsorted bin</code> 中没有合适的 <code>chunk</code>，就会把 <code>unsorted bin</code> 中的所有 <code>chunk</code> 分别加入到所属的 <code>bin</code> 中，然后再在 <code>bin</code> 中分配合适的 <code>chunk</code></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出14.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出14.png)</p>
+<blockquote>
+<p>当 <code>free</code> 的 <code>chunk</code> 大小 &gt;&#x3D; 144 字节时，为了效率，Glibc 并不会马上将 <code>chunk</code> 放到相对应的 <code>bin</code> 中，而会先放到 <code>unsorted bin</code></p>
+<p>下次 <code>malloc</code> 时会先查找 <code>unsorted bin</code> 中是否有合适的 <code>chunk</code>，找不到才会去对应的 <code>bin</code> 中寻找，此时会顺便把 <code>unsorted bin</code> 的 <code>chunk</code> 放到对应的 <code>bin</code> 中，但 <code>small bin</code> 除外，为了效率，反⽽先从 <code>small bin</code> 找</p>
+</blockquote>
+<hr>
+<h3 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chunk size` 小于 `0x200` 字节（64 位为 `0x400` 字节）的 `chunk` 叫做 `small chunk`，而 `small bin` 存放的就是这些 `small chunk</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>small bin</code> 存储在 <code>bins[2]</code> 至 <code>bins[63]</code> 处，是 62 个<strong>双向循环链表</strong>（每个链表都有链表头结点，这样可以方便对于链表内部结点的管理）</li>
+<li><code>fast bin</code> 的 <code>chunk</code> 大小（含 <code>chunk</code> 头部）为：<code>16 ~ 496</code> 字节（64 位为 <code>32 ~ 1008</code> 字节）</li>
+<li>相邻 <code>bin</code> 存放的大小相差 8 字节（64 位为 16 字节）</li>
+<li><em>每个链表中存储的 <code>chunk</code> 大小都一致</em></li>
+<li><strong>采取 <code>FIFO</code> 策略</strong>（最近释放的 <code>chunk</code> 会被最后分配），这点和 <code>fast bin</code> 相反</li>
+<li>同样与 <code>fast bin</code> 相反的是：<em>相邻的空闲 <code>chunk</code> 会被合并</em></li>
+</ul>
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出12.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出12.png)</p>
+<p><code>small bin</code> 中每个 <code>chunk</code> 的大小与其所在的 <code>bin</code> 的 <code>index</code> 的关系为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">chunk_size = <span class="number">2</span> * SIZE_SZ * index</span><br></pre></td></tr></table></figure>
+
+<p><code>small bin</code> 的大小再分成 62 个 <code>bin</code>，大小从 16 字节（64 位为 32 字节）开始，每次固定增加 8 字节（64 位为 16 字节）：</p>
+<table>
+<thead>
+<tr>
+<th>下标 index</th>
+<th>SIZE_SZ&#x3D;4（32 位）</th>
+<th>SIZE_SZ&#x3D;8（64 位）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>16</td>
+<td>32</td>
+</tr>
+<tr>
+<td>3</td>
+<td>24</td>
+<td>48</td>
+</tr>
+<tr>
+<td>4</td>
+<td>32</td>
+<td>64</td>
+</tr>
+<tr>
+<td>5</td>
+<td>40</td>
+<td>80</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td><code>2 * 4 * x</code></td>
+<td><code>2 * 8 * x</code></td>
+</tr>
+<tr>
+<td>63</td>
+<td>504</td>
+<td>1008</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：</p>
+<p><code>fast bin</code> 中的 <code>chunk</code> 是有可能被放到 <code>small bin</code> 中去的</p>
+</blockquote>
+<hr>
+<h3 id="large-bin"><a href="#large-bin" class="headerlink" title="large bin"></a>large bin</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">large bin` 存放的是大于等于 `0x200` 字节（64 位为 `0x400` 字节）的 `chunk</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>large bin</code> 存储在 <code>bins[64]</code> 至 <code>bins[126]</code> 处，是 63 个<strong>双向循环链表</strong></li>
+<li><em>每个 bin 中的 chunk 的大小不一致（按大小降序排列）</em></li>
+<li><strong>采取 <code>FIFO</code> 策略</strong></li>
+<li>插入和删除可以发生在任意位置</li>
+<li>相邻空闲 <code>chunk</code> 会被合并</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">large bin` 的 `freed chunk` 会多两个指针 `fd_nextsize`、`bk_nextsize`，分别指向前一块和后一块 `large chunk</span><br></pre></td></tr></table></figure>
+
+<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出13.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出13.png)</p>
+<p><code>large bin</code> 的大小再分成 63 个 <code>bin</code>，但大小不再是固定大小增加，而是按照公差分为 6 组：</p>
+<table>
+<thead>
+<tr>
+<th>组</th>
+<th>bin 的数量</th>
+<th>公差</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32</td>
+<td>0x40</td>
+</tr>
+<tr>
+<td>2</td>
+<td>16</td>
+<td>0x200</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8</td>
+<td>0x1000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>0x8000</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>0x40000</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>不限制，大小和 large bin 剩余的大小相同</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="tcache"><a href="#tcache" class="headerlink" title="tcache"></a>tcache</h3><blockquote>
+<p><code>tcache</code> 是 libc2.26（Ubuntu 17.10）之后引进的一种新机制，类似于 <code>fast bin</code> 一样的东西，目的是提升堆管理的性能，但提升性能的同时舍弃了很多安全检查，也因此有了很多新的利用方式</p>
+</blockquote>
+<ul>
+<li>每条链上最多可以有 7 个 <code>chunk</code></li>
+<li><code>malloc</code> 的时候优先去 <code>tcache</code> 找</li>
+<li><code>free</code> 的时候当 <code>tcache</code> 满了才放入 <code>fastbin</code> 或 <code>unsorted bin</code></li>
+</ul>
+<p>基本工作方式：</p>
+<ul>
+<li><code>malloc</code> 时，会先 <code>malloc</code> 一块内存用来存放 <code>tcache_perthread_struct</code></li>
+<li><code>free</code> 内存，且 <code>size</code> 小于 <code>small bin size</code> 时<ol>
+<li>先放到对应的 <code>tcache</code> 中，直到 <code>tcache</code> 被填满（默认是 7 个）</li>
+<li><code>tcache</code> 被填满之后，再次 <code>free</code> 的内存和之前一样被放到 <code>fast bin</code> 或者 <code>unsorted bin</code> 中</li>
+<li><code>tcache</code> 中的 <code>chunk</code> 不会合并（不取消 <code>PREV_INUSE</code> 位）</li>
+</ol>
+</li>
+<li><code>malloc</code> 内存，且 <code>size</code> 在 <code>tcache</code> 范围内<ol>
+<li>先从 <code>tcache</code> 取 <code>chunk</code>，直到 <code>tcache</code> 为空</li>
+<li><code>tcache</code> 为空后，从 <code>bin</code> 中找</li>
+<li><code>tcache</code> 为空时，如果 <code>fast bin</code>、<code>small bin</code>、<code>unsorted bin</code> 中有 <code>size</code> 符合的 <code>chunk</code>，会先把 <code>fast bin</code>、<code>small bin</code>、<code>unsorted bin</code> 中的 <code>chunk</code> 放到 <code>tcache</code> 中，直到填满；之后再从 <code>tcache</code> 中取；因此 <code>chunk</code> 在 <code>bin</code> 中和 <code>tcache</code> 中的顺序会反过来</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/3-10%E5%88%B7%E9%A2%98%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -650,255 +1987,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/echo%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/echo%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">echo函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:11:19 / 修改时间：15:18:19" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:19+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>echo</p>
-<p>echo 有多种解法，可以通过管道符号重定向把flag的内容读出来，可以利⽤bash报错信息把flag读出来 &#x2F;flag</p>
-<p> echo <code>&lt;/flag</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/" class="post-title-link" itemprop="url">execve函数的三个变量意义</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:11:10 / 修改时间：15:20:58" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:10+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>execve这个函数有三个参数</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file,<span class="type">char</span> *<span class="type">const</span> argv[],<span class="type">char</span> *<span class="type">const</span> envp[])</span></span></span><br></pre></td></tr></table></figure>
-
-<p><strong>第一个参数，是要打开运行的二进制文件，这个是个文件路径，绝对路径和相对路径都可以</strong></p>
-<p>1、文件路径为&#x2F;bin&#x2F;sh，这个sh其实是个shell程序，如果argv是空（0也可以），那么就会去打开一个shell，所以execve(“&#x2F;bin&#x2F;sh”,0,0)是我们最常用的，but如果argv不为空呢，sh就可以变成变成一个shell脚本解析器，这时候argv应该是这么组成char *argv[]&#x3D;{“&#x2F;bin&#x2F;sh”,”flag”,NULL}<br>2、文件路径为&#x2F;bin&#x2F;cat，这个cat故名思议就是打印文件内容的程序，函数形式为execve(“&#x2F;bin&#x2F;cat”,argv,0),argv[]&#x3D;{“&#x2F;bin&#x2F;cat”,”flag”,NULL}这样子这个数组的第一个内容是文件路径，这个和execve的第一个参数一样，但是吧由于argv的特性，所以数组的第一个一定得是这个，然后第二个就是我们要解析的脚本路径，我这边是相对路径，然后第三个是空，这个是argv的要求，要求最后一个一定得是NULL，这个有什么用呢，如果argv里面的要解析的文件不是shell程序，那么就会把文件内容以报错的形式输出出来，如果题目把0(标准输入)和1(标准输出)关了，还能这么拿到flag</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br></pre></td></tr></table></figure>
-
-<p>在说明第二个参数之前，我们要说明一下这个execve的功能，我们知道程序的执行是由进程执行的，那么如果使用的execve，这个函数后面的代码全部不执行，转头去执行我们第一个参数指向的二进制代码<br>主函数是有参数的，可以通过这个参数传一些信息给主函数</p>
-<p><strong>第二个参数，我们上面提到了主函数有两个参数，第二个参数叫做argv，这个刚好和我们第二个参数名字一样，其实我们第二个参数就是原封不动的传给要去执行的二进制代码的argv参数，这个参数的详细介绍后面再说</strong><br><strong>第三个参数是环境变量，这个我并没有细究，因为通常都是NULL</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">gdb调试知识</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:11:02 / 修改时间：15:21:12" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:02+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>RAP:用来存放返回值</p>
-<p>RBP,RSP：做栈，保护栈</p>
-<hr>
-<p>以上为编译器发展的近况，与操作系统（cpu）无关。</p>
-<hr>
-<p><strong>rax，rbx，rcx,rdx,rsi,rdi,rbp,rsp</strong>等r8之前的寄存器前三十二位为<strong>eax</strong>等（exx形式），后三十二位为xx（例：ax）。</p>
-<p>r8之后为r8d等.（rxx形式），后32位为rxxw。</p>
-<hr>
-<p>rip：存放当前执行的指令的地址。</p>
-<hr>
-<p>(gdb) disassemble $rip 反编译rip中地址所对应的命令</p>
-<p>rip可换为其对应的命令函数名（eg：main)</p>
-<hr>
-<p>set disassembly-flavor intel将反编译转化为英特尔模式 在gdb运行编译程序时直接输入命令</p>
-<hr>
-<p>设置断点： </p>
-<p>b * 0x8048489 </p>
-<p>查看断点 个数，地址，所在函数位置</p>
-<p>i b</p>
-<p>执行到断点位置</p>
-<p>c </p>
-<p>查看寄存器信息</p>
-<p>i r </p>
-<p>使断点有效（已设置断点）：</p>
-<p>enable  b id[b-id为中断编号]</p>
-<p>enable id</p>
-<p>使断点失效（已设置断点）：</p>
-<p>标准写法：disable b id[b-id为中断编号]</p>
-<p>不标准写法：d 2（2指断电的num），disable 2</p>
-<hr>
-<p>lea &#x3D;》Load effective address（原含义）</p>
-<p>现含义：lea rax，[rbp-0x18]   用于计算等 op后长度更短，必须加方括号，不加为原含义</p>
-<hr>
-<p>xor异或指令：</p>
-<p>eg：xor ebx,ebx （两指令）&#x3D;&gt;将ebx&#x3D;0 （对比mov ebx ，0（三指令）更短）</p>
-<p>但xor有影响标志寄存器的副作用，但mov没有</p>
-<hr>
-<p>jcc系列</p>
-<p><img src="https://ooo.0x0.ooo/2024/09/04/OtIhnB.png"></p>
-<hr>
-<h1 id="cmp："><a href="#cmp：" class="headerlink" title="cmp："></a>cmp：</h1><h5 id="大概类用于sub，减的作用。"><a href="#大概类用于sub，减的作用。" class="headerlink" title="大概类用于sub，减的作用。"></a>大概类用于sub，减的作用。</h5><h2 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h2><h3 id="cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"><a href="#cmp：cmp-al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）" class="headerlink" title="cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）"></a>cmp：cmp al，0x61——al-0x61不赋值且不存储，与jne对比使用（strcmp类似于cmp）</h3><h3 id="sub：sub-al-，0x61——al-al-0x61赋值且存储"><a href="#sub：sub-al-，0x61——al-al-0x61赋值且存储" class="headerlink" title="sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储"></a>sub：sub al ，0x61——al&#x3D;al-0x61赋值且存储</h3><hr>
-<p>ni：步入</p>
-<p>si：步过</p>
-<p>finish：步出函数</p>
-<p>PTR——指针</p>
-<p>8		 		16				32				64				个01位（bit）</p>
-<p> BYTE 	WROD		DWORD		QWORD</p>
-<p>拿多少内存的数赋值</p>
-<hr>
-<p>cpu进行运算。从寄存器中取数。</p>
-<p>定义的数优先存在16个寄存器中，其余过多的参数存在虚拟内存中。</p>
-<p>如果刚开始就过多，参数从寄存器移到虚拟内存（push），使用时候从虚拟内存移到寄存器中。</p>
-<p>查看内存的数：</p>
-<h1 id="X-20i-4RIP"><a href="#X-20i-4RIP" class="headerlink" title="X&#x2F;20i 4RIP"></a>X&#x2F;20i 4RIP</h1><h6 id="与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编"><a href="#与disassemble不同的一点是-x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编" class="headerlink" title="{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}"></a>{与disassemble不同的一点是 x只会显示你输入的数量的相关语句，而disassemble会把所有相关语句都汇编}</h6><p>20：以下20行关于XXX的指令</p>
-<p>rip：相当于上句的xxx                  </p>
-<p>i：采用汇编的形式呈现     b:以byte形式看一个字节的形式显示     g：以八个字节的形式呈现      w以四个字节的形式呈现      </p>
-<p>d：以十进制显示  （常用搭配bd）     x：以十六进制显示</p>
-<h1 id="x-20b-rbp-0x10"><a href="#x-20b-rbp-0x10" class="headerlink" title="x&#x2F;20b $rbp-0x10"></a>x&#x2F;20b $rbp-0x10</h1><p>看最后方地址的内容是什么，连续看20句相关内容</p>
-<h1 id="x-20i-0向5555555552ce"><a href="#x-20i-0向5555555552ce" class="headerlink" title="x&#x2F;20i 0向5555555552ce"></a>x&#x2F;20i 0向5555555552ce</h1><p>从末尾地址往下看20行以汇编形式呈现</p>
-<hr>
-<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><p>*0x1111111111 &#x3D;19   *地址&#x3D;值</p>
-<p>$rbp&#x3D;19   $寄存器&#x3D;值</p>
-<p>{char[4]} 0x131312&#x3D;“ACE”</p>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -968,7 +2056,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
