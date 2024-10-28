@@ -145,6 +145,228 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%94%B9%E5%8F%98%E6%9F%90%E5%9C%B0%E5%9D%80%E4%B8%8A%E5%80%BC%E7%9A%84%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%94%B9%E5%8F%98%E6%9F%90%E5%9C%B0%E5%9D%80%E4%B8%8A%E5%80%BC%E7%9A%84%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">格式化字符串-改变某地址上值的函数简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:07:34 / 修改时间：15:27:56" itemprop="dateCreated datePublished" datetime="2024-10-08T15:07:34+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=fmtstr_payload(<span class="number">4</span>, &#123;<span class="number">0x08014C030</span>:<span class="number">5</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">上述为偏移量，写入地址，写入数据</span><br><span class="line">fmtstr_payload(offset, writes, numbwritten=0, write_size=‘byte’)</span><br><span class="line">第一个参数表示格式化字符串的偏移；</span><br><span class="line">第二个参数表示需要利用%n写入的数据，采用字典形式，我们要将printf的GOT数据改为system函数地址，就写成&#123;printfGOT:systemAddress&#125;；本题是将0804a048处改为0x2223322</span><br><span class="line">第三个参数表示已经输出的字符个数，这里没有，为0，采用默认值即可；</span><br><span class="line">第四个参数表示写入方式，是按字节（byte）、按双字节（short）还是按四字节（int），对应着hhn、hn和n，默认值是byte，即按hhn写。</span><br><span class="line">fmtstr_payload函数返回的就是payload</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.sendlineafter(<span class="string">&#x27;fun!\n&#x27;</span>,payload)</span><br></pre></td></tr></table></figure>
+
+<p>前者是在什么之后发送payload 部分题目卡的严需要分段发送，后方为发送内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">write_addr=u32(p.recv(<span class="number">4</span>))<span class="comment">#32为位数 4为接受地址的字节长度</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(write_addr))<span class="comment">#hex为把数值转为16进制形式</span></span><br></pre></td></tr></table></figure>
+
+<p>栈溢出要溢出数目（edp+距edp数目）+偏移数</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E5%85%B3%E4%BA%8Elibc%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">关于libc的两种调用方式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:07:23 / 修改时间：15:34:33" itemprop="dateCreated datePublished" datetime="2024-10-08T15:07:23+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>First</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=ELF(<span class="string">&#x27;./libc-2.27.so&#x27;</span>)</span><br><span class="line">libcbase=puts_addr-libc.sym[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">system_addr=libcbase+ libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">shell_addr=libcbase+<span class="built_in">next</span>(libc.search(<span class="string">b&#x27;bin/sh&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Second</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">libc=LibcSearcher(<span class="string">&quot;puts&quot;</span>,puts_addr)</span><br><span class="line">libcbase=puts_addr-libc.dump(<span class="string">&quot;puts&quot;</span>)</span><br><span class="line">system_addr=libc_base+libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">bin_addr=libc_base+libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在ida中不用这些看地址。</p>
+<p>首先是read_got。可以在IDA中通过按ctrl+s跳转到不同的段。先看got表，也就是对应的.got.plt（而非.got）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1/" class="post-title-link" itemprop="url">汇编指令-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:05:21 / 修改时间：15:36:59" itemprop="dateCreated datePublished" datetime="2024-10-08T15:05:21+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h1><h3 id="一·-通用数据传送指令。"><a href="#一·-通用数据传送指令。" class="headerlink" title="一· 通用数据传送指令。"></a>一· 通用数据传送指令。</h3><h3 id="1。基本指令"><a href="#1。基本指令" class="headerlink" title="1。基本指令"></a><strong>1。基本指令</strong></h3><p><em><strong>MOV</strong></em> 传送字或字节。<br><em><strong>MOVSX</strong></em> 先符号扩展，再传送。<br><em><strong>MOVZX</strong></em> 先零扩展，再传送。<br><em><strong>PUSH</strong></em> 把字压入堆栈。<br><em><strong>POP</strong></em> 把字弹出堆栈。<br><em><strong>PUSHA</strong></em> 把AX，CX，DX，BX，SP，BP，SI，DI依次压入堆栈。<br><em><strong>POPA</strong></em> 把DI，SI，BP，SP，BX，DX，CX，AX依次弹出堆栈。<br><em><strong>PUSHAD</strong></em> 把EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI依次压入堆栈。<br><em><strong>POPAD</strong></em> 把EDI，ESI，EBP，ESP，EBX，EDX，ECX，EAX依次弹出堆栈。<br><em><strong>BSWAP</strong></em> 交换32位寄存器里字节的顺序<br><em><strong>XCHG</strong></em> 交换字或字节。( 至少有一个操作数为寄存器，段寄存器不可作为操作数)<br><em><strong>CMPXCHG</strong></em> 比较并交换操作数。( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )<br><em><strong>XADD</strong></em> 先交换再累加。( 结果在第一个操作数里 )<br><em><strong>XLAT</strong></em> 字节查表转换。<br><em><strong>── BX</strong></em> 指向一张 256 字节的表的起点， AL 为表的索引值 (0-255，即0-FFH); 返回 AL 为查表结果。 ( [BX+AL]-&gt;AL )</p>
+<h3 id="2。-输入输出端口传送指令。"><a href="#2。-输入输出端口传送指令。" class="headerlink" title="2。 输入输出端口传送指令。"></a>2。 输入输出端口传送指令。</h3><p>IN I&#x2F;O端口输入。 ( 语法: IN 累加器， {端口号│DX} )<br>OUT I&#x2F;O端口输出。 ( 语法: OUT {端口号│DX}，累加器 )<br>输入输出端口由立即方式指定时， 其范围是 0-255; 由寄存器 DX 指定时，<br>其范围是 0-65535。</p>
+<h3 id="3。-目的地址传送指令。"><a href="#3。-目的地址传送指令。" class="headerlink" title="3。 目的地址传送指令。"></a>3。 目的地址传送指令。</h3><p>LEA 装入有效地址。<br>例: LEA DX，string ;把偏移地址存到DX。<br>LDS 传送目标指针，把指针内容装入DS。<br>例: LDS SI，string ;把段地址:偏移地址存到DS:SI。<br>LES 传送目标指针，把指针内容装入ES。<br>例: LES DI，string ;把段地址:偏移地址存到ES:DI。<br>LFS 传送目标指针，把指针内容装入FS。<br>例: LFS DI，string ;把段地址:偏移地址存到FS:DI。<br>LGS 传送目标指针，把指针内容装入GS。<br>例: LGS DI，string ;把段地址:偏移地址存到GS:DI。<br>LSS 传送目标指针，把指针内容装入SS。<br>例: LSS DI，string ;把段地址:偏移地址存到SS:DI。</p>
+<h3 id="4。-标志传送指令。"><a href="#4。-标志传送指令。" class="headerlink" title="4。 标志传送指令。"></a>4。 标志传送指令。</h3><p>LAHF 标志寄存器传送，把标志装入AH。<br>SAHF 标志寄存器传送，把AH内容装入标志寄存器。<br>PUSHF 标志入栈。<br>POPF 标志出栈。<br>PUSHD 32位标志入栈。<br>POPD 32位标志出栈。</p>
+<h2 id="二、算术运算指令"><a href="#二、算术运算指令" class="headerlink" title="二、算术运算指令"></a>二、算术运算指令</h2><p>──────────────────────────────<br>ADD 加法。<br>ADC 带进位加法。<br>INC 加 1。<br>AAA 加法的ASCII码调整。<br>DAA 加法的十进制调整。<br>SUB 减法。<br>SBB 带借位减法。<br>DEC 减 1。<br>NEC 求反(以 0 减之)。<br>CMP 比较。(两操作数作减法，仅修改标志位，不回送结果)。<br>AAS 减法的ASCII码调整。<br>DAS 减法的十进制调整。<br>MUL 无符号乘法。<br>IMUL 整数乘法。<br>以上两条，结果回送AH和AL(字节运算)，或DX和AX(字运算)，<br>AAM 乘法的ASCII码调整。<br>DIV 无符号除法。<br>IDIV 整数除法。<br>以上两条，结果回送:<br>商回送AL，余数回送AH， (字节运算);<br>或 商回送AX，余数回送DX， (字运算)。<br>AAD 除法的ASCII码调整。<br>CBW 字节转换为字。 (把AL中字节的符号扩展到AH中去)<br>CWD 字转换为双字。 (把AX中的字的符号扩展到DX中去)<br>CWDE 字转换为双字。 (把AX中的字符号扩展到EAX中去)<br>CDQ 双字扩展。 (把EAX中的字的符号扩展到EDX中去)</p>
+<h2 id="三、逻辑运算指令"><a href="#三、逻辑运算指令" class="headerlink" title="三、逻辑运算指令"></a>三、逻辑运算指令</h2><p>────────────────────────────<br>AND 与运算。<br>OR 或运算。<br>XOR 异或运算。<br>NOT 取反。<br>TEST 测试。(两操作数作与运算，仅修改标志位，不回送结果)。<br>SHL 逻辑左移。<br>SAL 算术左移。(&#x3D;SHL)<br>SHR 逻辑右移。<br>SAR 算术右移。(&#x3D;SHR)<br>ROL 循环左移。<br>ROR 循环右移。<br>RCL 通过进位的循环左移。<br>RCR 通过进位的循环右移。<br>以上八种移位指令，其移位次数可达255次。<br>移位一次时， 可直接用操作码。 如 SHL AX，1。<br>移位&gt;1次时， 则由寄存器CL给出移位次数。<br>如 MOV CL，04<br>SHL AX，CL</p>
+<h2 id="四、串指令"><a href="#四、串指令" class="headerlink" title="四、串指令"></a>四、串指令</h2><p>───────────────────────────<br>DS:SI 源串段寄存器 :源串变址。<br>ES:DI 目标串段寄存器:目标串变址。<br>CX 重复次数计数器。<br>AL&#x2F;AX 扫描值。<br>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量。<br>Z标志 用来控制扫描或比较操作的结束。<br>MOVS 串传送。<br>( MOVSB 传送字符。 MOVSW 传送字。 MOVSD 传送双字。 )<br>CMPS 串比较。<br>( CMPSB 比较字符。 CMPSW 比较字。 )<br>SCAS 串扫描。<br>把AL或AX的内容与目标串作比较，比较结果反映在标志位。<br>LODS 装入串。<br>把源串中的元素(字或字节)逐一装入AL或AX中。<br>( LODSB 传送字符。 LODSW 传送字。 LODSD 传送双字。 )<br>STOS 保存串。<br>是LODS的逆过程。<br>REP 当CX&#x2F;ECX&lt;&gt;0时重复。<br>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等，且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复。<br>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复。</p>
+<h2 id="五、程序转移指令"><a href="#五、程序转移指令" class="headerlink" title="五、程序转移指令"></a>五、程序转移指令</h2><p>──────────────────────────<br>1&gt;无条件转移指令 (长转移)<br>JMP 无条件转移指令<br>CALL 过程调用<br>RET&#x2F;RETF过程返回。<br>2&gt;条件转移指令 (短转移，-128到+127的距离内)<br>( 当且仅当(SF XOR OF)&#x3D;1时，OP1 JA&#x2F;JNBE 不小于或不等于时转移。<br>JAE&#x2F;JNB 大于或等于转移。<br>JB&#x2F;JNAE 小于转移。<br>JBE&#x2F;JNA 小于或等于转移。<br>以上四条，测试无符号整数运算的结果(标志C和Z)。<br>JG&#x2F;JNLE 大于转移。<br>JGE&#x2F;JNL 大于或等于转移。<br>JL&#x2F;JNGE 小于转移。<br>JLE&#x2F;JNG 小于或等于转移。<br>以上四条，测试带符号整数运算的结果(标志S，O和Z)。<br>JE&#x2F;JZ 等于转移。<br>JNE&#x2F;JNZ 不等于时转移。<br>JC 有进位时转移。<br>JNC 无进位时转移。<br>JNO 不溢出时转移。<br>JNP&#x2F;JPO 奇偶性为奇数时转移。<br>JNS 符号位为 “0” 时转移。<br>JO 溢出转移。<br>JP&#x2F;JPE 奇偶性为偶数时转移。<br>JS 符号位为 “1” 时转移。<br>3&gt;循环控制指令(短转移)<br>LOOP CX不为零时循环。<br>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环。<br>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环。<br>JCXZ CX为零时转移。<br>JECXZ ECX为零时转移。<br>4&gt;中断指令<br>INT 中断指令<br>INTO 溢出中断<br>IRET 中断返回<br>5&gt;处理器控制指令<br>HLT 处理器暂停， 直到出现中断或复位信号才继续。<br>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态。<br>ESC 转换到外处理器。<br>LOCK 封锁总线。<br>NOP 空操作。<br>STC 置进位标志位。<br>CLC 清进位标志位。<br>CMC 进位标志取反。<br>STD 置方向标志位。<br>CLD 清方向标志位。<br>STI 置中断允许位。<br>CLI 清中断允许位。</p>
+<h2 id="六、伪指令"><a href="#六、伪指令" class="headerlink" title="六、伪指令"></a>六、伪指令</h2><p>───────────────────────────<br>DW 定义字(2字节)。<br>PROC 定义过程。<br>ENDP 过程结束。<br>SEGMENT 定义段。<br>ASSUME 建立段寄存器寻址。<br>ENDS 段结束。<br>END 程序结束。</p>
+<p><strong>一.机械码,又称机器码.</strong>**<br><strong>ultraedit打开,编辑exe文件时你会看到</strong><br><strong>许许多多的由0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F组成的数码,这些数码</strong><br><strong>就是机器码.</strong><br><strong>修改程序时必须通过修改机器码来修改exe文件.</strong></p>
+<p><strong>二.需要熟练掌握的全部汇编知识(只有这么多)</strong><br><strong>不大容易理解,可先强行背住,混个脸儿熟,以后慢慢的就理解了</strong><br><strong>cmp a,b 比较a与b</strong><br><strong>mov a,b 把b的值送给a</strong><br><strong>ret 返回主程序</strong><br><strong>nop 无作用,英文“no operation”的简写，意思是“do nothing”(机器码90)机器码的含义参看上面</strong>**<br>***(解释:ultraedit打开编辑exe文件时你看到90,等同于汇编语句nop)**<br><strong>call 调用子程序</strong><br><strong>je 或jz 若相等则跳(机器码74 或0F84)</strong><br><strong>jne或jnz 若不相等则跳(机器码75或0F85)</strong><br><strong>jmp 无条件跳(机器码EB)</strong><br><strong>jb 若小于则跳</strong><br><strong>ja 若大于则跳</strong><br><strong>jg 若大于则跳</strong><br><strong>jge 若大于等于则跳</strong><br><strong>jl 若小于则跳</strong><br><strong>jle 若小于等于则跳</strong><br><strong>pop 出栈</strong><br><strong>push 压栈</strong></p>
+<p><strong>三.常见修改(机器码)</strong><br><strong>74&#x3D;&gt;75 74&#x3D;&gt;90 74&#x3D;&gt;EB</strong><br><strong>75&#x3D;&gt;74 75&#x3D;&gt;90 75&#x3D;&gt;EB</strong></p>
+<p><strong>jnz-&gt;nop</strong><br><strong>75-&gt;90(相应的机器码修改)</strong></p>
+<p><strong>jnz -&gt; jmp</strong><br><strong>75 -&gt; EB(相应的机器码修改)</strong></p>
+<p><strong>jnz -&gt; jz</strong><br><strong>75-&gt;74 (正常) 0F 85 -&gt; 0F 84(特殊情况下,有时,相应的机器码修改)</strong></p>
+<p><strong>四.两种不同情况的不同修改方法</strong><br><strong>1.修改为jmp</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;jmp相应的机器码EB （出错信息向上找到的第一个跳转）jmp的作用是绝对跳，无条件跳，从而跳过下面的出错信息</strong></p>
+<p><strong>xxxxxxxxxxxx 出错信息，例如：注册码不对，sorry,未注册版不能…，”Function Not Avaible in Demo” 或 “Command Not Avaible” 或 “Can’t save in Shareware&#x2F;Demo”等 （我们希望把它跳过，不让它出现）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 正确路线所在</strong></p>
+<p><strong>2.修改为nop</strong><br><strong>je(jne,jz,jnz) &#x3D;&gt;nop相应的机器码90 （正确信息向上找到的第一个跳转） nop的作用是抹掉这个跳转，使这个跳转无效，失去作用，从而使程序顺利来到紧跟其后的正确信息处</strong></p>
+<p><strong>xxxxxxxxxxxx 正确信息，例如：注册成功，谢谢您的支持等（我们希望它不被跳过，让它出现，程序一定要顺利来到这里）</strong><br><strong>。。。</strong><br><strong>。。。</strong><br><strong>xxxxxxxxxxxx 出错信息（我们希望不要跳到这里，不让它出现）它们在存贮器和寄存器、寄存器和输入输出端口之间传送数据.</strong> </p>
+<ol>
+<li><strong>通用数据传送指令.</strong><br><strong>MOV 传送字或字节.</strong><br><strong>MOVSX 先符号扩展,再传送.</strong><br><strong>MOVZX 先零扩展,再传送.</strong><br><strong>PUSH 把字压入堆栈.</strong><br><strong>POP 把字弹出堆栈.</strong><br><strong>PUSHA 把AX,CX,DX,BX,SP,BP,SI,DI依次压入堆栈.</strong><br><strong>POPA 把DI,SI,BP,SP,BX,DX,CX,AX依次弹出堆栈.</strong><br><strong>PUSHAD 把EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI依次压入堆栈.</strong><br><strong>POPAD 把EDI,ESI,EBP,ESP,EBX,EDX,ECX,EAX依次弹出堆栈.</strong><br><strong>BSWAP 交换32位寄存器里字节的顺序</strong><br><strong>XCHG 交换字或字节.( 至少有一个操作数为寄存器,段寄存器不可作为操作数)</strong><br><strong>CMPXCHG 比较并交换操作数.( 第二个操作数必须为累加器AL&#x2F;AX&#x2F;EAX )</strong><br><strong>XADD 先交换再累加.( 结果在第一个操作数里 )</strong><br><strong>XLAT 字节查表转换.</strong><br><strong>── BX 指向一张 256 字节的表的起点, AL 为表的索引值 (0-255,即</strong><br><strong>0-FFH); 返回 AL 为查表结果. ( [BX+AL]-&gt;AL )</strong></li>
+<li><strong>输入输出端口传送指令.</strong><br><strong>IN I&#x2F;O端口输入. ( 语法: IN 累加器, {端口号│DX} )</strong><br><strong>OUT I&#x2F;O端口输出. ( 语法: OUT {端口号│DX},累加器 )</strong><br><strong>输入输出端口由立即方式指定时, 其范围是 0-255; 由寄存器 DX 指定时,</strong><br><strong>其范围是 0-65535.</strong></li>
+<li><strong>目的地址传送指令.</strong><br><strong>LEA 装入有效地址.</strong><br><strong>例: LEA DX,string ;把偏移地址存到DX.</strong><br><strong>LDS 传送目标指针,把指针内容装入DS.</strong><br><strong>例: LDS SI,string ;把段地址:偏移地址存到DS:SI.</strong><br><strong>LES 传送目标指针,把指针内容装入ES.</strong><br><strong>例: LES DI,string ;把段地址:偏移地址存到ESI.</strong><br><strong>LFS 传送目标指针,把指针内容装入FS.</strong><br><strong>例: LFS DI,string ;把段地址:偏移地址存到FSI.</strong><br><strong>LGS 传送目标指针,把指针内容装入GS.</strong><br><strong>例: LGS DI,string ;把段地址:偏移地址存到GSI.</strong><br><strong>LSS 传送目标指针,把指针内容装入SS.</strong><br><strong>例: LSS DI,string ;把段地址:偏移地址存到SSI.</strong> </li>
+<li><strong>标志传送指令.</strong><br><strong>LAHF 标志寄存器传送,把标志装入AH.</strong><br><strong>SAHF 标志寄存器传送,把AH内容装入标志寄存器.</strong><br><strong>PUSHF 标志入栈.</strong><br><strong>POPF 标志出栈.</strong><br><strong>PUSHD 32位标志入栈.</strong><br><strong>POPD 32位标志出栈.</strong></li>
+</ol>
+<p><strong>二、算术运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>ADD 加法.</strong><br><strong>ADC 带进位加法.</strong><br><strong>INC 加 1.</strong><br><strong>AAA 加法的ASCII码调整.</strong><br><strong>DAA 加法的十进制调整.</strong><br><strong>SUB 减法.</strong> （其中sub ax,bx就是ax中的值减bx中的值，然后把结果放入ax中。）<br><strong>SBB 带借位减法.</strong><br><strong>DEC 减 1.</strong><br><strong>NEC 求反(以 0 减之).</strong><br><strong>CMP 比较.(两操作数作减法,仅修改标志位,不回送结果).</strong><br><strong>AAS 减法的ASCII码调整.</strong><br><strong>DAS 减法的十进制调整.</strong><br><strong>MUL 无符号乘法.</strong><br><strong>IMUL 整数乘法.</strong><br><strong>以上两条,结果回送AH和AL(字节运算),或DX和AX(字运算),</strong><br><strong>AAM 乘法的ASCII码调整.</strong><br><strong>DIV 无符号除法.</strong><br><strong>IDIV 整数除法.</strong><br><strong>以上两条,结果回送:</strong><br><strong>商回送AL,余数回送AH, (字节运算);</strong><br><strong>或 商回送AX,余数回送DX, (字运算).</strong><br><strong>AAD 除法的ASCII码调整.</strong><br><strong>CBW 字节转换为字. (把AL中字节的符号扩展到AH中去)</strong><br><strong>CWD 字转换为双字. (把AX中的字的符号扩展到DX中去)</strong><br><strong>CWDE 字转换为双字. (把AX中的字符号扩展到EAX中去)</strong><br><strong>CDQ 双字扩展. (把EAX中的字的符号扩展到EDX中去)</strong></p>
+<p><strong>三、逻辑运算指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>AND 与运算.</strong><br><strong>OR 或运算.</strong><br><strong>XOR 异或运算.</strong><br><strong>NOT 取反.</strong><br><strong>TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</strong><br><strong>SHL 逻辑左移.</strong><br><strong>SAL 算术左移.(&#x3D;SHL)</strong><br><strong>SHR 逻辑右移.</strong><br><strong>SAR 算术右移.(&#x3D;SHR)</strong><br><strong>ROL 循环左移.</strong><br><strong>ROR 循环右移.</strong><br><strong>RCL 通过进位的循环左移.</strong><br><strong>RCR 通过进位的循环右移.</strong><br><strong>以上八种移位指令,其移位次数可达255次.</strong><br><strong>移位一次时, 可直接用操作码. 如 SHL AX,1.</strong><br><strong>移位&gt;1次时, 则由寄存器CL给出移位次数.</strong><br><strong>如 MOV CL,04</strong><br><strong>SHL AX,CL</strong> </p>
+<p><strong>四、串指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DS:SI 源串段寄存器 :源串变址.</strong><br><strong>ESI 目标串段寄存器:目标串变址.</strong><br><strong>CX 重复次数计数器.</strong><br><strong>AL&#x2F;AX 扫描值.</strong><br><strong>D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</strong><br><strong>Z标志 用来控制扫描或比较操作的结束.</strong><br><strong>MOVS 串传送.</strong><br><strong>( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</strong><br><strong>CMPS 串比较.</strong><br><strong>( CMPSB 比较字符. CMPSW 比较字. )</strong><br><strong>SCAS 串扫描.</strong><br><strong>把AL或AX的内容与目标串作比较,比较结果反映在标志位.</strong><br><strong>LODS 装入串.</strong><br><strong>把源串中的元素(字或字节)逐一装入AL或AX中.</strong><br><strong>( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</strong><br><strong>STOS 保存串.</strong><br><strong>是LODS的逆过程.</strong><br><strong>REP 当CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</strong><br><strong>REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</strong> </p>
+<p><strong>五、程序转移指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>1&gt;无条件转移指令 (长转移)</strong><br><strong>JMP 无条件转移指令</strong><br><strong>CALL 过程调用</strong><br><strong>RET&#x2F;RETF过程返回.</strong><br><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong><br><strong>( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )**<br>**JA&#x2F;JNBE 不小于或不等于时转移.**<br>**JAE&#x2F;JNB 大于或等于转移.**<br>**JB&#x2F;JNAE 小于转移.**<br>**JBE&#x2F;JNA 小于或等于转移.**<br>**以上四条,测试无符号整数运算的结果(标志C和Z).**<br>**JG&#x2F;JNLE 大于转移.**<br>**JGE&#x2F;JNL 大于或等于转移.**<br>**JL&#x2F;JNGE 小于转移.**<br>**JLE&#x2F;JNG 小于或等于转移.**<br>**以上四条,测试带符号整数运算的结果(标志S,O和Z).**<br>**JE&#x2F;JZ 等于转移.**<br>**JNE&#x2F;JNZ 不等于时转移.**<br>**JC 有进位时转移.**<br>**JNC 无进位时转移.**<br>**JNO 不溢出时转移.**<br>**JNP&#x2F;JPO 奇偶性为奇数时转移.**<br>**JNS 符号位为 “0” 时转移.**<br>**JO 溢出转移.**<br>**JP&#x2F;JPE 奇偶性为偶数时转移.**<br>**JS 符号位为 “1” 时转移.**<br>**3&gt;循环控制指令(短转移)</strong><br><strong>LOOP CX不为零时循环.</strong><br><strong>LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</strong><br><strong>LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</strong><br><strong>JCXZ CX为零时转移.</strong><br><strong>JECXZ ECX为零时转移.</strong><br><strong>4&gt;中断指令</strong><br><strong>INT 中断指令</strong><br><strong>INTO 溢出中断</strong><br><strong>IRET 中断返回</strong><br><strong>5&gt;处理器控制指令</strong><br><strong>HLT 处理器暂停, 直到出现中断或复位信号才继续.</strong><br><strong>WAIT 当芯片引线TEST为高电平时使CPU进入等待状态.</strong><br><strong>ESC 转换到外处理器.</strong><br><strong>LOCK 封锁总线.</strong><br><strong>NOP 空操作.</strong><br><strong>STC 置进位标志位.</strong><br><strong>CLC 清进位标志位.</strong><br><strong>CMC 进位标志取反.</strong><br><strong>STD 置方向标志位.</strong><br><strong>CLD 清方向标志位.</strong><br><strong>STI 置中断允许位.</strong><br><strong>CLI 清中断允许位.</strong> </p>
+<p><strong>六、伪指令</strong><br><strong>───────────────────────────────────────</strong><br><strong>DW 定义字(2字节).</strong><br><strong>PROC 定义过程.</strong><br><strong>ENDP 过程结束.</strong><br><strong>SEGMENT 定义段.</strong><br><strong>ASSUME 建立段寄存器寻址.</strong><br><strong>ENDS 段结束.</strong><br><strong>END 程序结束</strong><br><strong>————————————————</strong>**</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E4%BE%8B%E9%A2%98%E5%85%B3%E4%BA%8Egdb%E8%B0%83%E8%AF%95%E7%9A%84%E6%AD%A5%E9%AA%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -722,214 +944,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%88%E8%BF%81%E7%A7%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/%E6%A0%88%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">栈迁移</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-10-08 15:02:17" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:17+08:00">2024-10-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-20 21:37:12" itemprop="dateModified" datetime="2024-10-20T21:37:12+08:00">2024-10-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>每条指令的作用：</p>
-<ol>
-<li><p><code>push eip+4;</code></p>
-<ul>
-<li>这条指令将当前指令指针寄存器（<code>eip</code>）加上 4 的值压入栈中。这里的 <code>eip+4</code> 实际上是下一条指令的地址（假设没有其他的分支跳转或中断），因为 <code>eip</code> 指向当前正在执行的指令的地址。这样做通常是为了将返回地址（即函数调用指令的下一条指令地址）保存到栈中，以便函数调用完成后可以正确地返回。</li>
-</ul>
-</li>
-<li><p><code>push ebp;</code></p>
-<ul>
-<li>这条指令将当前基指针寄存器（<code>ebp</code>）的值压入栈中。<code>ebp</code> 通常用于指向当前栈帧的基址，因此将其值保存下来是为了在函数调用完成后能够恢复到调用函数之前的栈帧状态。</li>
-</ul>
-</li>
-<li><p><code>mov ebp, esp;</code></p>
-<ul>
-<li>这条指令将栈指针寄存器（<code>esp</code>）的值复制到基指针寄存器（<code>ebp</code>）。这意味着函数的栈帧基址现在被设置为当前栈顶的位置。之后，函数可以通过 <code>ebp</code> 寄存器访问其局部变量和参数。</li>
-</ul>
-</li>
-</ol>
-<p>这段代码的整体作用是设置一个新的栈帧，使得函数可以在其局部变量和参数上进行操作，同时保留调用函数前的栈帧状态，以便在函数返回时能够恢复原始状态。</p>
-<p>主要通过两次leave ret指令得到目的，最主要是要得到ebp值也就是栈底的地址，来更精确地进行两次leave</p>
-<p>32位模板：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload1 = p32(write_plt_addr) + p32(main_addr) + p32(<span class="number">1</span>) //<span class="comment">#此前为需要执行的命令</span></span><br><span class="line">     + p32(write_got_addr) + p32(<span class="number">4</span>)//<span class="comment">#此为必要的，一为返回的地址，二为</span></span><br><span class="line"></span><br><span class="line">payload2 = offset*<span class="string">&#x27;a&#x27;</span> + p32(bss_addr-<span class="number">4</span>) + p32(leave_ret_addr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>64位模板（仅参考）：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload=(p64(gift)+p64(main)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;\x00&#x27;</span>)<span class="comment"># 依次是需要执行的命令进行ret2libc</span></span><br><span class="line">payload+=p64(leak-<span class="number">0X8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 </span></span><br><span class="line">本题存在libc 所以每次ebp值不同</span><br><span class="line">payload1=(p64(pop_rdi)+p64(bin_sh_addr)+p64(system_addr)).ljust(<span class="number">0x30</span>,<span class="string">b&#x27;a&#x27;</span>)<span class="comment">#p64执行获取shell步骤</span></span><br><span class="line">payload1+=p64(leak2-<span class="number">0x8</span>)+p64(leave_ret)<span class="comment">#一为stack栈底地址，二位二次leave的命令地址 之前依次是需要执行的命令进行getshell 若leak2的值不减去0x8 会导致第一个地址的命令无法执行</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="C:\111Blog\myBlog\source_posts\栈迁移\8.png" alt="8"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1/" class="post-title-link" itemprop="url">栈溢出基础知识-1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:02:08 / 修改时间：15:45:17" itemprop="dateCreated datePublished" datetime="2024-10-08T15:02:08+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="在汇编语言层面，"><a href="#在汇编语言层面，" class="headerlink" title="在汇编语言层面，"></a><strong>在汇编语言层面，</strong></h2><p><strong>这组通用寄存器以%e(AT&amp;T语法)或直接以e(Intel语法)开头来引用，</strong></p>
-<p><strong>eg： mov $5, %eax或mov eax, 5表示将立即数5赋值给寄存器%eax。</strong></p>
-<h2 id="在x86处理器中："><a href="#在x86处理器中：" class="headerlink" title="在x86处理器中："></a><strong>在x86处理器中：</strong></h2><p><strong>EIP(Instruction Pointer)是指令寄存器，指向处理器下条等待执行的指令地址(代码段内的偏移量)，每次执行完相应汇编指令EIP值就会增加。</strong></p>
-<p><strong>ESP(Stack Pointer)是堆栈指针寄存器，存放执行函数对应栈帧的栈顶地址(也是系统栈的顶部)，且始终指向栈顶；</strong></p>
-<p><strong>EBP(Base Pointer)是栈帧基址指针寄存器，存放执行函数对应栈帧的栈底地址，用于C运行库访问栈中的局部变量和参数。</strong></p>
-<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><strong>注意：</strong></h2><p><strong>EIP是个特殊寄存器，不能像访问通用寄存器那样访问它，即找不到可用来寻址EIP并对其进行读写的操作码(OpCode)。EIP可被jmp、call和ret等指令隐含地改变(事实上它一直都在改变)。</strong></p>
-<hr>
-<p><strong>FP：<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=frame&spm=1001.2101.3001.7020">frame</a> pointer 栈帧指针，每个进程的栈空间为一帧，FP指向 当前进程栈空间的 栈底。</strong></p>
-<p><strong>32位Windows，一个进程栈的默认大小是1M。</strong></p>
-<hr>
-<h3 id="每个未完成运行的函数占用一个独立的连续区域，称作栈帧-Stack-Frame-。"><a href="#每个未完成运行的函数占用一个独立的连续区域，称作栈帧-Stack-Frame-。" class="headerlink" title="每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。"></a>每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。</h3><p><strong>栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。</strong></p>
-<h3 id="使用栈帧的一个好处："><a href="#使用栈帧的一个好处：" class="headerlink" title="使用栈帧的一个好处："></a>使用栈帧的一个好处：</h3><p><strong>使得递归变为可能，因为对函数的每次递归调用，都会分配给该函数一个新的栈帧，这样就巧妙地隔离当前调用与上次调用。</strong></p>
-<p><strong>栈帧的边界由栈帧基地址指针EBP和堆栈指针ESP界定(指针存放在相应寄存器中)。EBP指向当前栈帧底部(高地址)，在当前栈帧内位置固定；</strong></p>
-<p><strong>ESP指向当前栈帧顶部(低地址)，当程序执行时ESP会随着数据的入栈和出栈而移动。因此函数中对大部分数据的访问都基于EBP进行。</strong></p>
-<p><strong>称EBP为帧基指针， ESP为栈顶指针，并在引用汇编代码时分别记为%ebp和%esp.</strong></p>
-<p> <strong>从图中可以看出，函数调用时入栈顺序为</strong><br>$$<br><strong>实参N<del>1→主调函数返回地址→主调函数帧基指针EBP→被调函数局部变量1</del>N</strong><br>$$<br><strong>其中，主调函数将参数按照调用约定依次入栈(图中为从右到左)，然后将指令指针EIP入栈以保存主调函数的返回地址(下一条待执行指令的地址)。</strong></p>
-<p><strong>进入被调函数时，被调函数将主调函数的帧基指针EBP入栈，并将主调函数的栈顶指针ESP值赋给被调函数的EBP(作为被调函数的栈底)，接着改变ESP值来为函数局部变量预留空间。</strong></p>
-<p><strong>此时被调函数帧基指针指向被调函数的栈底。以该地址为基准，向上(栈底方向)可获取主调函数的返回地址、参数值，向下(栈顶方向)能获取被调函数的局部变量值，而该地址处又存放着上一层主调函数的帧基指针值。</strong></p>
-<p><strong>本级调用结束后，将EBP指针值赋给ESP，使ESP再次指向被调函数栈底以释放局部变量；再将已压栈的主调函数帧基指针弹出到EBP，并弹出返回地址到EIP。</strong></p>
-<p><strong>ESP继续上移越过参数，最终回到函数调用前的状态，即恢复原来主调函数的栈帧。如此递归便形成函数调用栈。</strong></p>
-<p> <strong>若需在函数中保存被调函数保存寄存器(如ESI、EDI)，则编译器在保存EBP值时进行保存，或延迟保存直到局部变量空间被分配。在栈帧中并未为被调函数保存寄存器的空间指定标准的存储位置。</strong></p>
-<hr>
-<p>内存地址从栈底到栈顶递减，压栈就是把ESP指针逐渐往地低址移动的过程。而结构体tStrt中的成员变量memberX地址&#x3D;tStrt首地址+(memberX偏移量)，即越靠近tStrt首地址的成员变量其内存地址越小。因此，结构体成员变量的入栈顺序与其在结构体中声明的顺序相反。</p>
-<p><img src="https://images0.cnblogs.com/i/569008/201405/271652449633815.jpg" alt="img"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="comment">//StackFrame.c</span></span><br><span class="line"> <span class="number">2</span> <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">3</span> <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"> <span class="number">4</span> </span><br><span class="line"> <span class="number">5</span> <span class="keyword">struct</span> <span class="title class_">Strt</span>&#123;</span><br><span class="line"> <span class="number">6</span>     <span class="type">int</span> member1;</span><br><span class="line"> <span class="number">7</span>     <span class="type">int</span> member2;</span><br><span class="line"> <span class="number">8</span>     <span class="type">int</span> member3;</span><br><span class="line"> <span class="number">9</span> &#125;;</span><br><span class="line"><span class="number">10</span> </span><br><span class="line"><span class="number">11</span> <span class="meta">#<span class="keyword">define</span> PRINT_ADDR(x)     printf(<span class="string">&quot;&amp;&quot;</span>#x<span class="string">&quot; = %p\n&quot;</span>, &amp;x)</span></span><br><span class="line"><span class="number">12</span> <span class="function"><span class="type">int</span> <span class="title">StackFrameContent</span><span class="params">(<span class="type">int</span> para1, <span class="type">int</span> para2, <span class="type">int</span> para3)</span></span>&#123;</span><br><span class="line"><span class="number">13</span>     <span class="type">int</span> locVar1 = <span class="number">1</span>;</span><br><span class="line"><span class="number">14</span>     <span class="type">int</span> locVar2 = <span class="number">2</span>;</span><br><span class="line"><span class="number">15</span>     <span class="type">int</span> locVar3 = <span class="number">3</span>;</span><br><span class="line"><span class="number">16</span>     <span class="type">int</span> arr[] = &#123;<span class="number">0x11</span>,<span class="number">0x22</span>,<span class="number">0x33</span>&#125;;</span><br><span class="line"><span class="number">17</span>     <span class="keyword">struct</span> <span class="title class_">Strt</span> tStrt = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="number">18</span>     <span class="built_in">PRINT_ADDR</span>(para1); <span class="comment">//若para1为char或short型，则打印para1所对应的栈上整型临时变量地址！</span></span><br><span class="line"><span class="number">19</span>     <span class="built_in">PRINT_ADDR</span>(para2);</span><br><span class="line"><span class="number">20</span>     <span class="built_in">PRINT_ADDR</span>(para3);</span><br><span class="line"><span class="number">21</span>     <span class="built_in">PRINT_ADDR</span>(locVar1);</span><br><span class="line"><span class="number">22</span>     <span class="built_in">PRINT_ADDR</span>(locVar2);</span><br><span class="line"><span class="number">23</span>     <span class="built_in">PRINT_ADDR</span>(locVar3);</span><br><span class="line"><span class="number">24</span>     <span class="built_in">PRINT_ADDR</span>(arr);</span><br><span class="line"><span class="number">25</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">0</span>]);</span><br><span class="line"><span class="number">26</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">1</span>]);</span><br><span class="line"><span class="number">27</span>     <span class="built_in">PRINT_ADDR</span>(arr[<span class="number">2</span>]);</span><br><span class="line"><span class="number">28</span>     <span class="built_in">PRINT_ADDR</span>(tStrt);</span><br><span class="line"><span class="number">29</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member1);</span><br><span class="line"><span class="number">30</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member2);</span><br><span class="line"><span class="number">31</span>     <span class="built_in">PRINT_ADDR</span>(tStrt.member3);</span><br><span class="line"><span class="number">32</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">33</span> &#125;</span><br><span class="line"><span class="number">34</span> </span><br><span class="line"><span class="number">35</span> <span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span>&#123;</span><br><span class="line"><span class="number">36</span>     <span class="type">int</span> locMain1 = <span class="number">1</span>, locMain2 = <span class="number">2</span>, locMain3 = <span class="number">3</span>;</span><br><span class="line"><span class="number">37</span>     <span class="built_in">PRINT_ADDR</span>(locMain1);</span><br><span class="line"><span class="number">38</span>     <span class="built_in">PRINT_ADDR</span>(locMain2);</span><br><span class="line"><span class="number">39</span>     <span class="built_in">PRINT_ADDR</span>(locMain3);</span><br><span class="line"><span class="number">40</span>     <span class="built_in">StackFrameContent</span>(locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">41</span>     <span class="built_in">printf</span>(<span class="string">&quot;[locMain1,2,3] = [%d, %d, %d]\n&quot;</span>, locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">42</span>     <span class="built_in">memset</span>(&amp;locMain2, <span class="number">0</span>, <span class="number">2</span>*<span class="built_in">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"><span class="number">43</span>     <span class="built_in">printf</span>(<span class="string">&quot;[locMain1,2,3] = [%d, %d, %d]\n&quot;</span>, locMain1, locMain2, locMain3);</span><br><span class="line"><span class="number">44</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">45</span> &#125;</span><br><span class="line">StackFrame</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/20/Og7vZt.jpg" alt="img"></p>
-<p>函数调用以值传递时，传入的实参(locMain1<del>3)与被调函数内操作的形参(para1</del>3)两者存储地址不同，因此被调函数无法直接修改主调函数实参值(对形参的操作相当于修改实参的副本)。为达到修改目的，需要向被调函数传递实参变量的指针(即变量的地址)。</p>
-<p>此外，”[locMain1,2,3] &#x3D; [0, 0, 3]”是因为对四字节参数locMain2调用memset函数时，会从低地址向高地址连续清零8个字节，从而误将位于高地址locMain1清零。</p>
-<p><strong>memset()函数介绍</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">memset</span><span class="params">(<span class="type">void</span> *str, <span class="type">int</span> c, <span class="type">size_t</span> n)</span></span></span><br></pre></td></tr></table></figure>
-
-<p><strong>解释：复制字符 c（一个无符号字符）到参数 str 所指向的字符串的前 n 个字符。</strong><br><strong>作用：是在一段内存块中填充某个给定的值，它是对较大的结构体或数组进行清零操作的一种最快方法</strong><br><strong>头文件：C中#include&lt;string.h&gt;，C++中#include<cstring></strong></p>
-<p>局部变量并不总在栈中，有时出于性能(速度)考虑会存放在寄存器中。数组&#x2F;结构体型的局部变量通常分配在栈内存中。</p>
-<p>若要确保两个对象在内存上相邻且前后关系固定，可使用结构体或数组定义。</p>
-<hr>
-<h2 id="函数调用时的具体步骤如下："><a href="#函数调用时的具体步骤如下：" class="headerlink" title="函数调用时的具体步骤如下："></a>函数调用时的具体步骤如下：</h2><p>   <strong>\1) 主调函数（caller）将被调函数（callee）所要求的参数，根据相应的函数调用约定，保存在运行时栈中。该操作会改变程序的栈指针。</strong></p>
-<p>   <strong>注：x86平台将参数压入调用栈中。而x86_64平台具有16个通用64位寄存器，故调用函数时前6个参数通常由寄存器传递，其余参数才通过栈传递。</strong></p>
-<p>   <strong>\2) 主调函数将控制权移交给被调函数(使用call指令)。函数的返回地址(待执行的下条指令地址)保存在程序栈中(压栈操作隐含在call指令中)。</strong></p>
-<p>   <strong>\3) 若有必要，被调函数会设置帧基指针，并保存被调函数希望保持不变的寄存器值。</strong></p>
-<p>   <strong>\4) 被调函数通过修改栈顶指针的值，为自己的局部变量在运行时栈中分配内存空间，并从帧基指针的位置处向低地址方向存放被调函数的局部变量和临时变量。</strong></p>
-<p>   <strong>\5) 被调函数执行自己任务，此时可能需要访问由主调函数传入的参数。若被调函数返回一个值，该值通常保存在一个指定寄存器中(如EAX)。</strong></p>
-<p>   <strong>\6) 一旦被调函数完成操作，为该函数局部变量分配的栈空间将被释放。这通常是步骤4的逆向执行。</strong></p>
-<p>   <strong>\7) 恢复步骤3中保存的寄存器值，包含主调函数的帧基指针寄存器。</strong></p>
-<p>   <strong>\8) 被调函数将控制权交还主调函数(使用ret指令)。根据使用的函数调用约定，该操作也可能从程序栈上清除先前传入的参数。</strong></p>
-<p>   <strong>\9) 主调函数再次获得控制权后，可能需要将先前的参数从栈上清除。在这种情况下，对栈的修改需要将帧基指针值恢复到步骤1之前的值。</strong></p>
-<p>   *<em>步骤3与步骤4在函数调用之初常一同出现，统称为</em>函数序(prologue)<em>；步骤6到步骤8在函数调用的最后常一同出现，统称为</em>函数跋(epilogue)<em>。函数序和函数跋是编译器自动添加的开始和结束汇编代码，其实现与CPU架构和编译器相关。除步骤5代表函数实体外，其它所有操作组成函数调用。</em>*</p>
-<hr>
-<p><strong>压栈</strong>(push)<strong>：栈顶指针ESP减小4个字节；以字节为单位将寄存器数据(四字节，不足补零)压入堆栈，从高到低按字节依次将数据存入ESP-1、ESP-2、ESP-3、ESP-4指向的地址单元。</strong>*</p>
-<p>   <strong>出栈</strong>(pop)<strong>：栈顶指针ESP指向的栈中数据被取回到寄存器；栈顶指针ESP增加4个字节。</strong></p>
-<p>   <strong>可见，压栈操作将寄存器内容存入栈内存中(寄存器原内容不变)，栈顶地址减小；出栈操作从栈内存中取回寄存器内容(栈内已存数据不会自动清零)，栈顶地址增大。栈顶指针ESP总是指向栈中下一个可用数据。</strong></p>
-<p>   <strong>调用</strong>(call)<strong>：将当前的指令指针EIP(该指针指向紧接在call指令后的下条指令)压入堆栈，以备返回时能恢复执行下条指令；然后设置EIP指向被调函数代码开始处，以跳转到被调函数的入口地址执行。</strong></p>
-<p>   <strong>离开</strong>(leave)<strong>： 恢复主调函数的栈帧以准备返回。等价于指令序列movl %ebp, %esp(恢复原ESP值，指向被调函数栈帧开始处)和popl %ebp(恢复原ebp的值，即主调函数帧基指针)。</strong></p>
-<p>   <strong>返回</strong>(ret)<strong>：与call指令配合，用于从函数或过程返回。从栈顶弹出返回地址(之前call指令保存的下条指令地址)到EIP寄存器中，程序转到该地址处继续执行(此时ESP指向进入函数时的第一个参数)。若带立即数，ESP再加立即数(丢弃一些在执行call前入栈的参数)。使用该指令前，应使当前栈顶指针所指向位置的内容正好是先前call指令保存的返回地址。</strong>*</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -995,7 +1013,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
