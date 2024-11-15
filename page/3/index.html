@@ -145,6 +145,65 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/memcpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/memcpy/" class="post-title-link" itemprop="url">memcpy</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:10:07 / 修改时间：15:22:12" itemprop="dateCreated datePublished" datetime="2024-10-08T15:10:07+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>memcpy指的是C和C++使用的内存拷贝函数，函数原型为void *memcpy(void *destin, void *source, unsigned n)；函数的功能是从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中，即从源source中拷贝n个字节到目标destin中。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/pwn%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -800,80 +859,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">格式化字符串</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:07:55 / 修改时间：15:27:12" itemprop="dateCreated datePublished" datetime="2024-10-08T15:07:55+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>%数字+$n 在偏移数字处填入之前已输入的字符数</p>
-<hr>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">b&quot;%64c%9$hn%1510c%10$hnaaa&quot;</span> + p64(__stack_chk_fail+<span class="number">2</span>) + p64(__stack_chk_fail)</span><br></pre></td></tr></table></figure>
-
-<p><em>0X400626—-system地址。</em></p>
-<p><em>将backdoor函数地址分为高两个字节和低两字节两部分进行写入。</em></p>
-<p><strong>64（0x40）：对应backdoor函数地址的高两字节0x0040 （上四下四）</strong></p>
-<p><strong>9：由于格式化字符串%64c%9$hn%1510c%10$hnaaa占用了24个字节（字符），根据64位程序，24&#x2F;8&#x3D;3,所以偏移是6+3&#x3D;9，配合上$hn使用构成%9$hn,将64（0x40）写入偏移为9的位置，对应的是__stack_chk_fail+2</strong></p>
-<p><strong>c：或许有人会这么构造payload &#x3D; ‘a’ * backdoor_addr + %偏移$n + p64(__stack_chk_fail)，程序中读入的字符屈指可数，所以要换为另一个格式字符%c ，读入的字符屈指可数，但经过格式化漏洞转换后，那就是num个字符的输出同样可以达到相同的修改数据的效果</strong></p>
-<p><strong>1510：1510+64&#x3D;1574&#x3D;0x626，对应backdoor函数地址的低两字节0x0626</strong></p>
-<p><strong>10 ：在偏移9的基础上加上p64(__stack_chk_fail+2)地址的一字节，即偏移为10</strong></p>
-<p><strong>aaa：填充作用，使之为8的倍数让栈对齐</strong></p>
-<p><strong>p64(__ stack_chk_fail+2)【高二字节】 + p64(__stack_chk_fail) 【第二字节】：</strong></p>
-<hr>
-<p>一旦我们触发栈溢出漏洞，函数退出的时候必然会通过异或操作检测到canary被修改从而执行<strong>stack_chk_fail函数</strong>。因此，我们要么想办法获取到canary的值，要么就要防止触发stack_chk_fail，或者利用这个函数。</p>
-<p>canary的位置：即<code>format局部变量的地址</code>的上一个位置，则<code>aa%7$p</code>即泄露canary的地址</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -943,7 +928,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

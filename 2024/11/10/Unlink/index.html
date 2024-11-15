@@ -20,13 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="UnlinkUnlink是什么在讲那个wiki上被转发烂了的chunk图之前有两个点先解决一下： unlink是什么什么时候执行了unlink这两个点也是我在初期一直都很困惑的地方，直到翻看了libc的源码（可以在这里下载，我下载的是2.23），在malloc.c中找到了unlink。unlink其实是libc中定义的一个宏，定义如下： 123456789101112131415161718192">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Unlink">
 <meta property="og:url" content="http://example.com/2024/11/10/Unlink/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="UnlinkUnlink是什么在讲那个wiki上被转发烂了的chunk图之前有两个点先解决一下： unlink是什么什么时候执行了unlink这两个点也是我在初期一直都很困惑的地方，直到翻看了libc的源码（可以在这里下载，我下载的是2.23），在malloc.c中找到了unlink。unlink其实是libc中定义的一个宏，定义如下： 123456789101112131415161718192">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-10T12:58:44.000Z">
-<meta property="article:modified_time" content="2024-11-10T12:58:44.097Z">
+<meta property="article:modified_time" content="2024-11-10T13:06:36.734Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -170,8 +172,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-11-10 20:58:44" itemprop="dateCreated datePublished" datetime="2024-11-10T20:58:44+08:00">2024-11-10</time>
+              <time title="创建时间：2024-11-10 20:58:44 / 修改时间：21:06:36" itemprop="dateCreated datePublished" datetime="2024-11-10T20:58:44+08:00">2024-11-10</time>
             </span>
 
           
@@ -185,7 +188,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>Unlink<br>Unlink是什么<br>在讲那个wiki上被转发烂了的chunk图之前有两个点先解决一下：</p>
+<p>unlink是什么<br>什么时候执行了unlink<br>这两个点也是我在初期一直都很困惑的地方，直到翻看了libc的源码（可以在这里下载，我下载的是2.23），在malloc.c中找到了unlink。unlink其实是libc中定义的一个宏，定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#define unlink(AV, P, BK, FD) &#123;                                            </span><br><span class="line">    FD = P-&gt;fd;								      </span><br><span class="line">    BK = P-&gt;bk;								      </span><br><span class="line">    if (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, 0))		      </span><br><span class="line">      malloc_printerr (check_action, &quot;corrupted double-linked list&quot;, P, AV);  </span><br><span class="line">    else &#123;								      </span><br><span class="line">        FD-&gt;bk = BK;							      </span><br><span class="line">        BK-&gt;fd = FD;							      </span><br><span class="line">        if (!in_smallbin_range (P-&gt;size)				      </span><br><span class="line">            &amp;&amp; __builtin_expect (P-&gt;fd_nextsize != NULL, 0)) &#123;		      </span><br><span class="line">	    if (__builtin_expect (P-&gt;fd_nextsize-&gt;bk_nextsize != P, 0)	      </span><br><span class="line">		|| __builtin_expect (P-&gt;bk_nextsize-&gt;fd_nextsize != P, 0))    </span><br><span class="line">	      malloc_printerr (check_action,				      </span><br><span class="line">			       &quot;corrupted double-linked list (not small)&quot;,    </span><br><span class="line">			       P, AV);					      </span><br><span class="line">            if (FD-&gt;fd_nextsize == NULL) &#123;				      </span><br><span class="line">                if (P-&gt;fd_nextsize == P)				      </span><br><span class="line">                  FD-&gt;fd_nextsize = FD-&gt;bk_nextsize = FD;		      </span><br><span class="line">                else &#123;							      </span><br><span class="line">                    FD-&gt;fd_nextsize = P-&gt;fd_nextsize;			      </span><br><span class="line">                    FD-&gt;bk_nextsize = P-&gt;bk_nextsize;			      </span><br><span class="line">                    P-&gt;fd_nextsize-&gt;bk_nextsize = FD;			      </span><br><span class="line">                    P-&gt;bk_nextsize-&gt;fd_nextsize = FD;			      </span><br><span class="line">                  &#125;							      </span><br><span class="line">              &#125; else &#123;							      </span><br><span class="line">                P-&gt;fd_nextsize-&gt;bk_nextsize = P-&gt;bk_nextsize;		      </span><br><span class="line">                P-&gt;bk_nextsize-&gt;fd_nextsize = P-&gt;fd_nextsize;		      </span><br><span class="line">              &#125;								      </span><br><span class="line">          &#125;								      </span><br><span class="line">      &#125;									      </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>那什么时候执行了unlink呢？在执行free()函数时执行了 _int_free()函数，在_int_free()函数中调用了unlink宏，大概的意思如下（注意_int_free()是函数不是宏）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#define unlink(AV, P, BK, FD)</span><br><span class="line">static void _int_free (mstate av, mchunkptr p, int have_lock)</span><br><span class="line">free()&#123;</span><br><span class="line">	_int_free()&#123;</span><br><span class="line">		unlink();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>堆释放<br>好了关于unlink的部分先暂停一下，这里我们需要回顾一下调用free()函数堆释放这部分的知识</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//gcc -g test.c -o test</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line"> void main()&#123;</span><br><span class="line">         long *hollk1 = malloc(0x80);</span><br><span class="line">         long *first_chunk = malloc(0x80);</span><br><span class="line">         long *hollk3 = malloc(0x80);</span><br><span class="line">         long *second_chunk = malloc(0x80);</span><br><span class="line">         long *hollk5 = malloc(0x80);</span><br><span class="line">         long *third_chunk = malloc(0x80);</span><br><span class="line">         long *hollk7 = malloc(0x80);</span><br><span class="line">         </span><br><span class="line">         free(first_chunk);</span><br><span class="line">        free(second_chunk);</span><br><span class="line">         free(third_chunk);</span><br><span class="line">  </span><br><span class="line">         return 0;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>举一个例子，这里申请了7个chunk，接着依次释放了first_chunk、second_chunk、third_chunk。这里为什么释放这几个chunk呢，因为地址相邻的chunk释放之后会进行合并，地址不相邻的时候不会合并。由于申请的是0x80的chunk，所以在释放之后不会进fastbin而是先进unsortbin。我们用gdb打开编译好的例子，因为使用了-g参数，所以我们在第17行使用命令b 17下断点，接下来让程序跑起来，使用命令bin我们看一下双向链表中的排列结构：</p>
+<p>离近点看！ 可以模糊的看到已经有三个chunk_free进入了unsortbin。那么这三个chunk_free从右向左分别对应着first_chunk、second_chunk、third_chunk，我们使用heap命令查看一下这几个chunk：</p>
+<p>这几个释放的chunk已经按照unsortbin中的顺序排列。这里主要看每一个chunk的fd、bk：</p>
+<p><em>first_bk -&gt; second</em><br><em>second_fd -&gt; first 、 second_bk -&gt; third</em><br><em>third_fd -&gt; second&#96;</em></p>
+<p>unlink过程及检查<br>下面呢给出wiki上的链接，说实话wiki上的图和说明我是真的没看懂。。。。。所以我按照字节的例子和理解写出来：</p>
+<p>wiki链接：<a target="_blank" rel="noopener" href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/unlink-zh/">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/unlink-zh/</a></p>
+<p>wiki中unlink关键执行了如下的步骤：</p>
+<p>FD &#x3D; P -&gt; fd &#x3D; target addr -12<br>BK &#x3D; P -&gt; bk &#x3D; expect value<br>FD -&gt; bk &#x3D; BK，即 *(target addr - 12 + 12) &#x3D; BK &#x3D; expect value<br>BK -&gt; fd &#x3D; FD，即 *(expect value + 8) &#x3D; FD &#x3D; target addr - 12<br>这后面的target、expect什么的我就不知道是啥了，感觉好像没什么用处。。。。。</p>
+<p>我自己的理解<br>在此声明这里是我个人的理解，没有说wiki不对什么的，而且也是在wiki的基础上做了一些更加通俗易懂的变化</p>
+<p>还是用前面堆释放的例子，依次释放了first_chunk、second_chunk、third_chunk，也就是说首先释放的是first，然后释放的是second，最后释放的是third。在双链表中的结构如下：</p>
+<p>个人的理解unlink其实是想把second_chunk摘掉，那怎么摘呢？</p>
+<p>在前面堆释放部分我们讲过fd其实是前一个被释放chunk的prev_size地址，bk是后一个被释放的chunk的prev_size地址，所以：</p>
+<p>如果second_chunk被摘掉，那么就会变成下面这样：</p>
+<p>由于first_chunk是最开始被释放的，所以first_chunk相对于third_chunk是前一个被释放的块。同样的third_chunk是之后释放的，所以third_chunk相对于first_chunk是后一个被释放的块，所以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">first_bk = third_prev_addr</span><br><span class="line">third_fd = first_prev_addr</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所以我的理解中对应着wiki的表现形式就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">second_fd = first_prev_addr</span><br><span class="line">second_bk = third_prev_addr</span><br><span class="line">first_bk = third_prev_addr </span><br><span class="line">third_fd = first_prev_addr </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>※※※※※※※※执行流程有先后顺序※※※※※※※※</p>
+<p>chunk状态检查<br>现在我们用的大多数linux都会对chunk状态进行检查，以免造成二次释放或者二次申请的问题。但是恰恰是这个检查的流程本身就存在一些问题，能够让我们进行利用。回顾一下以往我们做的题，大部分都是顺着原有的执行流程走，但是通过修改执行所用的数据来改变执行走向。unlink同样可以以这种方式进行利用，由于unlink是在free()函数中调用的，所以我们只看chunk空闲时都需要检查写什么</p>
+<p>我们还是拿前面的例子来说：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="comment">//gcc -g test.c -o test</span></span><br><span class="line"> <span class="number">2</span> <span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">3</span> </span><br><span class="line"> <span class="number">4</span> <span class="type">void</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"> <span class="number">5</span>         <span class="type">long</span> *hollk1 = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"> <span class="number">6</span>         <span class="type">long</span> *first_chunk = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"> <span class="number">7</span>         <span class="type">long</span> *hollk3 = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"> <span class="number">8</span>         <span class="type">long</span> *second_chunk = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"> <span class="number">9</span>         <span class="type">long</span> *hollk5 = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"><span class="number">10</span>         <span class="type">long</span> *third_chunk = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"><span class="number">11</span>         <span class="type">long</span> *hollk7 = <span class="built_in">malloc</span>(<span class="number">0x80</span>);</span><br><span class="line"><span class="number">12</span>         </span><br><span class="line"><span class="number">13</span>         <span class="built_in">free</span>(first_chunk);</span><br><span class="line"><span class="number">14</span>         <span class="built_in">free</span>(second_chunk);</span><br><span class="line"><span class="number">15</span>         <span class="built_in">free</span>(third_chunk);</span><br><span class="line"><span class="number">16</span>  </span><br><span class="line"><span class="number">17</span>         <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">18</span> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这次我们在第17行下断点，并且查看一下second_chunk：</p>
+<p>检查1：检查与被释放chunk相邻高地址的chunk的prevsize的值是否等于被释放chunk的size大小</p>
+<p>可以看左图绿色框中的内容，上面绿色框中的内容是second_chunk的size大小，下面绿色框中的内容是hollk5的prev_size，这两个绿色框中的数值是需要相等的（忽略P标志位）。在wiki上我记得在基础部分有讲过，如果一个块属于空闲状态，那么相邻高地址块的prev_size为前一个块的大小</p>
+<p>检查2：检查与被释放chunk相邻高地址的chunk的size的P标志位是否为0</p>
+<p>可以看左图蓝色框中的内容，这里是hollk5的size，hollk5的size的P标志位为0，代表着它前一个chunk(second_chunk)为空闲状态</p>
+<p>检查3：检查前后被释放chunk的fd和bk</p>
+<p>可以看左图红色框中的内容，这里是second_chunk的fd和bk。首先看fd，它指向的位置就是前一个被释放的块first_chunk，这里需要检查的是first_chunk的bk是否指向second_chunk的地址。再看second_chunk的bk，它指向的是后一个被释放的块third_chunk，这里需要检查的是third_chunk的fd是否指向second_chunk的地址</p>
+<p>以上三点就是检查chunk是否空闲的三大标准。</p>
+
     </div>
 
     
@@ -203,7 +248,10 @@
     <a href="/2024/10/28/Overlapping/" rel="prev" title="Overlapping">
       <i class="fa fa-chevron-left"></i> Overlapping
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/11/11/uaf/" rel="next" title="uaf">
+      uaf <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -275,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
