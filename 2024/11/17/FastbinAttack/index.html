@@ -20,13 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="Fastbin Attack    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于fastbin类型的chunk中  ​	如果细分的话，可以做如下的分类：  Fastbin Double FreeHouse of Spirit">
+<meta property="og:type" content="article">
 <meta property="og:title" content="FastbinAttack">
 <meta property="og:url" content="http://example.com/2024/11/17/FastbinAttack/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Fastbin Attack    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于fastbin类型的chunk中  ​	如果细分的话，可以做如下的分类：  Fastbin Double FreeHouse of Spirit">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-17T11:47:26.000Z">
-<meta property="article:modified_time" content="2024-11-17T11:47:26.364Z">
+<meta property="article:modified_time" content="2024-11-17T14:48:00.456Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -170,8 +172,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-11-17 19:47:26" itemprop="dateCreated datePublished" datetime="2024-11-17T19:47:26+08:00">2024-11-17</time>
+              <time title="创建时间：2024-11-17 19:47:26 / 修改时间：22:48:00" itemprop="dateCreated datePublished" datetime="2024-11-17T19:47:26+08:00">2024-11-17</time>
             </span>
 
           
@@ -185,7 +188,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>Fastbin Attack<br>    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：</p>
+<blockquote>
+<p>存在堆溢出、use-after-free等能控制chunk内容的漏洞<br>漏洞发生于fastbin类型的chunk中</p>
+</blockquote>
+<p>​	如果细分的话，可以做如下的分类：</p>
+<blockquote>
+<p>Fastbin Double Free<br>House of Spirit<br>Alloc to Stack<br>Arbitrary Alloc</p>
+</blockquote>
+<p>​	前两种主要漏洞侧重于利用free函数释放的真的 chunk或伪造的chunk，然后再次申请chunk进行攻击，后两种侧重于故意修改fd指针，直接利用malloc申请指定位置chunk进行攻击。主要讲解Fastbin Double Free。</p>
+<p><strong>原理</strong><br>    fastbin attack存在的原因在于fastbin时使用单向链表来维护释放的堆块的，并且由fastbin管理的chunk即使被释放，其next_chunk的prev_inuse位也不会被清空。</p>
+<ul>
+<li>在fastbin中后一个被释放的chunk的fd指向前一个被释放的chunk的prev_size，main_arena指向最后一个被释放的chunk的prev_size。</li>
+<li>看一下在释放阶段的chunk的prev_inuse标志位为1，回来在看释放后的内存情况，chunk的<code>prev_inuse</code>依然还是1不变。</li>
+</ul>
+<p><strong>Fastbin Double Free</strong></p>
+<p>fastbin中的chunk被释放<strong>两次及以上</strong>。后果是多次分配可从fastbin链表中取出同一个堆块，结合堆块的数据内容可以实现类似于**类型混淆(<em>type confused</em>)**的效果。</p>
+<p><strong>Fastbin Double Free成功利用主要原因：</strong></p>
+<blockquote>
+<p>fastbin的堆块被释放后next_chunk的prev_inuse位不会被清空。<br>fastbin在执行free的时候仅验证了main_arena直接指向的块，即链表指针头部的块。对于链表后面的块并没有进行验证。</p>
+</blockquote>
+
     </div>
 
     
