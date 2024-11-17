@@ -145,6 +145,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/LitCTFPWN%E9%83%A8%E5%88%86ATM%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/LitCTFPWN%E9%83%A8%E5%88%86ATM%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">LitCTFPWN部分ATM题解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:10:31 / 修改时间：15:21:57" itemprop="dateCreated datePublished" datetime="2024-10-08T15:10:31+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LitCTF-PWN部分-ATM题解"><a href="#LitCTF-PWN部分-ATM题解" class="headerlink" title="**   LitCTF PWN部分 ATM题解**"></a>**   LitCTF PWN部分 ATM题解**</h1><p>打开vm进行文件类型查看。</p>
+<p><img src="https://ooo.0x0.ooo/2024/06/03/OJGnDj.png"></p>
+<p>打开ida看反汇编代码。</p>
+<p><img src="https://ooo.0x0.ooo/2024/06/03/OJGNxU.png"></p>
+<p><img src="https://ooo.0x0.ooo/2024/06/03/OJG18p.png"></p>
+<p><strong>HIWORD是High Word的缩写,作用是取得某个4字节变量(即32位的值)在内存中处于高位的两个字节,即一个word长的数据</strong><br><strong>LOWORD是Low Word的缩写,作用是取得某个4字节变量(即32位的值)在内存中处于低位的两个字节,即一个word长的数据</strong></p>
+<p>无后门，推测使用ret2libc。选项5可以泄露printf的地址，可以直接利用。</p>
+<p>本地运行程序后，进入选项3输入后进入选项1发现balance值为乱序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原因：</span><br><span class="line"></span><br><span class="line">v5 = (unsigned int)nptr;</span><br><span class="line">此操作将nptr数组的地址转换为无符号整数类型并存储在v5变量中。而正确应该是将用户输入的字符串转换为数字类型才合理。</span><br></pre></td></tr></table></figure>
+
+<p>进入3选项加钱，钱相当于下面选项5的输入长度，使可输入值尽可能大来进行栈溢出。</p>
+<p>offse&#x3D;0x160+0x08 </p>
+<p>利用ropgadget寻找对应的pop rdi，ret的地址</p>
+<p>之后进行64的ROP模板</p>
+<p>payload&#x3D;offset*b‘a’+p64（pop rdi）+p64（binsh）+p64（ret）+p64（system）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/memcpy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -791,74 +864,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/%E5%AE%89%E6%BA%90%E8%B7%AF%E7%9F%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/%E5%AE%89%E6%BA%90%E8%B7%AF%E7%9F%BF/" class="post-title-link" itemprop="url">安源路矿</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:08:03 / 修改时间：15:26:52" itemprop="dateCreated datePublished" datetime="2024-10-08T15:08:03+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>看基本属性</p>
-<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215044613.png" alt="image-20240811215044613"></p>
-<p>ida查看</p>
-<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215507217.png" alt="image-20240811215507217"></p>
-<p>程序主函数存在栈溢出，但是开启了canary，需要泄露canary，主函数调用的ooo函数也存在9字节的溢出，这刚好可以用非NULL字节连接到canary（canary最低位为NULL， 且每个线程的canary是统一的）从而泄露canary，然后从主函数溢出</p>
-<p>可以泄漏的函数</p>
-<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811215619605.png" alt="image-20240811215619605"></p>
-<p>会将rbp以及canary泄露出来</p>
-<p><img src="C:\Users\16350\AppData\Roaming\Typora\typora-user-images\image-20240811222420078.png" alt="image-20240811222420078"></p>
-<p>但如果用ret2libc会出现超时，目前还没找到解决方法…</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -928,7 +933,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
