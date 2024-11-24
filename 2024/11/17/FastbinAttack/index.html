@@ -20,17 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Fastbin Attack    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于fastbin类型的chunk中  ​	如果细分的话，可以做如下的分类：  Fastbin Double FreeHouse of Spirit">
+  <meta name="description" content="Fastbin Attack 图文源好好说话之Fastbin Attack（1）：Fastbin Double Free_pwn 好好说话-CSDN博客根据自己理解做了摘抄 ​	这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FastbinAttack">
 <meta property="og:url" content="http://example.com/2024/11/17/FastbinAttack/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Fastbin Attack    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于fastbin类型的chunk中  ​	如果细分的话，可以做如下的分类：  Fastbin Double FreeHouse of Spirit">
+<meta property="og:description" content="Fastbin Attack 图文源好好说话之Fastbin Attack（1）：Fastbin Double Free_pwn 好好说话-CSDN博客根据自己理解做了摘抄 ​	这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：  存在堆溢出、use-after-free等能控制chunk内容的漏洞漏洞发生于f">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\16350\Downloads\0af2d29ffc6fe4a3064729a7adc8a1c2.png">
 <meta property="article:published_time" content="2024-11-17T11:47:26.000Z">
-<meta property="article:modified_time" content="2024-11-17T14:48:00.456Z">
+<meta property="article:modified_time" content="2024-11-20T14:23:22.572Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\16350\Downloads\0af2d29ffc6fe4a3064729a7adc8a1c2.png">
 
 <link rel="canonical" href="http://example.com/2024/11/17/FastbinAttack/">
 
@@ -172,10 +174,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-11-17 19:47:26 / 修改时间：22:48:00" itemprop="dateCreated datePublished" datetime="2024-11-17T19:47:26+08:00">2024-11-17</time>
+              <time title="创建时间：2024-11-17 19:47:26" itemprop="dateCreated datePublished" datetime="2024-11-17T19:47:26+08:00">2024-11-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-20 22:23:22" itemprop="dateModified" datetime="2024-11-20T22:23:22+08:00">2024-11-20</time>
+              </span>
 
           
 
@@ -188,7 +196,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Fastbin Attack<br>    这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：</p>
+        <p>Fastbin Attack</p>
+<p>图文源<a target="_blank" rel="noopener" href="https://hollk.blog.csdn.net/article/details/109199077">好好说话之Fastbin Attack（1）：Fastbin Double Free_pwn 好好说话-CSDN博客</a>根据自己理解做了摘抄</p>
+<p>​	这一类漏洞利用的方法主要基于fastbin机制的缺陷，其实fastbin attack并不是指某一种利用方法，而是一些。这类利用的前提是：</p>
 <blockquote>
 <p>存在堆溢出、use-after-free等能控制chunk内容的漏洞<br>漏洞发生于fastbin类型的chunk中</p>
 </blockquote>
@@ -201,6 +211,7 @@
 <ul>
 <li>在fastbin中后一个被释放的chunk的fd指向前一个被释放的chunk的prev_size，main_arena指向最后一个被释放的chunk的prev_size。</li>
 <li>看一下在释放阶段的chunk的prev_inuse标志位为1，回来在看释放后的内存情况，chunk的<code>prev_inuse</code>依然还是1不变。</li>
+<li>fastbin在执行free的时候仅验证了main_arena直接指向的块，即链表指针头部的块。</li>
 </ul>
 <p><strong>Fastbin Double Free</strong></p>
 <p>fastbin中的chunk被释放<strong>两次及以上</strong>。后果是多次分配可从fastbin链表中取出同一个堆块，结合堆块的数据内容可以实现类似于**类型混淆(<em>type confused</em>)**的效果。</p>
@@ -208,6 +219,17 @@
 <blockquote>
 <p>fastbin的堆块被释放后next_chunk的prev_inuse位不会被清空。<br>fastbin在执行free的时候仅验证了main_arena直接指向的块，即链表指针头部的块。对于链表后面的块并没有进行验证。</p>
 </blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="comment">//gcc -g hollk4.c -o hollk4</span></span><br><span class="line"> <span class="number">2</span> <span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">3</span> </span><br><span class="line"> <span class="number">4</span> <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">chunk</span></span></span><br><span class="line"><span class="class"> 5 &#123;</span></span><br><span class="line"> <span class="number">6</span>     <span class="type">long</span> <span class="type">long</span> pre_size;</span><br><span class="line"> <span class="number">7</span>     <span class="type">long</span> <span class="type">long</span> size;</span><br><span class="line"> <span class="number">8</span>     <span class="type">long</span> <span class="type">long</span> fd;</span><br><span class="line"> <span class="number">9</span>     <span class="type">long</span> <span class="type">long</span> bk;</span><br><span class="line"><span class="number">10</span> &#125; CHUNK,*PCHUNK;</span><br><span class="line"><span class="number">11</span> </span><br><span class="line"><span class="number">12</span> CHUNK bss_chunk;</span><br><span class="line"><span class="number">13</span> </span><br><span class="line"><span class="number">14</span> <span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">15 &#123;</span><br><span class="line"><span class="number">16</span>     <span class="type">void</span> *chunk1,*chunk2,*chunk3;</span><br><span class="line"><span class="number">17</span>     <span class="type">void</span> *chunk_a,*chunk_b;</span><br><span class="line"><span class="number">18</span> </span><br><span class="line"><span class="number">19</span>     bss_chunk.size=<span class="number">0x21</span>;</span><br><span class="line"><span class="number">20</span>     chunk1=<span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">21</span>     chunk2=<span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">22</span> </span><br><span class="line"><span class="number">23</span>     <span class="built_in">free</span>(chunk1);</span><br><span class="line"><span class="number">24</span>     <span class="built_in">free</span>(chunk2);</span><br><span class="line"><span class="number">25</span>     <span class="built_in">free</span>(chunk1);</span><br><span class="line"><span class="number">26</span> </span><br><span class="line"><span class="number">27</span>     chunk_a=<span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">28</span>     *(<span class="type">long</span> <span class="type">long</span> *)chunk_a=&amp;bss_chunk;</span><br><span class="line"><span class="number">29</span>     <span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">30</span>     <span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">31</span>     chunk_b=<span class="built_in">malloc</span>(<span class="number">0x10</span>);</span><br><span class="line"><span class="number">32</span>     <span class="built_in">printf</span>(<span class="string">&quot;%p&quot;</span>,chunk_b);</span><br><span class="line"><span class="number">33</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">34</span> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\16350\Downloads\0af2d29ffc6fe4a3064729a7adc8a1c2.png"></p>
+<blockquote>
+<p><strong>首先经过double free之后fastbin中的单向链表为chunk1_double –&gt; chunk2 –&gt; chunk1在经过一次malloc申请后main_arena指向的chunk1_double被重新启用，即chunk1倍重新启用，main_arena指向chunk2，并且将chunk1的fd从原来的指向chunk2修改为指向结构体指针chunk1 –&gt; bss_chunk，也就是说在fastbin单向链表中bss_chunk已经作为chunk1前一个被释放的块的存在了</strong></p>
+<p><strong>接下来第二次malloc申请后main_arena指向的chunk2被启用，main_arena重新指向chunk1</strong></p>
+<p><strong>第三次malloc申请后chunk1再一次被启用，main_arena指向chunk的fd指向的bss_chunk</strong></p>
+<p><strong>那么在第四次malloc申请的时候此时main_arena指向的bss_chunk就会被启用</strong></p>
+</blockquote>
+<p>虽然bss_chunk并不是在内存中正常申请的chunk，但是由于我们可以修改chunk1的fd，使他指向bss_chunk，那么即使bss_chunk位于bss段，也会被当作一个chunk来被启用</p>
+<p>那么在程序第31行代码中chunk_b其实被赋予的就是bss_chunk的结构体指针，所以在第32行输出的时候实际输出的是bss_chunk的chunk地址</p>
 
     </div>
 
@@ -226,7 +248,10 @@
     <a href="/2024/11/11/uaf/" rel="prev" title="uaf">
       <i class="fa fa-chevron-left"></i> uaf
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/11/20/HouseOfSpirit/" rel="next" title="HouseOfSpirit">
+      HouseOfSpirit <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -298,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Linux chmod命令Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令 Linux&#x2F;Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。  只有文件所有者和超级用户可以修改文件或目录的权限。可以使用绝对模式（八进制数字模式），符号模式指定文件的权限。  使用权限 : 所有使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chmod">
+<meta property="og:url" content="http://example.com/2024/11/22/chmod/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux chmod命令Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令 Linux&#x2F;Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。  只有文件所有者和超级用户可以修改文件或目录的权限。可以使用绝对模式（八进制数字模式），符号模式指定文件的权限。  使用权限 : 所有使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/08/file-permissions-rwx.jpg">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/08/rwx-standard-unix-permission-bits.png">
+<meta property="article:published_time" content="2024-11-22T14:19:37.000Z">
+<meta property="article:modified_time" content="2024-11-22T14:20:52.609Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2014/08/file-permissions-rwx.jpg">
+
+<link rel="canonical" href="http://example.com/2024/11/22/chmod/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>chmod | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/11/22/chmod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          chmod
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-22 22:19:37 / 修改时间：22:20:52" itemprop="dateCreated datePublished" datetime="2024-11-22T22:19:37+08:00">2024-11-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Linux-chmod命令"><a href="#Linux-chmod命令" class="headerlink" title="Linux chmod命令"></a>Linux chmod命令</h1><p>Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令</p>
+<p>Linux&#x2F;Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/08/file-permissions-rwx.jpg" alt="img"></p>
+<p>只有文件所有者和超级用户可以修改文件或目录的权限。可以使用绝对模式（八进制数字模式），符号模式指定文件的权限。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/08/rwx-standard-unix-permission-bits.png" alt="img"></p>
+<p><strong>使用权限</strong> : 所有使用者</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-cfvR] [--help] [--version] mode file...</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><p>mode : 权限设定字串，格式如下 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ugoa...][[+-=][rwxX]...][,...]</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li>u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</li>
+<li>+ 表示增加权限、- 表示取消权限、&#x3D; 表示唯一设定权限。</li>
+<li>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。</li>
+</ul>
+<p>其他参数说明：</p>
+<ul>
+<li>-c : 若该文件权限确实已经更改，才显示其更改动作</li>
+<li>-f : 若该文件权限无法被更改也不要显示错误讯息</li>
+<li>-v : 显示权限变更的详细资料</li>
+<li>-R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递归的方式逐个变更)</li>
+<li>–help : 显示辅助说明</li>
+<li>–version : 显示版本</li>
+</ul>
+<h3 id="符号模式"><a href="#符号模式" class="headerlink" title="符号模式"></a>符号模式</h3><p>使用符号模式可以设置多个项目：who（用户类型），operator（操作符）和 permission（权限），每个项目的设置可以用逗号隔开。 命令 chmod 将修改 who 指定的用户类型对文件的访问权限，用户类型由一个或者多个字母在 who 的位置来说明，如 who 的符号模式表所示:</p>
+<table>
+<thead>
+<tr>
+<th align="left">who</th>
+<th align="left">用户类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>u</code></td>
+<td align="left">user</td>
+<td align="left">文件所有者</td>
+</tr>
+<tr>
+<td align="left"><code>g</code></td>
+<td align="left">group</td>
+<td align="left">文件所有者所在组</td>
+</tr>
+<tr>
+<td align="left"><code>o</code></td>
+<td align="left">others</td>
+<td align="left">所有其他用户</td>
+</tr>
+<tr>
+<td align="left"><code>a</code></td>
+<td align="left">all</td>
+<td align="left">所有用户, 相当于 <em>ugo</em></td>
+</tr>
+</tbody></table>
+<p>operator 的符号模式表:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>+</code></td>
+<td align="left">为指定的用户类型增加权限</td>
+</tr>
+<tr>
+<td align="left"><code>-</code></td>
+<td align="left">去除指定用户类型的权限</td>
+</tr>
+<tr>
+<td align="left"><code>=</code></td>
+<td align="left">设置指定用户权限的设置，即将用户类型的所有权限重新设置</td>
+</tr>
+</tbody></table>
+<p>permission 的符号模式表:</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">名字</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>r</code></td>
+<td align="left">读</td>
+<td align="left">设置为可读权限</td>
+</tr>
+<tr>
+<td align="left"><code>w</code></td>
+<td align="left">写</td>
+<td align="left">设置为可写权限</td>
+</tr>
+<tr>
+<td align="left"><code>x</code></td>
+<td align="left">执行权限</td>
+<td align="left">设置为可执行权限</td>
+</tr>
+<tr>
+<td align="left"><code>X</code></td>
+<td align="left">特殊执行权限</td>
+<td align="left">只有当文件为目录文件，或者其他类型的用户有可执行权限时，才将文件权限设置可执行</td>
+</tr>
+<tr>
+<td align="left"><code>s</code></td>
+<td align="left">setuid&#x2F;gid</td>
+<td align="left">当文件被执行时，根据who参数指定的用户类型设置文件的setuid或者setgid权限</td>
+</tr>
+<tr>
+<td align="left"><code>t</code></td>
+<td align="left">粘贴位</td>
+<td align="left">设置粘贴位，只有超级用户可以设置该位，只有文件所有者u可以使用该位</td>
+</tr>
+</tbody></table>
+<h3 id="八进制语法"><a href="#八进制语法" class="headerlink" title="八进制语法"></a>八进制语法</h3><p>chmod命令可以使用八进制数来指定权限。文件或目录的权限位是由9个权限位来控制，每三位为一组，它们分别是文件所有者（User）的读、写、执行，用户组（Group）的读、写、执行以及其它用户（Other）的读、写、执行。历史上，文件权限被放在一个比特掩码中，掩码中指定的比特位设为1，用来说明一个类具有相应的优先级。</p>
+<table>
+<thead>
+<tr>
+<th align="left">#</th>
+<th align="left">权限</th>
+<th align="left">rwx</th>
+<th align="left">二进制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">7</td>
+<td align="left">读 + 写 + 执行</td>
+<td align="left">rwx</td>
+<td align="left">111</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">读 + 写</td>
+<td align="left">rw-</td>
+<td align="left">110</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">读 + 执行</td>
+<td align="left">r-x</td>
+<td align="left">101</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">只读</td>
+<td align="left">r–</td>
+<td align="left">100</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">写 + 执行</td>
+<td align="left">-wx</td>
+<td align="left">011</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">只写</td>
+<td align="left">-w-</td>
+<td align="left">010</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">只执行</td>
+<td align="left">–x</td>
+<td align="left">001</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">无</td>
+<td align="left">—</td>
+<td align="left">000</td>
+</tr>
+</tbody></table>
+<p>例如， 765 将这样解释：</p>
+<ul>
+<li>所有者的权限用数字表达：属主的那三个权限位的数字加起来的总和。如 rwx ，也就是 4+2+1 ，应该是 7。</li>
+<li>用户组的权限用数字表达：属组的那个权限位数字的相加的总和。如 rw- ，也就是 4+2+0 ，应该是 6。</li>
+<li>其它用户的权限数字表达：其它用户权限位的数字相加的总和。如 r-x ，也就是 4+0+1 ，应该是 5。</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>将文件 file1.txt 设为所有人皆可读取 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod ugo+r file1.txt</span><br></pre></td></tr></table></figure>
+
+<p>将文件 file1.txt 设为所有人皆可读取 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r file1.txt</span><br></pre></td></tr></table></figure>
+
+<p>将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod ug+w,o-w file1.txt file2.txt</span><br></pre></td></tr></table></figure>
+
+<p>为 ex1.py 文件拥有者增加可执行权限:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x ex1.py</span><br></pre></td></tr></table></figure>
+
+<p>将目前目录下的所有文件与子目录皆设为任何人可读取 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R a+r *</span><br></pre></td></tr></table></figure>
+
+<p>此外chmod也可以用数字来表示权限如 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 file</span><br></pre></td></tr></table></figure>
+
+<p>语法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod abc file</span><br></pre></td></tr></table></figure>
+
+<p>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<h4 id="r-4，w-2，x-1"><a href="#r-4，w-2，x-1" class="headerlink" title="r&#x3D;4，w&#x3D;2，x&#x3D;1"></a>r&#x3D;4，w&#x3D;2，x&#x3D;1</h4><ul>
+<li>若要 rwx 属性则 4+2+1&#x3D;7；</li>
+<li>若要 rw- 属性则 4+2&#x3D;6；</li>
+<li>若要 r-x 属性则 4+1&#x3D;5。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a=rwx file</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 file</span><br></pre></td></tr></table></figure>
+
+<p>效果相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod ug=rwx,o=x file</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 771 file</span><br></pre></td></tr></table></figure>
+
+<p>效果相同</p>
+<p>若用 <strong>chmod 4755 filename</strong> 可使此程序具有 root 的权限。</p>
+<h3 id="更多说明"><a href="#更多说明" class="headerlink" title="更多说明"></a>更多说明</h3><table>
+<thead>
+<tr>
+<th align="left"><code>命令</code></th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>chmod a+r *file*</code></td>
+<td align="left">给file的所有用户增加读权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod a-x *file*</code></td>
+<td align="left">删除file的所有用户的执行权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod a+rw *file*</code></td>
+<td align="left">给file的所有用户增加读写权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod +rwx *file*</code></td>
+<td align="left">给file的所有用户增加读写执行权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod u=rw,go= *file*</code></td>
+<td align="left">对file的所有者设置读写权限，清空该用户组和其他用户对file的所有权限（空格代表无权限）</td>
+</tr>
+<tr>
+<td align="left"><code>chmod -R u+r,go-r *docs*</code></td>
+<td align="left">对目录docs和其子目录层次结构中的所有文件给用户增加读权限，而对用户组和其他用户删除读权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod 664 *file*</code></td>
+<td align="left">对file的所有者和用户组设置读写权限, 为其其他用户设置读权限</td>
+</tr>
+<tr>
+<td align="left"><code>chmod 0755 *file*</code></td>
+<td align="left">相当于<code>u=rwx (4+2+1),go=rx (4+1 &amp; 4+1)</code>。<code>0</code> 没有特殊模式。</td>
+</tr>
+<tr>
+<td align="left"><code>chmod 4755 *file*</code></td>
+<td align="left"><code>4</code>设置了设置<a target="_blank" rel="noopener" href="https://www.runoob.com/wiki/%E7%94%A8%E6%88%B7ID">用户ID</a>位，剩下的相当于 u&#x3D;rwx (4+2+1),go&#x3D;rx (4+1 &amp; 4+1)。</td>
+</tr>
+<tr>
+<td align="left"><code>find path/ -type d -exec chmod a-x &#123;&#125; \;</code></td>
+<td align="left">删除可执行权限对path&#x2F;以及其所有的目录（不包括文件）的所有用户，使用’-type f’匹配文件</td>
+</tr>
+<tr>
+<td align="left"><code>find path/ -type d -exec chmod a+x &#123;&#125; \;</code></td>
+<td align="left">允许所有用户浏览或通过目录path&#x2F;</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/20/HouseOfSpirit/" rel="prev" title="HouseOfSpirit">
+      <i class="fa fa-chevron-left"></i> HouseOfSpirit
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-chmod%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Linux chmod命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.0.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.2.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">符号模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E8%BF%9B%E5%88%B6%E8%AF%AD%E6%B3%95"><span class="nav-number">1.0.4.</span> <span class="nav-text">八进制语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.0.5.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#r-4%EF%BC%8Cw-2%EF%BC%8Cx-1"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">r&#x3D;4，w&#x3D;2，x&#x3D;1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.6.</span> <span class="nav-text">更多说明</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

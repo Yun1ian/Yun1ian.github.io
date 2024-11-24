@@ -28,7 +28,7 @@
 <meta property="og:description" content="堆 堆（heap）是一种数据结构，在程序运行的过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。 堆是程序虚拟地址空间中的一块连续的线性区域，它由低地址向高地址方向增长（和栈的增长方向相反），管理堆的程序也称为堆管理器。  目前 Linux 标准发行版中使用的堆分配器是 Glibc 中的堆分配器：ptmalloc2 堆的基本操作是分配和回收，ptmalloc2 主要通过 malloc(">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-18T12:02:52.000Z">
-<meta property="article:modified_time" content="2024-10-18T14:43:38.588Z">
+<meta property="article:modified_time" content="2024-11-20T13:48:58.264Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-10-18 20:02:52 / 修改时间：22:43:38" itemprop="dateCreated datePublished" datetime="2024-10-18T20:02:52+08:00">2024-10-18</time>
+              <time title="创建时间：2024-10-18 20:02:52" itemprop="dateCreated datePublished" datetime="2024-10-18T20:02:52+08:00">2024-10-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-20 21:48:58" itemprop="dateModified" datetime="2024-11-20T21:48:58+08:00">2024-11-20</time>
+              </span>
 
           
 
@@ -195,7 +201,8 @@
 <p>目前 Linux 标准发行版中使用的堆分配器是 Glibc 中的堆分配器：<code>ptmalloc2</code></p>
 <p>堆的基本操作是分配和回收，<code>ptmalloc2</code> 主要通过 <code>malloc()</code> 和 <code>free()</code> 函数来分配和释放内存块<strong>（漏洞的主要产生地）</strong>。</p>
 <hr>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="堆的基本操作"><a href="#堆的基本操作" class="headerlink" title="堆的基本操作"></a>堆的基本操作</h2><h3 id="malloc-未初始化仅分配"><a href="#malloc-未初始化仅分配" class="headerlink" title="malloc(未初始化仅分配)"></a>malloc(未初始化仅分配)</h3><blockquote>
+<p><strong>原文源自（<a target="_blank" rel="noopener" href="https://www.uf4te.cn/posts/463ab4ed.html%EF%BC%89%E6%A0%B9%E6%8D%AE%E8%87%AA%E5%B7%B1%E7%90%86%E8%A7%A3%E7%AD%89%E5%81%9A%E4%BA%86%E5%B0%8F%E9%83%A8%E5%88%86%E8%B0%83%E6%95%B4%E4%BB%A5%E5%8F%8A%E8%A1%A5%E5%85%85%E3%80%82">https://www.uf4te.cn/posts/463ab4ed.html）根据自己理解等做了小部分调整以及补充。</a></strong></p>
+<h2 id="堆的基本操作"><a href="#堆的基本操作" class="headerlink" title="堆的基本操作"></a>堆的基本操作</h2><h3 id="malloc-未初始化仅分配"><a href="#malloc-未初始化仅分配" class="headerlink" title="malloc(未初始化仅分配)"></a>malloc(未初始化仅分配)</h3><blockquote>
 <p>函数定义：<code>void *malloc(size_t size)</code></p>
 <p>其中：</p>
 <p><code>size</code> 是内存块的大小，以字节为单位</p>
@@ -432,7 +439,7 @@
 <ul>
 <li><code>chunk</code> 处于分配状态（<code>Allocated chunk</code>）：</li>
 </ul>
-<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出9.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出9.png)</p>
+<p>![](C:\Users\16350\Downloads\CTF - PWN_堆与堆溢出9.png)</p>
 <p><strong>前两个字段称为 <code>chunk header</code>，后面的部分称为 <code>user data</code></strong></p>
 <p>每次 <code>malloc</code> 申请得到的内存指针，其实指向 <code>user data</code> 的起始处</p>
 <blockquote>
@@ -442,7 +449,7 @@
 <ul>
 <li><code>chunk</code> 处于释放状态（<code>Freed chunk</code>）（可能是循环双向链表，也可能是单向链表）：</li>
 </ul>
-<p>[<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="CTF - PWN_堆与堆溢出8.png">](<a target="_blank" rel="noopener" href="https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF">https://blog-markdown-1317553172.cos.ap-nanjing.myqcloud.com/CTF</a> - PWN_堆与堆溢出8.png)</p>
+<p>![](C:\Users\16350\Downloads\CTF - PWN_堆与堆溢出8.png)</p>
 <p>如果一个 <code>chunk</code> 处于 <code>free</code> 状态，那么会有两个位置记录其相应的大小：</p>
 <ol>
 <li>该 <code>chunk</code> 本身的 <code>size</code> 字段会记录</li>
@@ -861,7 +868,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">堆的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc-%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%85%E5%88%86%E9%85%8D"><span class="nav-number">3.1.</span> <span class="nav-text">malloc(未初始化仅分配)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#calloc%EF%BC%88%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%86%E9%85%8D%EF%BC%89"><span class="nav-number">3.1.1.</span> <span class="nav-text">calloc（初始化分配）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#realloc"><span class="nav-number">3.1.2.</span> <span class="nav-text">realloc</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">3.2.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E8%83%8C%E5%90%8E%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">内存分配背后的系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brk"><span class="nav-number">3.3.1.</span> <span class="nav-text">brk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap"><span class="nav-number">3.3.2.</span> <span class="nav-text">mmap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">堆的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E8%A7%82%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">微观结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc-chunk"><span class="nav-number">4.1.1.</span> <span class="nav-text">malloc_chunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#top-chunk"><span class="nav-number">4.1.2.</span> <span class="nav-text">top chunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#last-remainder-chunk"><span class="nav-number">4.1.3.</span> <span class="nav-text">last remainder chunk</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E7%BB%93%E6%9E%84"><span class="nav-number">4.2.</span> <span class="nav-text">宏观结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#arena"><span class="nav-number">4.2.1.</span> <span class="nav-text">arena</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#heap-info"><span class="nav-number">4.2.2.</span> <span class="nav-text">heap_info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc-state"><span class="nav-number">4.2.3.</span> <span class="nav-text">malloc_state</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bin-%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">bin 的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-bin"><span class="nav-number">5.1.</span> <span class="nav-text">fast bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">5.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.3.</span> <span class="nav-text">高速缓存的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unsorted-bin"><span class="nav-number">5.4.</span> <span class="nav-text">unsorted bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#small-bin"><span class="nav-number">5.5.</span> <span class="nav-text">small bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#large-bin"><span class="nav-number">5.6.</span> <span class="nav-text">large bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcache"><span class="nav-number">5.7.</span> <span class="nav-text">tcache</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">堆的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc-%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%85%E5%88%86%E9%85%8D"><span class="nav-number">2.1.</span> <span class="nav-text">malloc(未初始化仅分配)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#calloc%EF%BC%88%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%86%E9%85%8D%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">calloc（初始化分配）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#realloc"><span class="nav-number">2.1.2.</span> <span class="nav-text">realloc</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">2.2.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E8%83%8C%E5%90%8E%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">内存分配背后的系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brk"><span class="nav-number">2.3.1.</span> <span class="nav-text">brk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap"><span class="nav-number">2.3.2.</span> <span class="nav-text">mmap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">堆的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E8%A7%82%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">微观结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc-chunk"><span class="nav-number">3.1.1.</span> <span class="nav-text">malloc_chunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#top-chunk"><span class="nav-number">3.1.2.</span> <span class="nav-text">top chunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#last-remainder-chunk"><span class="nav-number">3.1.3.</span> <span class="nav-text">last remainder chunk</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">宏观结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#arena"><span class="nav-number">3.2.1.</span> <span class="nav-text">arena</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#heap-info"><span class="nav-number">3.2.2.</span> <span class="nav-text">heap_info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc-state"><span class="nav-number">3.2.3.</span> <span class="nav-text">malloc_state</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bin-%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">bin 的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-bin"><span class="nav-number">4.1.</span> <span class="nav-text">fast bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">4.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">4.3.</span> <span class="nav-text">高速缓存的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unsorted-bin"><span class="nav-number">4.4.</span> <span class="nav-text">unsorted bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#small-bin"><span class="nav-number">4.5.</span> <span class="nav-text">small bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#large-bin"><span class="nav-number">4.6.</span> <span class="nav-text">large bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcache"><span class="nav-number">4.7.</span> <span class="nav-text">tcache</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -875,7 +882,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
