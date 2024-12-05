@@ -145,6 +145,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/execve%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F%E6%84%8F%E4%B9%89/" class="post-title-link" itemprop="url">execve函数的三个变量意义</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-10-08 15:11:10 / 修改时间：15:20:58" itemprop="dateCreated datePublished" datetime="2024-10-08T15:11:10+08:00">2024-10-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>execve这个函数有三个参数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *file,<span class="type">char</span> *<span class="type">const</span> argv[],<span class="type">char</span> *<span class="type">const</span> envp[])</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第一个参数，是要打开运行的二进制文件，这个是个文件路径，绝对路径和相对路径都可以</strong></p>
+<p>1、文件路径为&#x2F;bin&#x2F;sh，这个sh其实是个shell程序，如果argv是空（0也可以），那么就会去打开一个shell，所以execve(“&#x2F;bin&#x2F;sh”,0,0)是我们最常用的，but如果argv不为空呢，sh就可以变成变成一个shell脚本解析器，这时候argv应该是这么组成char *argv[]&#x3D;{“&#x2F;bin&#x2F;sh”,”flag”,NULL}<br>2、文件路径为&#x2F;bin&#x2F;cat，这个cat故名思议就是打印文件内容的程序，函数形式为execve(“&#x2F;bin&#x2F;cat”,argv,0),argv[]&#x3D;{“&#x2F;bin&#x2F;cat”,”flag”,NULL}这样子这个数组的第一个内容是文件路径，这个和execve的第一个参数一样，但是吧由于argv的特性，所以数组的第一个一定得是这个，然后第二个就是我们要解析的脚本路径，我这边是相对路径，然后第三个是空，这个是argv的要求，要求最后一个一定得是NULL，这个有什么用呢，如果argv里面的要解析的文件不是shell程序，那么就会把文件内容以报错的形式输出出来，如果题目把0(标准输入)和1(标准输出)关了，还能这么拿到flag</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br></pre></td></tr></table></figure>
+
+<p>在说明第二个参数之前，我们要说明一下这个execve的功能，我们知道程序的执行是由进程执行的，那么如果使用的execve，这个函数后面的代码全部不执行，转头去执行我们第一个参数指向的二进制代码<br>主函数是有参数的，可以通过这个参数传一些信息给主函数</p>
+<p><strong>第二个参数，我们上面提到了主函数有两个参数，第二个参数叫做argv，这个刚好和我们第二个参数名字一样，其实我们第二个参数就是原封不动的传给要去执行的二进制代码的argv参数，这个参数的详细介绍后面再说</strong><br><strong>第三个参数是环境变量，这个我并没有细究，因为通常都是NULL</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/gdb%E8%B0%83%E8%AF%95%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -863,66 +930,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/08/rop%E9%9D%99%E6%80%81%E9%93%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/10/08/rop%E9%9D%99%E6%80%81%E9%93%BE/" class="post-title-link" itemprop="url">rop静态链</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-10-08 15:08:26 / 修改时间：15:25:56" itemprop="dateCreated datePublished" datetime="2024-10-08T15:08:26+08:00">2024-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="rop静态链"><a href="#rop静态链" class="headerlink" title="rop静态链"></a>rop静态链</h1><p>ROPgadget     –binary  文件名 –rapchain</p>
-<p>根据个人需求以及输入长度等进行优化删除</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -992,7 +999,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
